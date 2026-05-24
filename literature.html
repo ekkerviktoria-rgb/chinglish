@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文学经典 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Китайская литература | Chinese Literature">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .literature-hero {
+            position: relative;
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #faf6ed 0%, #efe0c8 50%, #e0c8a0 100%);
+            overflow: hidden;
+        }
+        [data-theme="dark"] .literature-hero {
+            background: linear-gradient(180deg, #1a1410 0%, #150e08 50%, #0a0604 100%);
+        }
+        /* Строки текста на фоне */
+        .text-lines-bg {
+            position: absolute;
+            inset: 0;
+            writing-mode: vertical-rl;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2rem;
+            color: rgba(139,46,61,0.06);
+            display: flex;
+            gap: 3rem;
+            padding: 3rem;
+            pointer-events: none;
+            z-index: 0;
+        }
+        [data-theme="dark"] .text-lines-bg { color: rgba(212,167,106,0.08); }
+        
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 3rem 2rem; }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: #1a1a1a !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+            background: none !important;
+            margin-bottom: 1rem;
+        }
+        [data-theme="dark"] .hero-content h1 { color: #f0e6d3 !important; -webkit-text-fill-color: #f0e6d3 !important; }
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #333 !important;
+            font-weight: 600;
+            background: rgba(255,255,255,0.8);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+        }
+        [data-theme="dark"] .hero-subtitle { color: #f0e6d3 !important; background: rgba(15,10,8,0.85); }
+        
+        /* ВРЕМЕННАЯ ШКАЛА */
+        .timeline {
+            max-width: 1000px;
+            margin: 3rem auto;
+            position: relative;
+            padding-left: 40px;
+            border-left: 3px solid var(--gold);
+        }
+        .timeline-item {
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -48px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        [data-theme="dark"] .timeline-item::before { border-color: #1a1010; }
+        .timeline-era {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+        .timeline-text { font-size: 1rem; line-height: 1.8; color: var(--text); }
+        [data-theme="dark"] .timeline-text { color: #e8d5c8; }
+        
+        /* СТИХИ В КАРТОЧКАХ */
+        .poem-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        .poem-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        [data-theme="dark"] .poem-card { background: #1a1010; }
+        .poem-card:hover { transform: translateY(-4px); }
+        .poem-card .verse {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.6rem;
+            color: var(--primary);
+            text-align: center;
+            line-height: 2;
+            margin-bottom: 1rem;
+        }
+        .poem-card .poet {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-style: italic;
+        }
+        .poem-card .note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: var(--text);
+            text-align: center;
+            border-top: 1px solid rgba(212,175,55,0.2);
+            padding-top: 1rem;
+        }
+        [data-theme="dark"] .poem-card .note { color: #e8d5c8; }
+        
+        /* ЧЕТЫРЕ КЛАССИКИ */
+        .four-classics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        .classic-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+        }
+        [data-theme="dark"] .classic-card { background: #1a1010; }
+        .classic-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .classic-card .classic-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .classic-card h4 { font-family: 'Ma Shan Zheng', cursive; font-size: 1.3rem; color: var(--primary); margin-bottom: 0.5rem; }
+        .classic-card p { font-size: 0.85rem; line-height: 1.6; color: var(--text); }
+        [data-theme="dark"] .classic-card p { color: #e8d5c8; }
+        
+        @media (max-width: 768px) {
+            .poem-grid { grid-template-columns: 1fr; }
+            .four-classics { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 480px) {
+            .four-classics { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">诗</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo"><i class="fas fa-landmark logo-icon"></i><span class="lang-zh">《中式英语》语言俱乐部</span><span class="lang-en" style="display:none">The "Chinglish" Language Club</span><span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span></a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher"><button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button><div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div></div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+           <a href="index.html" class="menu-item lang-zh">首页</a>
+                <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+                <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+                <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+                <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+                <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+                <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+                <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+                <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+                <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+                <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+                <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+                <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+                <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+                <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+                <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+                <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+                <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+                <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+                <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+                <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+        </div></div>
+    </nav>
+
+    <div class="literature-hero">
+        <div class="text-lines-bg">
+            <span>詩經楚辭唐詩宋詞元曲</span>
+            <span>紅樓夢三國水滸西遊</span>
+            <span>李白杜甫蘇軾辛棄疾</span>
+        </div>
+        <div class="hero-content">
+            <h1 class="lang-zh">文学经典</h1>
+            <h1 class="lang-en" style="display:none">Literary Classics</h1>
+            <h1 class="lang-ru" style="display:none">Литературная классика</h1>
+            <p class="hero-subtitle lang-zh">从诗经到红楼梦，千年文脉薪火相传</p>
+            <p class="hero-subtitle lang-en" style="display:none">From Book of Songs to Dream of Red Chamber — millennium literary heritage</p>
+            <p class="hero-subtitle lang-ru" style="display:none">От Книги песен до Сна в красном тереме — тысячелетнее наследие</p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1000px;">
+        
+        <!-- Временная шкала -->
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-era lang-zh">先秦 · 《诗经》《楚辞》</div>
+                <div class="timeline-era lang-en" style="display:none">Pre-Qin · Book of Songs & Songs of Chu</div>
+                <div class="timeline-era lang-ru" style="display:none">До Цинь · Книга песен и Чуские строфы</div>
+                <p class="timeline-text lang-zh">中国文学的源头。《诗经》"关关雎鸠，在河之洲"开启现实主义传统；屈原《离骚》"路漫漫其修远兮，吾将上下而求索"开创浪漫主义先河。</p>
+                <p class="timeline-text lang-en" style="display:none">The source of Chinese literature. Book of Songs began realism; Qu Yuan's Li Sao pioneered romanticism.</p>
+                <p class="timeline-text lang-ru" style="display:none">Исток китайской литературы. Книга песен начала реализм; Ли Сао Цюй Юаня открыло романтизм.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era lang-zh">唐代 · 诗歌巅峰</div>
+                <div class="timeline-era lang-en" style="display:none">Tang · Golden Age of Poetry</div>
+                <div class="timeline-era lang-ru" style="display:none">Тан · Золотой век поэзии</div>
+                <p class="timeline-text lang-zh">唐诗是中国诗歌的顶峰。李白"天生我材必有用"豪放飘逸，杜甫"安得广厦千万间"沉郁顿挫，白居易"同是天涯沦落人"平易近人。全唐诗收录近五万首。</p>
+                <p class="timeline-text lang-en" style="display:none">Tang poetry is the pinnacle. Li Bai's boldness, Du Fu's depth, Bai Juyi's accessibility — nearly 50,000 poems collected.</p>
+                <p class="timeline-text lang-ru" style="display:none">Танская поэзия — вершина. Смелость Ли Бо, глубина Ду Фу, доступность Бо Цзюйи — собрано почти 50 000 стихотворений.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era lang-zh">宋代 · 词的黄金时代</div>
+                <div class="timeline-era lang-en" style="display:none">Song · Golden Age of Ci Poetry</div>
+                <div class="timeline-era lang-ru" style="display:none">Сун · Золотой век цы</div>
+                <p class="timeline-text lang-zh">宋词与唐诗并称。苏轼"大江东去"豪迈壮阔，李清照"寻寻觅觅冷冷清清"婉约动人，辛弃疾"醉里挑灯看剑"慷慨激昂。词从歌筵酒席走向人生境界。</p>
+                <p class="timeline-text lang-en" style="display:none">Song ci poetry rivals Tang poetry. Su Shi's grandeur, Li Qingzhao's delicacy, Xin Qiji's passion — ci evolved from entertainment to profound life expression.</p>
+                <p class="timeline-text lang-ru" style="display:none">Сунские цы соперничают с танскими стихами. Величие Су Ши, нежность Ли Цинчжао, страсть Синь Цицзи — цы эволюционировали от развлечения к глубокому выражению жизни.</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-era lang-zh">明清 · 小说繁荣</div>
+                <div class="timeline-era lang-en" style="display:none">Ming-Qing · Novel Flourishing</div>
+                <div class="timeline-era lang-ru" style="display:none">Мин-Цин · Расцвет романа</div>
+                <p class="timeline-text lang-zh">四大名著诞生：《三国演义》历史风云，《水浒传》英雄悲歌，《西游记》神魔幻想，《红楼梦》世情巨著。曹雪芹"满纸荒唐言，一把辛酸泪"写尽人间百态。</p>
+                <p class="timeline-text lang-en" style="display:none">Four great classics born: Romance of Three Kingdoms, Water Margin, Journey to the West, Dream of Red Chamber — each a universe unto itself.</p>
+                <p class="timeline-text lang-ru" style="display:none">Родились четыре великие классики: Троецарствие, Речные заводи, Путешествие на Запад, Сон в красном тереме — каждая целая вселенная.</p>
+            </div>
+        </div>
+        
+        <!-- Четыре классики -->
+        <div class="four-classics">
+            <div class="classic-card">
+                <div class="classic-icon">⚔️</div>
+                <h4 class="lang-zh">《三国演义》</h4><h4 class="lang-en" style="display:none">Three Kingdoms</h4><h4 class="lang-ru" style="display:none">Троецарствие</h4>
+                <p class="lang-zh">罗贯中 · 历史演义的开山之作</p>
+                <p class="lang-en" style="display:none">Luo Guanzhong · Pioneer of historical novels</p>
+                <p class="lang-ru" style="display:none">Ло Гуаньчжун · Пионер исторических романов</p>
+            </div>
+            <div class="classic-card">
+                <div class="classic-icon">🏔️</div>
+                <h4 class="lang-zh">《水浒传》</h4><h4 class="lang-en" style="display:none">Water Margin</h4><h4 class="lang-ru" style="display:none">Речные заводи</h4>
+                <p class="lang-zh">施耐庵 · 英雄传奇的巅峰</p>
+                <p class="lang-en" style="display:none">Shi Nai'an · Peak of hero legends</p>
+                <p class="lang-ru" style="display:none">Ши Найань · Вершина героических легенд</p>
+            </div>
+            <div class="classic-card">
+                <div class="classic-icon">🐵</div>
+                <h4 class="lang-zh">《西游记》</h4><h4 class="lang-en" style="display:none">Journey to the West</h4><h4 class="lang-ru" style="display:none">Путешествие на Запад</h4>
+                <p class="lang-zh">吴承恩 · 神魔小说的经典</p>
+                <p class="lang-en" style="display:none">Wu Cheng'en · Classic of mythic fiction</p>
+                <p class="lang-ru" style="display:none">У Чэнъэнь · Классика мифической прозы</p>
+            </div>
+            <div class="classic-card">
+                <div class="classic-icon">🏮</div>
+                <h4 class="lang-zh">《红楼梦》</h4><h4 class="lang-en" style="display:none">Dream of Red Chamber</h4><h4 class="lang-ru" style="display:none">Сон в красном тереме</h4>
+                <p class="lang-zh">曹雪芹 · 中国文学的顶峰</p>
+                <p class="lang-en" style="display:none">Cao Xueqin · Pinnacle of Chinese literature</p>
+                <p class="lang-ru" style="display:none">Цао Сюэцинь · Вершина китайской литературы</p>
+            </div>
+        </div>
+        
+        <!-- Стихи -->
+        <div class="poem-grid">
+            <div class="poem-card">
+                <div class="verse lang-zh">床前明月光<br>疑是地上霜<br>举头望明月<br>低头思故乡</div>
+                <div class="verse lang-en" style="display:none">Moonlight before my bed<br>Like frost upon the ground<br>I raise my head to gaze<br>Then bow — homesickness found</div>
+                <div class="verse lang-ru" style="display:none">Лунный свет у постели<br>Как иней на земле<br>Поднял голову — смотрю<br>Опустил — тоскую по дому</div>
+                <div class="poet lang-zh">—— 李白《静夜思》</div>
+                <div class="poet lang-en" style="display:none">—— Li Bai, Quiet Night Thought</div>
+                <div class="poet lang-ru" style="display:none">—— Ли Бо, Думы тихой ночью</div>
+                <div class="note lang-zh">这是中国最家喻户晓的诗，短短二十字写尽游子思乡之情。</div>
+                <div class="note lang-en" style="display:none">The most well-known Chinese poem — twenty characters capturing a traveler's homesickness.</div>
+                <div class="note lang-ru" style="display:none">Самое известное китайское стихотворение — двадцать иероглифов о тоске путника по дому.</div>
+            </div>
+            <div class="poem-card">
+                <div class="verse lang-zh">春眠不觉晓<br>处处闻啼鸟<br>夜来风雨声<br>花落知多少</div>
+                <div class="verse lang-en" style="display:none">Spring sleep, dawn unaware<br>Everywhere birdsong fills the air<br>Last night's wind and rain I hear<br>How many flowers fallen? I fear</div>
+                <div class="verse lang-ru" style="display:none">Весенний сон — рассвет не замечаю<br>Повсюду птичьи трели слышу<br>Ночной дождь и ветер вспоминаю<br>Сколько цветов опало — не вижу</div>
+                <div class="poet lang-zh">—— 孟浩然《春晓》</div>
+                <div class="poet lang-en" style="display:none">—— Meng Haoran, Spring Dawn</div>
+                <div class="poet lang-ru" style="display:none">—— Мэн Хаожань, Весенний рассвет</div>
+                <div class="note lang-zh">孟浩然以自然之眼观物，寥寥数笔勾勒出春天的生机与易逝。</div>
+                <div class="note lang-en" style="display:none">Meng Haoran observes with natural eyes — a few strokes outline spring's vitality and transience.</div>
+                <div class="note lang-ru" style="display:none">Мэн Хаожань смотрит глазами природы — несколькими штрихами обрисовывает жизненность и мимолётность весны.</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><i class="fas fa-landmark" style="margin-right: 15px; color: var(--gold);"></i><span class="lang-zh">中华文化瑰宝数字博物馆</span><span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span><span class="lang-ru" style="display:none">Онлайн-музей культурных реликвий Китая</span></div>
+            <div class="footer-links"><a href="index.html" class="lang-zh">首页</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-ru" style="display:none">Главная</a><a href="#" class="lang-zh">关于我们</a><a href="#" class="lang-en" style="display:none">About Us</a><a href="#" class="lang-ru" style="display:none">О нас</a></div>
+            <div class="footer-social"><a href="#"><i class="fab fa-weixin"></i></a><a href="#"><i class="fab fa-weibo"></i></a></div>
+            <div class="footer-bottom"><p class="lang-zh">© 2026 中华文化瑰宝数字博物馆 | <a href="#">隐私政策</a></p><p class="lang-en" style="display:none">© 2026 Digital Museum | <a href="#">Privacy Policy</a></p><p class="lang-ru" style="display:none">© 2026 Цифровой музей | <a href="#">Политика конфиденциальности</a></p></div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

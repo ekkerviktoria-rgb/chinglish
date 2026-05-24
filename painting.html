@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国画珍品 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Китайская традиционная живопись | Chinese Traditional Painting">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ========== ХЕДЕР ========== */
+        .painting-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #faf5e8 0%, #f0e4d0 40%, #e8d8b8 100%);
+            overflow: hidden;
+        }
+        [data-theme="dark"] .painting-hero {
+            background: linear-gradient(180deg, #1a1410 0%, #201510 40%, #150e0a 100%);
+        }
+        
+        /* Круги-печати на фоне */
+        .seal-bg {
+            position: absolute;
+            border: 2px solid rgba(180,140,80,0.12);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .seal-bg-1 { width: 400px; height: 400px; top: -100px; right: -100px; }
+        .seal-bg-2 { width: 250px; height: 250px; bottom: -50px; left: -50px; }
+        .seal-bg-3 { width: 150px; height: 150px; top: 40%; left: 60%; }
+        [data-theme="dark"] .seal-bg { border-color: rgba(180,140,80,0.2); }
+        
+        /* Одна птица */
+        .single-bird {
+            position: absolute;
+            top: 18%;
+            right: 25%;
+            font-size: 2.5rem;
+            color: rgba(60,50,40,0.25);
+            animation: birdGlide 6s infinite ease-in-out;
+            z-index: 1;
+            pointer-events: none;
+        }
+        @keyframes birdGlide {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(40px, -20px); }
+            50% { transform: translate(80px, 0); }
+            75% { transform: translate(40px, 15px); }
+        }
+        [data-theme="dark"] .single-bird { color: rgba(200,180,150,0.25); }
+        
+        /* Контент */
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 3rem 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: #2a1a0a !important;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 6px rgba(255,255,255,0.4);
+            -webkit-text-fill-color: #2a1a0a !important;
+            background: none !important;
+        }
+        [data-theme="dark"] .hero-content h1 {
+            color: #f0e6d3 !important;
+            -webkit-text-fill-color: #f0e6d3 !important;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.25rem;
+            color: #3a2a1a !important;
+            font-weight: 600;
+            background: rgba(255,255,255,0.8);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            max-width: 650px;
+            line-height: 1.6;
+            border: 1px solid rgba(180,150,100,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] .hero-subtitle {
+            color: #f0e6d3 !important;
+            background: rgba(20,15,10,0.85);
+        }
+        
+        /* ========== СВИТКИ-КАРТОЧКИ ========== */
+        .scroll-card {
+            background: linear-gradient(180deg, #fdfaf3 0%, #f5eddc 100%);
+            border-radius: 2px 2px 12px 12px;
+            padding: 3rem;
+            margin: 2rem auto;
+            max-width: 900px;
+            box-shadow: 0 6px 30px rgba(0,0,0,0.05);
+            position: relative;
+            border: 1px solid rgba(180,150,100,0.2);
+            transition: all 0.4s ease;
+        }
+        .scroll-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                rgba(180,140,80,0.4), 
+                rgba(180,140,80,0.15), 
+                rgba(180,140,80,0.4));
+        }
+        [data-theme="dark"] .scroll-card {
+            background: linear-gradient(180deg, #251810 0%, #1a1010 100%);
+            border-color: rgba(180,140,80,0.2);
+        }
+        .scroll-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+        .scroll-card h3 {
+            color: #5a3a1a;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        [data-theme="dark"] .scroll-card h3 { color: #d4a76a; }
+        .scroll-card p {
+            line-height: 2.1;
+            font-size: 1.1rem;
+            color: #4a3a2a;
+            margin-bottom: 1rem;
+        }
+        [data-theme="dark"] .scroll-card p { color: #e8d5c8; }
+        .scroll-card .highlight {
+            display: inline-block;
+            background: rgba(180,140,80,0.1);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+        
+        /* ========== ГАЛЕРЕЯ ========== */
+        .painting-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem auto;
+            max-width: 1000px;
+        }
+        .painting-frame {
+            background: white;
+            border-radius: 2px;
+            padding: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.4s ease;
+        }
+        [data-theme="dark"] .painting-frame {
+            background: #251810;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .painting-frame:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+        }
+        .painting-frame img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 1px;
+            display: block;
+            filter: sepia(0.15);
+            transition: filter 0.4s ease;
+        }
+        .painting-frame:hover img { filter: sepia(0); }
+        [data-theme="dark"] .painting-frame img { filter: sepia(0.3); }
+        [data-theme="dark"] .painting-frame:hover img { filter: sepia(0.1); }
+        
+        .painting-frame .caption {
+            text-align: center;
+            margin-top: 8px;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.1rem;
+            color: #5a3a1a;
+        }
+        [data-theme="dark"] .painting-frame .caption { color: #d4a76a; }
+        
+        /* ========== ЦИТАТА ========== */
+        .quote-block-alt {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            text-align: center;
+            border-top: 1px solid rgba(180,140,80,0.3);
+            border-bottom: 1px solid rgba(180,140,80,0.3);
+        }
+        .quote-block-alt p {
+            font-size: 1.4rem;
+            line-height: 2;
+            font-style: italic;
+            color: #5a3a1a;
+            letter-spacing: 0.05em;
+        }
+        [data-theme="dark"] .quote-block-alt p { color: #e8d5c8; }
+        
+        /* ========== АДАПТИВ ========== */
+        @media (max-width: 768px) {
+            .painting-gallery { grid-template-columns: 1fr 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .scroll-card { padding: 2rem; margin: 1.5rem 1rem; }
+        }
+        @media (max-width: 480px) {
+            .painting-gallery { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">画</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo">
+            <i class="fas fa-landmark logo-icon"></i>
+            <span class="lang-zh">《中式英语》语言俱乐部</span>
+            <span class="lang-en" style="display:none">The "Chinglish" Language Club</span>
+            <span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span>
+        </a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle" title="Переключить тему">
+                <i class="fas fa-moon"></i>
+                <span class="theme-text lang-zh">Темная</span>
+                <span class="theme-text lang-en" style="display:none">Dark</span>
+                <span class="theme-text lang-ru" style="display:none">Темная</span>
+            </button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher">
+                <button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel">
+            <div class="menu-items">
+                <a href="index.html" class="menu-item lang-zh">首页</a>
+                <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+                <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+                <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+                <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+                <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+                <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+                <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+                <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+                <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+                <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+                <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+                <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+                <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+                <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+                <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+                <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+                <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+                <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+                <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+                <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ХЕДЕР -->
+    <div class="painting-hero">
+        <div class="seal-bg seal-bg-1"></div>
+        <div class="seal-bg seal-bg-2"></div>
+        <div class="seal-bg seal-bg-3"></div>
+        <div class="single-bird">&#x1F426;</div>
+        <div class="hero-content">
+            <h1 class="lang-zh">国画珍品</h1>
+            <h1 class="lang-en" style="display:none">Chinese Painting</h1>
+            <h1 class="lang-ru" style="display:none">Китайская живопись</h1>
+            <p class="hero-subtitle lang-zh">水墨丹青，描绘山河壮丽与花鸟灵韵</p>
+            <p class="hero-subtitle lang-en" style="display:none">Ink and color — landscapes, flowers, birds, and the spirit of nature</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Тушь и краски — пейзажи, цветы, птицы и дух природы</p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1000px;">
+        
+        <div class="scroll-card">
+            <h3 class="lang-zh">🏔️ 山水画的意境</h3>
+            <h3 class="lang-en" style="display:none">🏔️ Landscape Painting Mood</h3>
+            <h3 class="lang-ru" style="display:none">🏔️ Настроение пейзажа</h3>
+            <p class="lang-zh">山水画是中国画的正统，源于魏晋，盛于宋元。画家<span class="highlight">"外师造化，中得心源"</span>——既观察自然，又融入内心的感悟。山石的皴法、水波的勾勒、云雾的渲染，每一种技法都承载着画家对天地万物的理解。</p>
+            <p class="lang-zh">宋代范宽的<span class="highlight">《溪山行旅图》</span>以雄浑的笔力描绘了关中一带的壮丽山川，画中行旅队伍虽小，却衬托出山势的巍峨。郭熙的<span class="highlight">《早春图》</span>则以卷云皴和蟹爪枝表现了冬去春来的生机。元代黄公望的<span class="highlight">《富春山居图》</span>被誉为"画中之兰亭"，长卷展现了富春江两岸的秀丽风光。</p>
+            <p class="lang-en" style="display:none">Landscape painting is the orthodox of Chinese painting. "Learn from nature externally, gain from the heart internally" — painters observe nature while infusing inner insights. Fan Kuan's "Travelers Among Mountains and Streams," Guo Xi's "Early Spring," and Huang Gongwang's "Dwelling in the Fuchun Mountains" are timeless masterpieces.</p>
+            <p class="lang-ru" style="display:none">Пейзаж — ортодоксия китайской живописи. «Учись у природы внешне, получай от сердца внутренне». Фань Куань, Го Си и Хуан Гунван создали бессмертные шедевры, каждый со своим уникальным стилем.</p>
+        </div>
+
+        <div class="painting-gallery">
+            <div class="painting-frame">
+                <img src="images/painting1.jpg" alt="山水画" loading="lazy">
+                <div class="caption lang-zh">《溪山行旅图》· 范宽</div>
+                <div class="caption lang-en" style="display:none">Fan Kuan · Travelers</div>
+                <div class="caption lang-ru" style="display:none">Фань Куань · Путники</div>
+            </div>
+            <div class="painting-frame">
+                <img src="images/painting2.jpg" alt="花鸟画" loading="lazy">
+                <div class="caption lang-zh">《芙蓉锦鸡图》· 赵佶</div>
+                <div class="caption lang-en" style="display:none">Huizong · Hibiscus</div>
+                <div class="caption lang-ru" style="display:none">Хуэйцзун · Гибискус</div>
+            </div>
+            <div class="painting-frame">
+                <img src="images/painting3.jpg" alt="人物画" loading="lazy">
+                <div class="caption lang-zh">《簪花仕女图》· 周昉</div>
+                <div class="caption lang-en" style="display:none">Zhou Fang · Court Ladies</div>
+                <div class="caption lang-ru" style="display:none">Чжоу Фан · Дамы</div>
+            </div>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">🌸 花鸟画的趣味</h3>
+            <h3 class="lang-en" style="display:none">🌸 Flower-Bird Charm</h3>
+            <h3 class="lang-ru" style="display:none">🌸 Очарование цветов и птиц</h3>
+            <p class="lang-zh">花鸟画将自然界的生灵与植物作为描绘对象，讲究<span class="highlight">"一花一世界，一叶一菩提"</span>。宋徽宗赵佶虽为皇帝，却是杰出的花鸟画家，其《芙蓉锦鸡图》色彩华贵、形态精准。明代的徐渭则以大写意花鸟闻名，笔墨淋漓、直抒胸臆，开创了文人花鸟画的新境界。</p>
+            <p class="lang-zh">花鸟画有工笔与写意之分。工笔画层层渲染，细腻入微；写意画则追求<span class="highlight">"意到笔不到"</span>——寥寥数笔，尽得风流。八大山人（朱耷）的鱼鸟，白眼向人，寄寓着亡国之痛；齐白石的虾，栩栩如生，充满生活情趣。</p>
+            <p class="lang-en" style="display:none">Flower-bird painting holds "a flower is a world, a leaf is bodhi." Emperor Huizong's meticulous works, Xu Wei's freehand expression, Bada Shanren's symbolic creatures, and Qi Baishi's lively shrimps — each represents a unique pinnacle of this genre.</p>
+            <p class="lang-ru" style="display:none">Живопись цветов и птиц утверждает: «цветок — это мир». От тщательных работ императора Хуэйцзуна до свободного стиля Сюй Вэя, от символических существ Бада Шаньжэня до живых креветок Ци Байши — каждый представляет уникальную вершину жанра.</p>
+        </div>
+
+        <div class="quote-block-alt">
+            <p class="lang-zh">"画中有诗，诗中有画"<br>—— 宋 · 苏轼</p>
+            <p class="lang-en" style="display:none">"Painting contains poetry, poetry contains painting"<br>—— Su Shi, Song Dynasty</p>
+            <p class="lang-ru" style="display:none">«В живописи — поэзия, в поэзии — живопись»<br>—— Су Ши, династия Сун</p>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">🎨 笔墨技法与六法</h3>
+            <h3 class="lang-en" style="display:none">🎨 Six Principles of Painting</h3>
+            <h3 class="lang-ru" style="display:none">🎨 Шесть принципов живописи</h3>
+            <p class="lang-zh">南齐谢赫在《古画品录》中提出<span class="highlight">"六法"</span>，成为中国画的品评标准：<strong>一气韵生动</strong>（精神气质），<strong>二骨法用笔</strong>（线条力度），<strong>三应物象形</strong>（造型准确），<strong>四随类赋彩</strong>（色彩搭配），<strong>五经营位置</strong>（构图布局），<strong>六传移模写</strong>（临摹传承）。其中"气韵生动"居首，可见中国画对精神表达的重视远胜于形似。</p>
+            <p class="lang-zh">笔墨是中国画的核心语言。墨分五色——焦、浓、重、淡、清，通过水与墨的调和，营造出丰富的层次。黄宾虹总结用笔四要：<span class="highlight">"平、圆、留、重"</span>，每一笔都需力透纸背，却又不失灵动。</p>
+            <p class="lang-en" style="display:none">Xie He's "Six Principles" established the evaluation criteria for Chinese painting, with "spirit resonance" (vitality) ranking first. Ink divides into five tones — burnt, thick, heavy, light, clear — creating rich layers through water-ink harmony. Huang Binhong summarized four essentials of brushwork: "even, round, retained, heavy."</p>
+            <p class="lang-ru" style="display:none">«Шесть принципов» Се Хэ установили критерии оценки: «дух и резонанс» (жизненность) — на первом месте. Тушь делится на пять тонов, создавая богатые слои. Хуан Биньхун обобщил четыре сути работы кистью.</p>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">📜 文人画的精神</h3>
+            <h3 class="lang-en" style="display:none">📜 Literati Painting Spirit</h3>
+            <h3 class="lang-ru" style="display:none">📜 Дух живописи интеллектуалов</h3>
+            <p class="lang-zh">文人画是中国画的重要分支，强调<span class="highlight">"诗书画印"</span>四位一体。画家不仅是技艺的掌握者，更是文化的传承者。苏轼提出"论画以形似，见与儿童邻"——如果只看画得像不像，那见识与孩童无异。</p>
+            <p class="lang-zh">元代倪瓒说自己画竹只是<span class="highlight">"聊写胸中逸气"</span>，不求形似。这种对精神自由的追求，使中国画超越了单纯的视觉艺术，成为一种生活态度和哲学思考。一幅好的文人画，是画家修养、学识、情操的全面呈现。</p>
+            <p class="lang-en" style="display:none">Literati painting emphasizes the unity of "poetry, calligraphy, painting, and seal." Su Shi said judging painting by resemblance is childish insight. Ni Zan painted bamboo merely to "express the untrammeled spirit in my chest." This pursuit of spiritual freedom elevates Chinese painting beyond visual art into a philosophy of life.</p>
+            <p class="lang-ru" style="display:none">Живопись интеллектуалов подчёркивает единство «поэзии, каллиграфии, живописи и печати». Су Ши говорил: судить о живописи по сходству — детское понимание. Ни Цзань рисовал бамбук, чтобы «выразить свободный дух в груди». Это возвышает китайскую живопись до философии жизни.</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark" style="margin-right: 15px; color: var(--gold);"></i>
+                <span class="lang-zh">中华文化瑰宝数字博物馆</span>
+                <span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span>
+                <span class="lang-ru" style="display:none">Онлайн-музей культурных реликвий Китая</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html" class="lang-zh">首页</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-ru" style="display:none">Главная</a>
+                <a href="#" class="lang-zh">关于我们</a><a href="#" class="lang-en" style="display:none">About Us</a><a href="#" class="lang-ru" style="display:none">О нас</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a><a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p class="lang-zh">© 2026 中华文化瑰宝数字博物馆 | <a href="#">隐私政策</a></p>
+                <p class="lang-en" style="display:none">© 2026 Digital Museum | <a href="#">Privacy Policy</a></p>
+                <p class="lang-ru" style="display:none">© 2026 Цифровой музей | <a href="#">Политика конфиденциальности</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

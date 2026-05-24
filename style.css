@@ -1,0 +1,1297 @@
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #8B2E3D, #A04A5B);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+        
+        .loader-content {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 6rem;
+            color: white;
+            text-shadow: 0 0 20px rgba(255,255,255,0.6);
+            animation: fadeInLoader 1.2s 0.2s forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeInLoader {
+            0% { 
+                opacity: 0; 
+                transform: scale(0.8) rotate(-10deg); 
+            }
+            70% { 
+                transform: scale(1.1) rotate(5deg); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: scale(1) rotate(0); 
+            }
+        }
+        
+        @keyframes fadeOutLoader {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        
+        .loader-hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        :root {
+            --primary: #8B2E3D;
+            --secondary: #A04A5B;
+            --accent: #D4A373;
+            --light: #FFF8F0;
+            --paper: #FAF4E6;
+            --gold: #D4AF37;
+            --text: #333333;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        /* Темная тема: переопределение */
+   [data-theme="dark"] {
+    /* Императорская тёмная тема: бордово-золотая */
+    --primary: #9A031E;      /* Глубокий красный — как императорский шелк */
+    --secondary: #B53B3B;    /* Насыщенный бордовый */
+    --accent: #D4A76A;       /* Бронзово-золотой (не жёлтый!) */
+    --light: #2A1414;        /* Тёплый тёмно-бордовый фон */
+    --paper: #180B0B;        /* Почти чёрный, но с тёплым подтоном */
+    --gold: #D4AF37;         /* Классическое золото (как в Forbidden City) */
+    --text: #F8F0E8;         /* Светлый кремовый — не белый, а тёплый */
+    --shadow: rgba(0, 0, 0, 0.5);
+}
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Serif SC', serif;
+        }
+
+        body {
+            background-color: var(--paper);
+            color: var(--text);
+            line-height: 1.8;
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            overflow-x: hidden;
+            padding-top: 80px;
+            transition: background-color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="%23f8c3cd" d="M12,2C13.1,2 14,2.9 14,4C14,5.1 13.1,6 12,6C10.9,6 10,5.1 10,4C10,2.9 10.9,2 12,2M15.5,8C16.3,8 17,8.7 17,9.5C17,10.3 16.3,11 15.5,11C14.7,11 14,10.3 14,9.5C14,8.7 14.7,8 15.5,8M8.5,8C9.3,8 10,8.7 10,9.5C10,10.3 9.3,11 8.5,11C7.7,11 7,10.3 7,9.5C7,8.7 7.7,8 8.5,8M12,11C13.1,11 14,11.9 14,13C14,14.1 13.1,15 12,15C10.9,15 10,14.1 10,13C10,11.9 10.9,11 12,11M19,17V19H5V17C5,14.8 8.1,13 12,13C15.9,13 19,14.8 19,17Z" /></svg>') 12 12, auto;
+        }
+
+        /* ========== ФОН: ДЕНЬ / НОЧЬ ========== */
+        .sky-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, #7EC0EE, #D4EDF4);
+            transition: background 1.2s ease-in-out;
+        }
+        [data-theme="dark"] .sky-bg {
+            background: linear-gradient(180deg, #0a0a2a, #000000); /* Ночное небо */
+        }
+
+        /* ========== ОБЛАКА ========== */
+        .clouds-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+        [data-theme="dark"] .clouds-container {
+            opacity: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            filter: blur(2px);
+            will-change: transform;
+        }
+
+        /* Основное облако — SVG для реализма */
+        .cloud-base {
+            fill: white;
+            stroke: rgba(255, 255, 255, 0.8);
+            stroke-width: 0.5;
+        }
+
+
+/* Анимация облаков */
+@keyframes cloudMove {
+    0% { transform: translateX(-250px); }
+    100% { transform: translateX(calc(100vw + 250px)); }
+}
+/* Облака */
+.cloud {
+    position: absolute;
+    filter: blur(1.5px);
+    opacity: 0.88;
+    will-change: transform;
+}
+.cloud-base {
+    fill: white;
+    stroke: rgba(255, 255, 255, 0.7);
+    stroke-width: 0.8;
+}
+[data-theme="light"] .cloud { display: block; }
+[data-theme="dark"] .cloud { display: none; }
+
+              /* ========== ЗВЁЗДЫ ========== */
+        .stars-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        [data-theme="dark"] .stars-bg {
+            opacity: 1;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+            will-change: opacity;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 1; }
+        }
+
+        /* ========== ФОНАРИКИ ========== */
+        .lanterns-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        [data-theme="dark"] .lanterns-container {
+            opacity: 1;
+        }
+
+        /* Критично: дефолтные значения для CSS-переменных */
+        .lantern {
+            position: absolute;
+            width: 42px;
+            height: 64px;
+            cursor: pointer;
+            pointer-events: auto;
+            animation: lanternFloat 4s infinite ease-in-out;
+            filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.5));
+            will-change: transform, opacity;
+            /* ✅ Обязательно — иначе `var(--lantern-dx)` = пусто → анимация не запустится */
+            --lantern-dx: 0px;
+            --lantern-dy: 0px;
+            --lantern-dr: 0deg;
+        }
+
+        @keyframes lanternFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(1deg); }
+            75% { transform: translateY(-2px) rotate(-1deg); }
+        }
+
+        @keyframes lanternFly {
+            0% {
+                transform: translateX(0) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(var(--lantern-dx)) translateY(var(--lantern-dy)) rotate(var(--lantern-dr)) scale(0.92);
+                opacity: 0;
+            }
+        }
+
+        .lantern-body {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+            background: linear-gradient(135deg, rgba(255, 69, 0, 0.8), rgba(255, 140, 0, 0.8));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(255, 100, 0, 0.6);
+            backdrop-filter: blur(2px);
+        }
+
+        .lantern-body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.4), transparent);
+            border-radius: 20px;
+        }
+
+        .lantern-top {
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52%;
+            height: 12px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 6px 6px 0 0;
+        }
+
+        .lantern-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 52%;
+            height: 12px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 0 0 6px 6px;
+        }
+
+        .lantern-tassel {
+            position: absolute;
+            bottom: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 24px;
+            background: linear-gradient(to bottom, rgba(255, 215, 0, 0.9), rgba(255, 140, 0, 0.7));
+            border-radius: 0 0 2px 2px;
+        }
+
+        .lantern-tassel::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 215, 0, 0.9);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .lantern:hover {
+            transform: scale(1.15);
+            animation-play-state: paused;
+            z-index: 10;
+        }
+
+        .lantern.flying {
+            animation: lanternFly 0.9s cubic-bezier(0.2, 0.6, 0.4, 1) forwards !important;
+            pointer-events: none;
+        }
+
+        /* ========== АНИМАЦИИ ========== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 rgba(212, 163, 115, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 20px rgba(212, 163, 115, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 0 rgba(212, 163, 115, 0.4); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-8px) rotate(1deg); }
+            75% { transform: translateY(-4px) rotate(-1deg); }
+        }
+        @keyframes scaleIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes backgroundFade {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+        @keyframes slideInFromLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInFromRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ========== БОНСАЙ ЛИСТЬЯ ========== */
+        .bonsai-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            overflow: hidden;
+        }
+     .bonsai-leaf {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    animation: bonsaiFall 3s linear forwards;
+    z-index: 9999;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transition: filter 0.4s ease;
+}
+/* Светлая тема — лепестки */
+[data-theme="light"] .bonsai-leaf {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23f8c3cd" d="M12,2C9.2,2 6.9,4.2 6.9,7C6.9,8.3 7.5,9.5 8.4,10.3C7.8,11.2 7.5,12.3 7.5,13.5C7.5,16.5 9.9,19 12.9,19C15.9,19 18.3,16.6 18.3,13.6C18.3,12.4 17.9,11.3 17.2,10.4C18.1,9.6 18.7,8.4 18.7,7.1C18.7,4.3 16.4,2 13.6,2H12Z" /></svg>');
+    filter: drop-shadow(0 0 3px rgba(255,192,203,0.5));
+}
+/* Тёмная тема — светящиеся кружки */
+[data-theme="dark"] .bonsai-leaf {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="white" opacity="0.8" /></svg>');
+    filter: 
+        brightness(1.2) 
+        drop-shadow(0 0 8px rgba(212, 175, 55, 0.6))
+        drop-shadow(0 0 16px rgba(255, 255, 255, 0.3));
+}
+        @keyframes bonsaiFall {
+            0% { transform: translate(0,0) rotate(0deg) scale(0.8); opacity: 1; }
+            100% { transform: translate(calc(var(--random-x) * 100px), calc(var(--random-y) * 100px)) rotate(calc(var(--random-rotate) * 1deg)) scale(1.2); opacity: 0; }
+        }
+
+        /* ========== UI ЭЛЕМЕНТЫ ========== */
+        .toggle-cursor-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        .toggle-cursor-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        .toggle-cursor-btn.active {
+            background: var(--gold);
+            color: var(--primary);
+        }
+        body.no-cursor-petals {
+            cursor: default !important;
+        }
+
+        .top-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+            box-shadow: 0 2px 30px rgba(0,0,0,0.15);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: fadeIn 0.8s ease-out;
+            border-bottom: 2px solid var(--gold);
+        }
+        .top-menu.scrolled {
+            height: 70px;
+            background: rgba(139, 46, 61, 0.95);
+            backdrop-filter: blur(15px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            color: white;
+            font-size: 2rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+        }
+        .logo:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 0 15px rgba(255,255,255,0.7);
+        }
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transform: scaleX(0);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: right;
+        }
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .logo-icon {
+            margin-right: 15px;
+            color: var(--gold);
+            font-size: 2.2rem;
+            animation: pulse 4s infinite, rotateSlow 20s infinite linear;
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+
+        .menu-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .theme-toggle-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+        .theme-toggle-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .language-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+        .language-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            margin-top: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 1002;
+            min-width: 140px;
+            backdrop-filter: blur(10px);
+        }
+        .language-dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .language-dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .language-dropdown a:hover {
+            background: rgba(139, 46, 61, 0.08);
+            color: var(--primary);
+            padding-left: 25px;
+        }
+
+        .menu-toggle {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            border-radius: 50%;
+        }
+        .menu-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .menu-icon {
+            font-size: 2rem;
+            color: var(--gold);
+            transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-shadow: 0 0 8px rgba(212, 175, 55, 0.6);
+        }
+        .menu-toggle.active .menu-icon {
+            transform: rotate(360deg);
+            color: white;
+        }
+
+        .menu-panel {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: linear-gradient(160deg, var(--primary), var(--secondary), #7a2532);
+            z-index: 999;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 120px 30px 50px;
+            overflow-y: auto;
+            box-shadow: -10px 0 50px rgba(0,0,0,0.3);
+            border-left: 3px solid var(--gold);
+        }
+        .menu-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+            opacity: 0.1;
+            z-index: -1;
+        }
+        .menu-panel.active {
+            right: 0;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        .menu-item {
+            color: white;
+            text-decoration: none;
+            padding: 18px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.08);
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transform-origin: center;
+            font-size: 1.2rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+        .menu-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05) translateX(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .header-container {
+            position: relative;
+            margin-top: -80px;
+            min-height: 100vh;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 8rem 1rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        h1 {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            position: relative;
+            z-index: 3;
+            background: linear-gradient(135deg, #fff 0%, #f5f5dc 50%, #fff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.3);
+            animation: fadeIn 1.5s ease-out, float 8s infinite;
+            letter-spacing: 3px;
+            line-height: 1.2;
+        }
+
+        .header-subtitle {
+            font-size: 1.6rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            position: relative;
+            z-index: 3;
+            color: rgba(255,255,255,0.95);
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+            animation: fadeIn 1.8s ease-out;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .chinese-seal {
+            position: relative;
+            display: inline-block;
+            margin-top: 2rem;
+            z-index: 3;
+            transform-style: preserve-3d;
+            animation: float 6s infinite;
+        }
+        .seal-text {
+            font-family: 'Ma Shan Zheng', cursive;
+            color: var(--primary);
+            font-size: 2.2rem;
+            padding: 22px 35px;
+            background: white;
+            border-radius: 8px;
+            position: relative;
+            display: inline-block;
+            transform: rotate(-5deg);
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.1);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            overflow: hidden;
+        }
+        .seal-text::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border: 2px solid var(--primary);
+            border-radius: 5px;
+            pointer-events: none;
+        }
+        .chinese-seal:hover .seal-text {
+            transform: rotate(-5deg) translateY(-12px) scale(1.05);
+            box-shadow: 12px 18px 30px rgba(0,0,0,0.25);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1.5rem;
+            position: relative;
+        }
+
+        .full-width-gallery {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            margin-top: 4rem;
+            margin-bottom: 4rem;
+            overflow: hidden;
+            position: relative;
+            height: 500px;
+            animation: fadeIn 1.8s ease-out;
+            perspective: 1000px;
+        }
+.section-divider {
+  height: 2px;
+  background: 
+    repeating-linear-gradient(
+      90deg,
+      var(--gold),
+      var(--gold) 4px,
+      transparent 4px,
+      transparent 12px
+    );
+  margin: 5rem auto;
+  width: 80%;
+  opacity: 0.7;
+}
+
+/* Или SVG-узор (ещё красивее) */
+.section-divider.svg {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="2"><path d="M0,1 Q10,0 20,1 T40,1" stroke="%23D4AF37" stroke-width="1.5" fill="none"/></svg>') repeat-x;
+}
+        .gallery-title {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0 20px;
+            animation: fadeIn 1.6s ease-out;
+            position: relative;
+        }
+        .gallery-title h2 {
+            font-size: 3.2rem;
+            color: var(--primary);
+            font-family: 'Ma Shan Zheng', cursive;
+            display: inline-block;
+            position: relative;
+            padding-bottom: 20px;
+            animation: slideInFromLeft 1.2s ease-out;
+        }
+        .gallery-title h2::before, .gallery-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            transition: all 0.5s ease;
+        }
+        .gallery-title h2::before {
+            left: -60px;
+            width: 40px;
+        }
+        .gallery-title h2::after {
+            right: -60px;
+            width: 40px;
+        }
+        .gallery-title:hover h2::before {
+            width: 80px;
+            left: -80px;
+        }
+        .gallery-title:hover h2::after {
+            width: 80px;
+            right: -80px;
+        }
+
+        .gallery-track {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    align-items: center;
+    will-change: transform;
+    gap: 40px;
+}
+
+        .gallery-item {
+            width: 450px;
+            height: 400px;
+            margin: 0 15px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            transform-style: preserve-3d;
+        }
+        .gallery-item:hover {
+            transform: translateY(-18px) scale(1.06) rotateY(5deg);
+            box-shadow: 0 35px 70px rgba(0,0,0,0.3);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.25, 0.8, 0.25, 1), filter 1s ease;
+            transform-origin: center;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.18);
+            filter: brightness(1.15) contrast(1.1);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.6));
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-item .item-caption {
+            position: absolute;
+            bottom: -60px;
+            left: 0;
+            width: 100%;
+            padding: 25px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            z-index: 2;
+            opacity: 0;
+        }
+        .gallery-item:hover .item-caption {
+            bottom: 0;
+            opacity: 1;
+        }
+
+        .scroll-effect {
+            position: relative;
+            padding: 50px;
+            background: var(--paper);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            margin: 5rem 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            transform-style: preserve-3d;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: fadeIn 2s ease-out;
+        }
+        .scroll-effect:hover {
+            transform: rotateX(1deg) rotateY(1deg) translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+        .scroll-effect::before, .scroll-effect::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="45" viewBox="0 0 100 45"><path d="M0,0 Q50,22 100,0 L100,45 Q50,22 0,45 Z" fill="%23FAF4E6" stroke="%238B2E3D" stroke-width="0.5" /></svg>');
+            background-size: 100px 45px;
+            z-index: 1;
+        }
+        .scroll-effect::before {
+            top: -22px;
+        }
+        .scroll-effect::after {
+            bottom: -22px;
+            transform: rotate(180deg);
+        }
+
+        .featured-sections {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 8rem 0;
+            flex-wrap: wrap;
+        }
+
+        .featured-section {
+            background: white;
+            border-radius: 8px;
+            padding: 3rem 2rem 2rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: visible;
+            transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: fadeIn 2.2s ease-out;
+            background-image: url('https://www.transparenttextures.com/patterns/rice-paper-2.png');
+            background-blend-mode: overlay;
+            transform-style: preserve-3d;
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            margin: 0 auto;
+            border: 1px solid rgba(0,0,0,0.1);
+            clip-path: none;
+            margin-top: 40px;
+        }
+
+        .featured-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(139,46,61,0.06), rgba(212,175,55,0.06));
+            z-index: 0;
+            border-radius: 8px;
+        }
+
+        .featured-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary), var(--gold), var(--primary));
+            transition: height 0.5s ease;
+            clip-path: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .featured-section:hover::after {
+            height: 12px;
+        }
+
+        .featured-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+            padding-bottom: 12px;
+            transition: all 0.5s ease;
+            font-family: 'Ma Shan Zheng', cursive;
+            z-index: 1;
+            animation: slideInFromRight 1.4s ease-out;
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+
+        .featured-section:hover h2 {
+            color: var(--secondary);
+        }
+
+        .featured-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: var(--gold);
+            transition: all 0.5s ease;
+        }
+
+        .featured-section:hover h2::after {
+            width: 80px;
+            background: linear-gradient(90deg, var(--gold), var(--primary));
+        }
+
+        .featured-section p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 1;
+            font-size: 1rem;
+            line-height: 1.7;
+            animation: fadeIn 1.8s ease-out;
+            text-align: center;
+        }
+
+        .featured-section:hover p {
+            color: #555;
+        }
+
+        .featured-section .btn {
+            display: block;
+            margin: 0 auto;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(139, 46, 61, 0.4);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1rem;
+            border: 1px solid rgba(255,255,255,0.4);
+            animation: scaleIn 1.6s ease-out;
+            text-align: center;
+        }
+
+        .featured-section .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(139, 46, 61, 0.6);
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+        }
+
+        .featured-section .icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.4);
+            position: relative;
+            z-index: 1;
+            animation: float 5s infinite;
+            display: block;
+            text-align: center;
+        }
+
+        .featured-section:hover .icon {
+            transform: rotate(8deg) scale(1.15);
+            color: var(--primary);
+        }
+
+        footer {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), #7a2532);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem;
+            margin-top: 8rem;
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 2.4s ease-out;
+            border-top: 4px solid var(--gold);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/rice-paper-3.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+        footer a:hover {
+            text-decoration: underline;
+            color: white;
+            text-shadow: 0 0 8px rgba(255,255,255,0.6);
+        }
+
+        .footer-logo {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            color: white;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            animation: fadeIn 1.8s ease-out;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            margin: 4rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            background: rgba(255,255,255,0.15);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            font-size: 1.15rem;
+            backdrop-filter: blur(5px);
+        }
+        .footer-links a:hover {
+            background: rgba(255,255,255,0.25);
+            text-decoration: none;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 3rem 0;
+        }
+
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.12);
+            color: white;
+            font-size: 1.6rem;
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+        }
+        .footer-social a:hover {
+            background: var(--gold);
+            transform: translateY(-6px) scale(1.12);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.5);
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            font-size: 1rem;
+            opacity: 0.9;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* ========== АДАПТИВ ========== */
+        @media (max-width: 992px) {
+            h1 { font-size: 3.5rem; }
+            .header-subtitle { font-size: 1.3rem; }
+            .gallery-item { width: 380px; height: 340px; }
+            .featured-sections { flex-direction: column; align-items: center; }
+            .featured-section { max-width: 500px; margin-bottom: 2rem; }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.8rem; }
+            .header-subtitle { font-size: 1.1rem; padding: 0 25px; }
+            .gallery-item { width: 320px; height: 280px; }
+            .featured-section { padding: 2rem; }
+            .menu-panel { width: 100%; right: -100%; }
+            .footer-links { gap: 20px; }
+            .footer-links a { padding: 10px 20px; font-size: 1.1rem; }
+            .menu-right { gap: 15px; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.3rem; }
+            .logo { font-size: 1.6rem; }
+            .logo-icon { font-size: 1.9rem; }
+            .gallery-item { width: 270px; height: 230px; }
+            .featured-section { padding: 1.5rem; }
+            .featured-section h2 { font-size: 1.5rem; }
+            .featured-section .btn { padding: 10px 22px; }
+            .footer-logo { font-size: 2.3rem; }
+            .language-btn { padding: 8px 14px; font-size: 0.85rem; }
+            .theme-toggle-btn { padding: 8px 14px; font-size: 0.85rem; }
+        }
+
+        /* ========== ТЕМНОТА: уточнение стилей ========== */
+        [data-theme="dark"] body {
+            background-color: var(--paper);
+            color: var(--text);
+        }
+        [data-theme="dark"] .top-menu {
+            background: linear-gradient(135deg, var(--paper), #2a1518);
+        }
+        [data-theme="dark"] .top-menu.scrolled {
+            background: rgba(26, 16, 18, 0.95);
+        }
+        [data-theme="dark"] .featured-section {
+            background: var(--light);
+            border: 1px solid rgba(139, 46, 61, 0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        [data-theme="dark"] .scroll-effect {
+            background: var(--light);
+            border: 1px solid rgba(139, 46, 61, 0.3);
+        }
+        [data-theme="dark"] .gallery-item {
+            background: var(--light);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        [data-theme="dark"] footer {
+            background: linear-gradient(135deg, var(--paper), #2a1518, #1a1012);
+        }
+        [data-theme="dark"] .menu-panel {
+            background: linear-gradient(160deg, var(--paper), #2a1518, #1a1012);
+        }
+        [data-theme="dark"] .language-dropdown {
+            background: rgba(45, 27, 30, 0.95);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        [data-theme="dark"] .language-dropdown a {
+            color: var(--text);
+        }
+        [data-theme="dark"] .language-dropdown a:hover {
+            background: rgba(178, 62, 78, 0.2);
+            color: var(--gold);
+        }
+
+        /* ========== УЛУЧШЕНИЕ ПРОИЗВОДИТЕЛЬНОСТИ ========== */
+        .will-change {
+            will-change: transform, opacity;
+        }
+
+        /* ========== ТЕМА: ПЛАВНЫЙ ПЕРЕХОД ========== */
+        @keyframes themeSwitch {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .theme-switching {
+            animation: themeSwitch 0.6s ease-in-out;
+        }
+.header-decor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.3);
+  z-index: -1;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.scroll-silhouette {
+  width: 300px;
+  height: 150px;
+  animation: rotateSlow 40s infinite linear;
+}
+[data-theme="dark"] .scroll-silhouette {
+  opacity: 0.3;
+}

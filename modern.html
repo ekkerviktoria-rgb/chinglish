@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代传承 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Современное наследие китайской культуры | Modern Chinese Cultural Heritage">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .modern-hero {
+            position: relative;
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
+            overflow: hidden;
+        }
+        /* Сетка */
+        .grid-bg {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(212,175,55,0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212,175,55,0.06) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 4s infinite;
+        }
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        /* Частицы */
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: particleFloat 6s infinite;
+            pointer-events: none;
+        }
+        @keyframes particleFloat {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translateY(-200px) translateX(100px); opacity: 0; }
+        }
+        
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 3rem 2rem; }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: #ffe0b0 !important;
+            -webkit-text-fill-color: #ffe0b0 !important;
+            background: none !important;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212,175,55,0.4);
+        }
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.2rem;
+            color: #ffe0b0 !important;
+            font-weight: 500;
+            background: rgba(0,0,0,0.4);
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            border: 1px solid rgba(212,175,55,0.3);
+        }
+        
+        /* СТАТИСТИКА */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+            border-bottom: 4px solid var(--gold);
+        }
+        [data-theme="dark"] .stat-card { background: #1a1010; }
+        .stat-card:hover { transform: translateY(-6px); }
+        .stat-number {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 3rem;
+            color: var(--primary);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-top: 0.5rem;
+        }
+        [data-theme="dark"] .stat-label { color: #e8d5c8; }
+        
+        /* ТЕХ-КАРТОЧКИ */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+        .tech-card {
+            background: white;
+            border-radius: 14px;
+            padding: 2rem;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        [data-theme="dark"] .tech-card { background: #1a1010; }
+        .tech-card:hover { transform: translateY(-4px); }
+        .tech-card .tech-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--gold);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .tech-card h3 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .tech-card p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        [data-theme="dark"] .tech-card p { color: #e8d5c8; }
+        .tech-card .tech-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* ПРОГРЕСС-БАРЫ */
+        .progress-section {
+            max-width: 1000px;
+            margin: 3rem auto;
+            background: white;
+            border-radius: 14px;
+            padding: 2.5rem;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+        }
+        [data-theme="dark"] .progress-section { background: #1a1010; }
+        .progress-bar {
+            margin-bottom: 1.5rem;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        [data-theme="dark"] .progress-label { color: #e8d5c8; }
+        .progress-track {
+            height: 8px;
+            background: rgba(0,0,0,0.06);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--gold));
+            border-radius: 4px;
+            animation: fillBar 2s ease-out;
+        }
+        @keyframes fillBar {
+            from { width: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-row { grid-template-columns: 1fr 1fr; }
+            .tech-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">新</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo"><i class="fas fa-landmark logo-icon"></i><span class="lang-zh">《中式英语》语言俱乐部</span><span class="lang-en" style="display:none">The "Chinglish" Language Club</span><span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span></a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher"><button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button><div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div></div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+           <a href="index.html" class="menu-item lang-zh">首页</a>
+                <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+                <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+                <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+                <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+                <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+                <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+                <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+                <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+                <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+                <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+                <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+                <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+                <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+                <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+                <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+                <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+                <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+                <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+                <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+                <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>        </div></div>
+    </nav>
+
+    <div class="modern-hero">
+        <div class="grid-bg"></div>
+        <div class="particle" style="left: 20%; top: 60%; animation-delay: 0s;"></div>
+        <div class="particle" style="left: 40%; top: 50%; animation-delay: 1s;"></div>
+        <div class="particle" style="left: 60%; top: 55%; animation-delay: 2s;"></div>
+        <div class="particle" style="left: 80%; top: 45%; animation-delay: 0.5s;"></div>
+        <div class="particle" style="left: 30%; top: 40%; animation-delay: 1.5s;"></div>
+        <div class="hero-content">
+            <h1 class="lang-zh">现代传承</h1>
+            <h1 class="lang-en" style="display:none">Modern Heritage</h1>
+            <h1 class="lang-ru" style="display:none">Современное наследие</h1>
+            <p class="hero-subtitle lang-zh">传统与现代科技融合，让千年文明焕发新生</p>
+            <p class="hero-subtitle lang-en" style="display:none">Tradition meets technology — revitalizing millennial civilization</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Традиции встречают технологии — возрождение тысячелетней цивилизации</p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1000px;">
+        
+        <!-- Статистика -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-number">87%</div>
+                <div class="stat-label lang-zh">文物数字化率</div>
+                <div class="stat-label lang-en" style="display:none">Artifact Digitization</div>
+                <div class="stat-label lang-ru" style="display:none">Оцифровка артефактов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">50M+</div>
+                <div class="stat-label lang-zh">在线访问量</div>
+                <div class="stat-label lang-en" style="display:none">Online Visits</div>
+                <div class="stat-label lang-ru" style="display:none">Онлайн-посещений</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8K</div>
+                <div class="stat-label lang-zh">超高清扫描</div>
+                <div class="stat-label lang-en" style="display:none">Ultra-HD Scanning</div>
+                <div class="stat-label lang-ru" style="display:none">Сверхчёткое сканирование</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">150+</div>
+                <div class="stat-label lang-zh">合作博物馆</div>
+                <div class="stat-label lang-en" style="display:none">Partner Museums</div>
+                <div class="stat-label lang-ru" style="display:none">Музеев-партнёров</div>
+            </div>
+        </div>
+        
+        <!-- Тех-карточки -->
+        <div class="tech-grid">
+            <div class="tech-card">
+                <span class="tech-badge">AI</span>
+                <div class="tech-icon">🤖</div>
+                <h3 class="lang-zh">人工智能修复</h3>
+                <h3 class="lang-en" style="display:none">AI Restoration</h3>
+                <h3 class="lang-ru" style="display:none">ИИ-реставрация</h3>
+                <p class="lang-zh">深度学习算法分析数百万件文物数据，自动识别破损区域并生成修复方案。AI可以补全残缺的古籍文字、复原褪色的壁画色彩，甚至推测缺失的瓷器纹样。准确率已达92%。</p>
+                <p class="lang-en" style="display:none">Deep learning analyzes millions of artifacts, identifies damage, generates restoration plans. AI completes ancient texts, restores faded murals, infers missing porcelain patterns. 92% accuracy.</p>
+                <p class="lang-ru" style="display:none">Глубокое обучение анализирует миллионы артефактов, выявляет повреждения, генерирует планы реставрации. Точность 92%.</p>
+            </div>
+            <div class="tech-card">
+                <span class="tech-badge">VR</span>
+                <div class="tech-icon">🥽</div>
+                <h3 class="lang-zh">虚拟现实博物馆</h3>
+                <h3 class="lang-en" style="display:none">VR Museum</h3>
+                <h3 class="lang-ru" style="display:none">VR-музей</h3>
+                <p class="lang-zh">通过VR技术，用户可以在家中"走进"故宫、敦煌莫高窟、秦始皇陵。高精度3D建模还原每一处细节，配合空间音频营造沉浸体验。2025年全球VR博物馆访问量突破1亿人次。</p>
+                <p class="lang-en" style="display:none">VR lets users "enter" Forbidden City, Dunhuang Caves, Qin Shihuang Mausoleum from home. High-precision 3D models with spatial audio. Global VR museum visits surpassed 100 million in 2025.</p>
+                <p class="lang-ru" style="display:none">VR позволяет «войти» в Запретный город, пещеры Дуньхуана, мавзолей Цинь Шихуана из дома. Глобальные посещения VR-музеев превысили 100 млн в 2025.</p>
+            </div>
+            <div class="tech-card">
+                <span class="tech-badge">3D</span>
+                <div class="tech-icon">🖨️</div>
+                <h3 class="lang-zh">3D打印文物</h3>
+                <h3 class="lang-en" style="display:none">3D Printed Artifacts</h3>
+                <h3 class="lang-ru" style="display:none">3D-печать артефактов</h3>
+                <p class="lang-zh">利用3D扫描和打印技术，珍贵文物可以完美复制用于展览，原件则得到更好的保护。兵马俑、青铜器、陶瓷均可精确复刻，误差小于0.1毫米，让更多人触摸到历史。</p>
+                <p class="lang-en" style="display:none">3D scanning and printing perfectly replicate precious artifacts for exhibition while originals are preserved. Terracotta warriors, bronzes, ceramics replicated with <0.1mm error.</p>
+                <p class="lang-ru" style="display:none">3D-сканирование и печать идеально копируют артефакты для выставок, сохраняя оригиналы. Терракотовые воины, бронза, керамика с погрешностью <0,1 мм.</p>
+            </div>
+            <div class="tech-card">
+                <span class="tech-badge">NFT</span>
+                <div class="tech-icon">🔗</div>
+                <h3 class="lang-zh">区块链存证</h3>
+                <h3 class="lang-en" style="display:none">Blockchain Certification</h3>
+                <h3 class="lang-ru" style="display:none">Блокчейн-сертификация</h3>
+                <p class="lang-zh">区块链技术为每一件数字文物创建独一无二的数字身份，防止赝品流通。数字藏品（NFT）让传统文化以新形式传播，敦煌壁画数字藏品上线即售罄，开创文化传承新模式。</p>
+                <p class="lang-en" style="display:none">Blockchain creates unique digital identity for each artifact, preventing forgery. Digital collectibles (NFTs) spread traditional culture in new forms — Dunhuang mural NFTs sold out instantly.</p>
+                <p class="lang-ru" style="display:none">Блокчейн создаёт уникальную цифровую идентичность для каждого артефакта. Цифровые коллекции (NFT) распространяют культуру в новых формах.</p>
+            </div>
+        </div>
+        
+        <!-- Прогресс -->
+        <div class="progress-section">
+            <h3 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: var(--primary); margin-bottom: 2rem; text-align: center;" class="lang-zh">文化数字化进程</h3>
+            <h3 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: var(--primary); margin-bottom: 2rem; text-align: center; display:none" class="lang-en">Cultural Digitization Progress</h3>
+            <h3 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: var(--primary); margin-bottom: 2rem; text-align: center; display:none" class="lang-ru">Прогресс оцифровки культуры</h3>
+            <div class="progress-bar">
+                <div class="progress-label"><span class="lang-zh">古籍数字化</span><span class="lang-en" style="display:none">Ancient Text Digitization</span><span class="lang-ru" style="display:none">Оцифровка текстов</span><span>87%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 87%;"></div></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-label"><span class="lang-zh">文物3D建模</span><span class="lang-en" style="display:none">Artifact 3D Modeling</span><span class="lang-ru" style="display:none">3D-моделирование</span><span>64%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 64%;"></div></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-label"><span class="lang-zh">VR展厅覆盖</span><span class="lang-en" style="display:none">VR Exhibition Coverage</span><span class="lang-ru" style="display:none">Покрытие VR-выставок</span><span>45%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 45%;"></div></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-label"><span class="lang-zh">AI修复应用</span><span class="lang-en" style="display:none">AI Restoration Application</span><span class="lang-ru" style="display:none">Применение ИИ-реставрации</span><span>38%</span></div>
+                <div class="progress-track"><div class="progress-fill" style="width: 38%;"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><i class="fas fa-landmark" style="margin-right: 15px; color: var(--gold);"></i><span class="lang-zh">中华文化瑰宝数字博物馆</span><span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span><span class="lang-ru" style="display:none">Онлайн-музей культурных реликвий Китая</span></div>
+            <div class="footer-links"><a href="index.html" class="lang-zh">首页</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-ru" style="display:none">Главная</a><a href="#" class="lang-zh">关于我们</a><a href="#" class="lang-en" style="display:none">About Us</a><a href="#" class="lang-ru" style="display:none">О нас</a></div>
+            <div class="footer-social"><a href="#"><i class="fab fa-weixin"></i></a><a href="#"><i class="fab fa-weibo"></i></a></div>
+            <div class="footer-bottom"><p class="lang-zh">© 2026 中华文化瑰宝数字博物馆 | <a href="#">隐私政策</a></p><p class="lang-en" style="display:none">© 2026 Digital Museum | <a href="#">Privacy Policy</a></p><p class="lang-ru" style="display:none">© 2026 Цифровой музей | <a href="#">Политика конфиденциальности</a></p></div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

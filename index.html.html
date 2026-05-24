@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中华文化瑰宝 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+<link rel="stylesheet" href="style.css">
+    <meta name="description" content="探索中华五千年文化瑰宝的数字博物馆 | Digital museum exploring 5000 years of Chinese cultural treasures">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Экран загрузки -->
+<div id="loader">
+        <div class="loader-content">文</div>
+    </div>
+
+    <!-- Контейнеры для эффектов -->
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+    <div class="sky-bg" id="skyBg"></div>
+    <div class="clouds-container" id="cloudsContainer"></div>
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="lanterns-container" id="lanternsContainer"></div>
+    <!-- Контейнеры для эффектов -->
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+    <div class="sky-bg" id="skyBg"></div>
+    <div class="clouds-container" id="cloudsContainer"></div>
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="lanterns-container" id="lanternsContainer"></div>
+
+    <!-- Навигация -->
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo">
+            <i class="fas fa-landmark logo-icon"></i>
+            <span class="lang-zh">《中式英语》语言俱乐部</span>
+            <span class="lang-en" style="display:none">The "Chinglish" Language Club</span>
+            <span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span>
+        </a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle" title="Переключить тему">
+                <i class="fas fa-moon"></i>
+                <span class="theme-text lang-zh">Темная</span>
+                <span class="theme-text lang-en" style="display:none">Dark</span>
+                <span class="theme-text lang-ru" style="display:none">Темная</span>
+            </button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn" title="Toggle cursor petals">
+                <i class="fas fa-leaf"></i>
+            </button>
+            <div class="language-switcher">
+                <button class="language-btn" id="languageBtn">
+                    <i class="fas fa-globe"></i>
+                    <span class="lang-zh">中文</span>
+                    <span class="lang-en" style="display:none">EN</span>
+                    <span class="lang-ru" style="display:none">РУ</span>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="#" data-lang="zh">中文</a>
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-spa menu-icon"></i>
+            </div>
+        </div>
+        <div class="menu-panel" id="menuPanel">
+            <div class="menu-items">
+                 <a href="index.html" class="menu-item lang-zh">首页</a>
+        <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+        <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+        <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+        <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+        <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+        <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+        <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+        <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+        <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+        <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+        <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+        <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+        <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+        <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+        <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+        <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+        <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+        <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+        <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+        <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+    </div>
+</div>
+                         </div>
+        </div>
+    </nav>
+
+    <!-- Главный контент -->
+    <div class="header-container">
+        <div class="header-content">
+<!-- Внутрь .header-content -->
+<div class="header-decor">
+  <svg class="scroll-silhouette" viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg">
+    <path fill="none" stroke="rgba(212,175,55,0.15)" stroke-width="2" 
+          d="M30,20 C60,5 140,5 170,20 L170,80 C140,95 60,95 30,80 Z" />
+    <circle cx="100" cy="50" r="3" fill="rgba(212,175,55,0.2)" />
+  </svg>
+</div>
+            <h1 class="lang-zh"style="display:none;color: red;">中华五千年文化瑰宝</h1>
+            <h1 class="lang-en" style="display:none;color: red;">5000 Years of Chinese Cultural Treasures</h1>
+            <h1 class="lang-ru" style="display:none;color: white;">5000 лет сокровищ китайской культуры</h1>
+            <p class="header-subtitle lang-zh">探索源远流长的中华文明，从甲骨文到数字时代，感受千年智慧与现代创新的完美融合</p>
+            <p class="header-subtitle lang-en" style="display:none">Explore the long-standing Chinese civilization, from oracle bones to the digital age, experiencing the perfect fusion of millennia-old wisdom and modern innovation</p>
+            <p class="header-subtitle lang-ru" style="display:none">Исследуйте древнюю китайскую цивилизацию, от гадательных костей до цифровой эпохи, ощутите идеальное слияние тысячелетней мудрости и современных инноваций</p>
+            <div class="chinese-seal">
+                <div class="seal-text lang-zh">传承 · 创新 · 发展</div>
+                <div class="seal-text lang-en" style="display:none">Heritage · Innovation · Development</div>
+                <div class="seal-text lang-ru" style="display:none">Наследие · Инновации · Развитие</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="container" id="mainContent">
+        <div class="gallery-title">
+            <h2 class="lang-zh">精选的文化景点</h2>
+            <h2 class="lang-en" style="display:none">Selected Cultural Attractions</h2>
+            <h2 class="lang-ru" style="display:none">Избранные культурные достопримечательности</h2>
+        </div>
+        <div class="full-width-gallery">
+            <div class="gallery-track" id="galleryTrack">
+                <div class="gallery-item">
+                    <img src="images/park.jpg" alt="书法艺术 | Calligraphy" loading="lazy">
+                    <div class="item-caption lang-zh">张家界国家公园</div>
+                    <div class="item-caption lang-en" style="display:none">Zhangjiajie National Forest Park</div>
+                    <div class="item-caption lang-ru" style="display:none">Национальный парк Чжанцзяцзе</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/venecia_vostochya.jpg" alt="传统绘画 | Traditional Painting" loading="lazy">
+                    <div class="item-caption lang-zh">东方威尼斯</div>
+                    <div class="item-caption lang-en" style="display:none">The Venice of the East</div>
+                    <div class="item-caption lang-ru" style="display:none">Восточная Венеция</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/hram_neba.jpg" alt="民间工艺 | Folk Art" loading="lazy">
+                    <div class="item-caption lang-zh">天坛</div>
+                    <div class="item-caption lang-en" style="display:none">The Temple of Heaven</div>
+                    <div class="item-caption lang-ru" style="display:none">Храм неба</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/Запретный город.jpg" alt="故宫珍宝 | Palace Treasures" loading="lazy">
+                    <div class="item-caption lang-zh">故宫博物院藏品</div>
+                    <div class="item-caption lang-en" style="display:none">Palace Museum Collection</div>
+                    <div class="item-caption lang-ru" style="display:none">Коллекция музея Запретного города</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="images/armia.jpg" alt="丝绸之路 | Silk Road" loading="lazy">
+                    <div class="item-caption lang-zh">兵马俑</div>
+                    <div class="item-caption lang-en" style="display:none">The Terracotta Army</div>
+                    <div class="item-caption lang-ru" style="display:none">Терракотовая армия</div>
+                </div>
+            </div>
+        </div>
+<!-- После </div> галереи (после </div> с классом full-width-gallery) -->
+<div class="section-divider svg"></div>
+
+<!-- Или между другими крупными секциями -->
+<div class="section-divider svg"></div>
+
+        <div class="scroll-effect">
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 2.5rem; font-family: 'Ma Shan Zheng', cursive;" class="lang-zh">中华文化精髓</h2>
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 2.5rem; font-family: 'Ma Shan Zheng', cursive; display:none" class="lang-en">Essence of Chinese Culture</h2>
+            <h2 style="text-align: center; color: var(--primary); margin-bottom: 2.5rem; font-family: 'Ma Shan Zheng', cursive; display:none" class="lang-ru">Сущность китайской культуры</h2>
+            <p style="text-align: center; font-size: 1.25rem; line-height: 2.1;" class="lang-zh">中华文化源远流长，博大精深，是中华民族五千年文明的结晶。</p>
+            <p style="text-align: center; font-size: 1.25rem; line-height: 2.1; display:none" class="lang-en">Chinese culture has a long history and is extensive and profound.</p>
+            <p style="text-align: center; font-size: 1.25rem; line-height: 2.1; display:none" class="lang-ru">Китайская культура имеет долгую историю, она обширна и глубока.</p>
+        </div>
+<!-- После </div> галереи (после </div> с классом full-width-gallery) -->
+<div class="section-divider svg"></div>
+
+<!-- Или между другими крупными секциями -->
+<div class="section-divider svg"></div>
+        <div class="featured-sections">
+            <div class="featured-section">
+                <i class="fas fa-scroll icon"></i>
+                <h2 class="lang-zh">文化传承</h2>
+ <h2 class="lang-en">Cultural Heritage</h2>
+ <h2 class="lang-ru">Культурное наследие</h2>
+                <p class="lang-zh">中国传统文化是中华民族的精神命脉。</p>
+<p class="lang-en">Traditional Chinese culture constitutes the spiritual foundation of the Chinese nation.</p>
+<p class="lang-ru">Традиционная китайская культура составляет духовную основу китайской нации.</p>
+                <button class="btn lang-zh">探索更多</button>
+<button class="btn lang-en">Cultural Heritage</button>
+<button class="btn lang-ru">Культурное наследие</button>
+
+            </div>
+            <div class="featured-section">
+                <i class="fas fa-gem icon"></i>
+                <h2 class="lang-zh">数字典藏</h2>
+ <h2 class="lang-en">Digital Collection</h2>
+<h2 class="lang-ru">Цифровая коллекция</h2>
+ <p class="lang-zh">通过8K超高清扫描和3D建模技术保护文物。</p>
+                <p class="lang-en">Preserving cultural relics through 8K ultra-high-definition scanning and 3D modeling.</p>
+<p class="lang-ru">Технологии будущего для памяти прошлого: 8K и 3D в сохранении наследия.</p>
+                <button class="btn lang-zh">查看典藏</button>
+<button class="btn lang-en">Digital Collection</button>
+      <button class="btn lang-ru">Цифровая коллекция</button>
+            </div>
+            <div class="featured-section">
+                <i class="fas fa-vr-cardboard icon"></i>
+                <h2 class="lang-zh">沉浸体验</h2>
+<h2 class="lang-en">Immersive Experience</h2>
+<h2 class="lang-ru">Эффект полного погружения</h2>
+ <p class="lang-zh">沉浸于古老长安，开启一场穿越时空的旅程。</p>
+                <p class="lang-en">Immerse yourself in ancient Chang'an — a journey across time.</p>
+ <p class="lang-ru">Перенеситесь в древний Чанъань: ваше путешествие во времени начинается.</p>
+                <button class="btn lang-zh">开始体验</button>
+<button class="btn lang-en">Immersive Experience</button>
+ <button class="btn lang-ru">Эффект полного погружения</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark" style="margin-right: 15px; color: var(--gold);"></i>
+                <span class="lang-zh">中华文化瑰宝数字博物馆</span>
+<span class="lang-en">Chinese Cultural Treasures Digital Museum</span>
+<span class="lang-ru">Онлайн-музей культурных реликвий Китая</span>
+            </div>
+            <div class="footer-links">
+                <a href="#" class="lang-zh">首页</a>
+<a href="#" class="lang-en">Home</a>
+<a href="#" class="lang-ru">Главная</a>
+                <a href="#" class="lang-zh">关于我们</a>
+<a href="#" class="lang-en">About Us</a>
+<a href="#" class="lang-ru">О нас</a>
+                <a href="#" class="lang-zh">数字典藏</a>
+<a href="#" class="lang-en">Digital Collection</a>
+<a href="#" class="lang-ru">Цифровая коллекция</a>
+            </div>
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p class="lang-zh">© 2026 中华文化瑰宝数字博物馆 | <a href="#">隐私政策</a></p>
+<p class="lang-en">© 2026 Digital Museum of Chinese Cultural Treasures| <a href="#">Privacy Policy</a></p>
+<p class="lang-ru">© 2026 Цифровой музей жемчужин китайской культуры| <a href="#">Политика конфиденциальности</a></p>
+            </div>
+        </div>
+    </footer>
+   <script src="script.js"></script>   
+</body>
+</html>
+
+
