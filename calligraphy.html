@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书法艺术 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Искусство китайской каллиграфии | Chinese Calligraphy Art">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .quiz-block {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin: 2.5rem auto;
+            max-width: 900px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            border-left: 5px solid var(--gold);
+        }
+        [data-theme="dark"] .quiz-block {
+            background: #2a1518;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+        .quiz-question {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        [data-theme="dark"] .quiz-question { color: #d4a76a; }
+        .quiz-option {
+            display: block;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 2px solid rgba(139,69,19,0.2);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.05rem;
+        }
+        .quiz-option:hover { background: rgba(139,69,19,0.05); }
+        .quiz-option.selected { border-color: var(--gold); background: rgba(212,175,55,0.1); }
+        .quiz-option.correct { border-color: #4CAF50; background: rgba(76,175,80,0.1); }
+        .quiz-option.wrong { border-color: #C41E3A; background: rgba(196,30,58,0.1); }
+        .quiz-btn {
+            padding: 14px 30px;
+            border-radius: 30px;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            background: var(--primary);
+            color: white;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+        .quiz-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .quiz-result { font-size: 1.3rem; font-weight: bold; margin-top: 1rem; min-height: 30px; }
+        .quiz-prev-result { font-size: 0.95rem; color: #888; margin-bottom: 0.5rem; }
+        .calligraphy-hero {
+            position: relative;
+            min-height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f5efe0;
+            overflow: hidden;
+        }
+        [data-theme="dark"] .calligraphy-hero { background-color: #1a1012; }
+        
+        .hero-bg-pattern {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 4rem;
+        }
+        [data-theme="dark"] .hero-bg-pattern { opacity: 0.1; }
+        .hero-bg-char {
+            font-family: 'Ma Shan Zheng', cursive;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(3rem, 8vw, 7rem);
+            animation: bgCharFloat 10s infinite ease-in-out;
+        }
+        [data-theme="dark"] .hero-bg-char { color: var(--gold); }
+        .hero-bg-char:nth-child(odd) { animation-delay: 0s; }
+        .hero-bg-char:nth-child(even) { animation-delay: 3s; }
+        .hero-bg-char:nth-child(3n) { animation-delay: 6s; }
+        
+        @keyframes bgCharFloat {
+            0%, 100% { transform: translateY(0); opacity: 0.6; }
+            50% { transform: translateY(-10px); opacity: 1; }
+        }
+        
+        .hero-writing-lines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.08;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5rem;
+            padding: 0 10%;
+        }
+        [data-theme="dark"] .hero-writing-lines { opacity: 0.06; }
+        .writing-line {
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 1px;
+        }
+        [data-theme="dark"] .writing-line { background: var(--gold); }
+        
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding: 3rem 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: clamp(3rem, 8vw, 5rem);
+            color: #1a1a1a !important;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+            -webkit-text-fill-color: #1a1a1a !important;
+            background: none !important;
+        }
+        [data-theme="dark"] .hero-content h1 {
+            color: #f0e6d3 !important;
+            -webkit-text-fill-color: #f0e6d3 !important;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+        }
+        
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.25rem;
+            color: #333 !important;
+            font-weight: 600;
+            background: rgba(255,255,255,0.85);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            max-width: 650px;
+            line-height: 1.6;
+            border: 1px solid rgba(212,175,55,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        [data-theme="dark"] .hero-subtitle {
+            color: #f0e6d3 !important;
+            background: rgba(26,16,18,0.85);
+            border-color: rgba(212,175,55,0.4);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .content-card {
+            background: white;
+            border-radius: 16px;
+            padding: 3rem;
+            margin: 2.5rem auto;
+            max-width: 900px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            position: relative;
+            border-left: 5px solid var(--gold);
+            transition: all 0.4s ease;
+        }
+        [data-theme="dark"] .content-card {
+            background: #2a1518;
+            border-left-color: var(--primary);
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+        .content-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 55px rgba(0,0,0,0.12);
+        }
+        [data-theme="dark"] .content-card:hover { box-shadow: 0 16px 55px rgba(0,0,0,0.6); }
+        .content-card h3 {
+            color: var(--primary);
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .content-card h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 2px;
+        }
+        .content-card p {
+            line-height: 2;
+            font-size: 1.1rem;
+            color: var(--text);
+            margin-bottom: 1rem;
+        }
+        [data-theme="dark"] .content-card p { color: #e8d5c8; }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+        .info-item {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            border-top: 5px solid var(--gold);
+        }
+        [data-theme="dark"] .info-item {
+            background: #2a1518;
+            border-top-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .info-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+        }
+        [data-theme="dark"] .info-item:hover { box-shadow: 0 14px 40px rgba(0,0,0,0.6); }
+        .info-icon { font-size: 2.8rem; margin-bottom: 1rem; }
+        .info-item h4 { color: var(--primary); font-size: 1.4rem; margin-bottom: 0.8rem; }
+        .info-item p { font-size: 0.95rem; line-height: 1.7; color: var(--text); }
+        [data-theme="dark"] .info-item p { color: #e8d5c8; }
+        
+        .quote-block {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 3.5rem;
+            background: linear-gradient(135deg, rgba(139,46,61,0.05), rgba(212,175,55,0.08));
+            border-radius: 16px;
+            position: relative;
+            text-align: center;
+            font-style: italic;
+            border: 1px solid rgba(212,175,55,0.25);
+        }
+        [data-theme="dark"] .quote-block {
+            background: linear-gradient(135deg, rgba(154,3,30,0.12), rgba(212,167,106,0.1));
+            border-color: rgba(212,175,55,0.35);
+        }
+        .quote-block::before {
+            content: '"';
+            font-size: 9rem;
+            color: var(--gold);
+            opacity: 0.12;
+            position: absolute;
+            top: -35px;
+            left: 25px;
+            font-family: serif;
+            line-height: 1;
+        }
+        .quote-block p { font-size: 1.35rem; line-height: 2; position: relative; z-index: 1; }
+
+        /* Пропись */
+        .canvas-wrapper { position: relative; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; }
+        .drawing-canvas { border: 4px solid #8B4513; border-radius: 12px; background: #FFF8DC; cursor: crosshair; touch-action: none; max-width: 100%; box-shadow: 0 6px 25px rgba(139,69,19,0.25); }
+        [data-theme="dark"] .drawing-canvas { background: #1a0e08; border-color: #D4A574; }
+        .canvas-buttons { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+        .canvas-btn { padding: 14px 26px; border-radius: 30px; border: 2px solid #8B4513; cursor: pointer; font-size: 1rem; transition: all 0.3s ease; background: #FFF8DC; color: #8B4513; font-weight: bold; }
+        .canvas-btn:hover { background: #8B4513; color: #FFF8DC; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(139,69,19,0.3); }
+        [data-theme="dark"] .canvas-btn { background: #2a1518; color: #D4A574; border-color: #D4A574; }
+        [data-theme="dark"] .canvas-btn:hover { background: #D4A574; color: #1a0e08; }
+        .char-selector { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+        .char-btn { width: 60px; height: 60px; border-radius: 12px; border: 2px solid #ccc; cursor: pointer; font-size: 1.6rem; background: #FFF8DC; transition: all 0.3s ease; font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; display: flex; flex-direction: column; align-items: center; justify-content: center; line-height: 1; }
+        .char-btn .pinyin { font-size: 0.6rem; font-family: 'Georgia', serif; color: #888; }
+        .char-btn.active { border-color: #8B4513; background: #DEB887; font-weight: bold; box-shadow: 0 4px 12px rgba(139,69,19,0.25); }
+        [data-theme="dark"] .char-btn { background: #2a1518; color: #D4A574; border-color: #555; }
+        [data-theme="dark"] .char-btn.active { background: #5a2a2a; border-color: #D4A574; }
+        .stroke-info { text-align: center; font-weight: bold; font-size: 1.15rem; color: #8B4513; min-height: 25px; }
+        [data-theme="dark"] .stroke-info { color: #D4A574; }
+        .char-meaning { text-align: center; font-size: 1.4rem; color: #8B4513; min-height: 30px; font-weight: bold; }
+        [data-theme="dark"] .char-meaning { color: #D4A574; }
+        .result-char { font-size: 7rem; font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif; text-align: center; min-height: 110px; color: #1a1008; line-height: 1; }
+        [data-theme="dark"] .result-char { color: #F5E6D3; }
+        
+        /* Порядок черт — КРУПНО */
+        .stroke-order-display { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 8px; 
+            flex-wrap: wrap; 
+            font-size: 1.8rem; 
+            color: #8B4513; 
+            background: rgba(139,69,19,0.06); 
+            border-radius: 12px; 
+            padding: 12px 20px; 
+        }
+        [data-theme="dark"] .stroke-order-display { color: #D4A574; background: rgba(212,167,106,0.08); }
+        .stroke-order-display .arrow { color: #888; font-size: 1.2rem; }
+        .stroke-order-label { font-size: 0.9rem; color: #888; font-weight: normal; margin-right: 5px; }
+
+        /* Таблица */
+        .vocab-table { width: 100%; border-collapse: collapse; margin-top: 1rem; font-size: 1.05rem; }
+        .vocab-table th { background: rgba(139,69,19,0.1); padding: 14px; text-align: left; color: #8B4513; font-weight: bold; font-size: 1.1rem; }
+        .vocab-table td { padding: 12px 14px; border-bottom: 1px solid rgba(139,69,19,0.1); }
+        [data-theme="dark"] .vocab-table th { background: rgba(212,167,106,0.15); color: #D4A574; }
+        [data-theme="dark"] .vocab-table td { border-bottom-color: rgba(212,167,106,0.1); color: #e8d5c8; }
+        .vocab-table tr:hover td { background: rgba(212,175,55,0.06); }
+        
+        @media (max-width: 768px) {
+            .hero-bg-pattern { grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 2rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1rem; padding: 0.8rem 1.5rem; }
+            .content-card { padding: 2rem; margin: 1.5rem 1rem; }
+            .info-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .stroke-order-display { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">书</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <!-- Навигация -->
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo">
+            <img src="images/иконка.png" alt="Логотип" class="logo-icon">
+            <span class="lang-zh">《中式英语》语言俱乐部</span>
+            <span class="lang-en" style="display:none">The "Chinglish" Language Club</span>
+            <span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span>
+        </a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle" title="Переключить тему">
+                <i class="fas fa-moon"></i>
+                <span class="theme-text lang-zh">Темная</span>
+                <span class="theme-text lang-en" style="display:none">Dark</span>
+                <span class="theme-text lang-ru" style="display:none">Темная</span>
+            </button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn" title="Toggle cursor petals">
+                <i class="fas fa-leaf"></i>
+            </button>
+            <div class="language-switcher">
+                <button class="language-btn" id="languageBtn">
+                    <i class="fas fa-globe"></i>
+                    <span class="lang-zh">中文</span>
+                    <span class="lang-en" style="display:none">EN</span>
+                    <span class="lang-ru" style="display:none">РУ</span>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="#" data-lang="zh">中文</a>
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-spa menu-icon"></i>
+            </div>
+        </div>
+        <div class="menu-panel" id="menuPanel">
+            <div class="menu-items">
+                <a href="index.html" class="menu-item lang-zh">首页</a>
+                <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+                <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+                <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+                <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+                <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+                <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+                <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+                <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+                <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+                <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+                <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+                <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+                <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+                <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+                <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+                <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+                <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+                <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+                <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+                <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ХЕДЕР -->
+    <div class="calligraphy-hero">
+        <div class="hero-bg-pattern">
+            <span class="hero-bg-char">書</span><span class="hero-bg-char">法</span><span class="hero-bg-char">藝</span>
+            <span class="hero-bg-char">術</span><span class="hero-bg-char">永</span><span class="hero-bg-char">和</span>
+            <span class="hero-bg-char">筆</span><span class="hero-bg-char">墨</span><span class="hero-bg-char">紙</span>
+            <span class="hero-bg-char">硯</span><span class="hero-bg-char">篆</span><span class="hero-bg-char">隸</span>
+            <span class="hero-bg-char">楷</span><span class="hero-bg-char">行</span><span class="hero-bg-char">草</span>
+            <span class="hero-bg-char">蘭</span><span class="hero-bg-char">亭</span><span class="hero-bg-char">序</span>
+            <span class="hero-bg-char">顏</span><span class="hero-bg-char">真</span><span class="hero-bg-char">卿</span>
+            <span class="hero-bg-char">蘇</span><span class="hero-bg-char">軾</span><span class="hero-bg-char">懷</span>
+        </div>
+        <div class="hero-writing-lines">
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+            <div class="writing-line"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="lang-zh">书法艺术</h1>
+            <h1 class="lang-en" style="display:none">Calligraphy Art</h1>
+            <h1 class="lang-ru" style="display:none">Искусство каллиграфии</h1>
+            <p class="hero-subtitle lang-zh">笔墨纸砚，书写千年文明的韵律与灵魂</p>
+            <p class="hero-subtitle lang-en" style="display:none">Brush, ink, paper, inkstone — writing the rhythm and soul of millennial civilization</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Кисть, тушь, бумага, тушечница — пишем ритм и душу тысячелетней цивилизации</p>
+        </div>
+    </div>
+
+    <!-- Контент -->
+    <div class="container" id="mainContent" style="max-width: 1000px;">
+        
+        <!-- Истоки -->
+        <div class="content-card">
+            <h3 class="lang-zh">📜 书法之源</h3>
+            <h3 class="lang-en" style="display:none">📜 Origins of Calligraphy</h3>
+            <h3 class="lang-ru" style="display:none">📜 Истоки каллиграфии</h3>
+            <p class="lang-zh">中国书法是一门拥有三千年历史的古老艺术。从甲骨文、金文、篆书，到隶书、楷书、行书、草书，汉字书写经历了漫长的演变过程。每一笔每一画都承载着中华民族的智慧与审美。</p>
+            <p class="lang-zh">书法不仅是文字的记录，更是书写者情感、修养与精神的直接表达。古人云："字如其人"，一个人的书法风格往往反映其性格与气质。</p>
+            <p class="lang-en" style="display:none">Chinese calligraphy is an ancient art with 3000 years of history. From oracle bones, bronze inscriptions, seal script, to clerical, regular, running, and cursive scripts — Chinese writing has undergone a long evolution. Each stroke carries the wisdom and aesthetics of the Chinese nation.</p>
+            <p class="lang-ru" style="display:none">Китайская каллиграфия — древнее искусство с 3000-летней историей. От гадательных костей, бронзовых надписей, печатного письма до канцелярского, уставного, полукурсивного и скорописного — китайская письменность прошла долгую эволюцию. Каждый штрих несёт мудрость и эстетику китайской нации.</p>
+        </div>
+
+        <!-- Сетка -->
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-icon">🖌️</div>
+                <h4 class="lang-zh">文房四宝</h4>
+                <h4 class="lang-en" style="display:none">Four Treasures</h4>
+                <h4 class="lang-ru" style="display:none">Четыре сокровища</h4>
+                <p class="lang-zh">笔（毛笔）、墨（墨条）、纸（宣纸）、砚（砚台）—— 书法创作的四件必备工具。</p>
+                <p class="lang-en" style="display:none">Brush, ink stick, rice paper, inkstone — the four essential tools for calligraphy.</p>
+                <p class="lang-ru" style="display:none">Кисть, тушь, рисовая бумага, тушечница — четыре необходимых инструмента.</p>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">✍️</div>
+                <h4 class="lang-zh">五体书法</h4>
+                <h4 class="lang-en" style="display:none">Five Scripts</h4>
+                <h4 class="lang-ru" style="display:none">Пять стилей</h4>
+                <p class="lang-zh">篆书古朴、隶书典雅、楷书端正、行书流畅、草书奔放。</p>
+                <p class="lang-en" style="display:none">Seal, clerical, regular, running, cursive — five unique scripts.</p>
+                <p class="lang-ru" style="display:none">Печатное, канцелярское, уставное, полукурсивное, скорописное.</p>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🏛️</div>
+                <h4 class="lang-zh">书法名家</h4>
+                <h4 class="lang-en" style="display:none">Famous Masters</h4>
+                <h4 class="lang-ru" style="display:none">Знаменитые мастера</h4>
+                <p class="lang-zh">王羲之、颜真卿、柳公权、怀素 — 书法史上的丰碑。</p>
+                <p class="lang-en" style="display:none">Wang Xizhi, Yan Zhenqing, Liu Gongquan, Huai Su — monuments of calligraphy.</p>
+                <p class="lang-ru" style="display:none">Ван Сичжи, Янь Чжэньцин, Лю Гунцюань, Хуай Су — монументы каллиграфии.</p>
+            </div>
+        </div>
+
+        <!-- Техника -->
+        <div class="content-card">
+            <h3 class="lang-zh">🎯 执笔之道</h3>
+            <h3 class="lang-en" style="display:none">🎯 The Art of Holding Brush</h3>
+            <h3 class="lang-ru" style="display:none">🎯 Искусство держания кисти</h3>
+            <p class="lang-zh">执笔无定法，要使虚而宽。五指执笔法是最基本的方法。运笔讲究中锋、侧锋、藏锋、露锋。中锋行笔是书法的核心要领——笔锋始终在笔画中心运行，使线条圆润饱满、力透纸背。</p>
+            <p class="lang-en" style="display:none">There's no fixed way to hold the brush. The five-finger method is basic. The center-tip technique is the core of calligraphy.</p>
+            <p class="lang-ru" style="display:none">Нет фиксированного способа держать кисть. Метод пяти пальцев — основной. Техника центрального кончика — ядро каллиграфии.</p>
+        </div>
+
+        <!-- Цитата -->
+        <div class="quote-block">
+            <p class="lang-zh">"书法在用笔，用笔在用锋。"<br>—— 清 · 周星莲《临池管见》</p>
+            <p class="lang-en" style="display:none">"Calligraphy lies in brush handling, brush handling lies in tip control."<br>—— Zhou Xinglian, Qing Dynasty</p>
+            <p class="lang-ru" style="display:none">"Каллиграфия — в обращении с кистью, обращение с кистью — в контроле кончика."<br>—— Чжоу Синлянь, династия Цин</p>
+        </div>
+
+        <!-- Три шедевра -->
+        <div class="content-card">
+            <h3 class="lang-zh">🏆 天下三大行书</h3>
+            <h3 class="lang-en" style="display:none">🏆 Three Greatest Running Scripts</h3>
+            <h3 class="lang-ru" style="display:none">🏆 Три величайших полукурсива</h3>
+            <p class="lang-zh"><strong>第一名：《兰亭序》</strong> — 王羲之，353年。被誉为"天下第一行书"。</p>
+            <p class="lang-zh"><strong>第二名：《祭侄文稿》</strong> — 颜真卿，758年。为祭奠亡侄而作。</p>
+            <p class="lang-zh"><strong>第三名：《黄州寒食帖》</strong> — 苏轼，1082年。被贬黄州时所作。</p>
+            <p class="lang-en" style="display:none"><strong>#1: "Orchid Pavilion Preface"</strong> — Wang Xizhi, 353 CE.<br><strong>#2: "Draft of Eulogy for Nephew"</strong> — Yan Zhenqing, 758 CE.<br><strong>#3: "Cold Food Observance at Huangzhou"</strong> — Su Shi, 1082 CE.</p>
+            <p class="lang-ru" style="display:none"><strong>№1: «Предисловие к Павильону орхидей»</strong> — Ван Сичжи, 353 г.<br><strong>№2: «Черновик панегирика племяннику»</strong> — Янь Чжэньцин, 758 г.<br><strong>№3: «Холодная пища в Хуанчжоу»</strong> — Су Ши, 1082 г.</p>
+        </div>
+
+        <!-- Мини-словарь -->
+        <div class="content-card">
+            <h3 class="lang-zh">📖 书法词汇</h3>
+            <h3 class="lang-en" style="display:none">📖 Calligraphy Vocabulary</h3>
+            <h3 class="lang-ru" style="display:none">📖 Словарь каллиграфа</h3>
+            <table class="vocab-table">
+                <tr><th class="lang-ru">Русский</th><th class="lang-zh" style="display:none">中文</th><th class="lang-en" style="display:none">English</th><th>Pinyin</th><th>汉字</th></tr>
+                <tr><td class="lang-ru">Кисть</td><td class="lang-zh" style="display:none">毛笔</td><td class="lang-en" style="display:none">Brush</td><td>máobǐ</td><td>毛笔</td></tr>
+                <tr><td class="lang-ru">Тушь</td><td class="lang-zh" style="display:none">墨</td><td class="lang-en" style="display:none">Ink</td><td>mò</td><td>墨</td></tr>
+                <tr><td class="lang-ru">Бумага</td><td class="lang-zh" style="display:none">纸</td><td class="lang-en" style="display:none">Paper</td><td>zhǐ</td><td>纸</td></tr>
+                <tr><td class="lang-ru">Тушечница</td><td class="lang-zh" style="display:none">砚台</td><td class="lang-en" style="display:none">Inkstone</td><td>yàntái</td><td>砚台</td></tr>
+                <tr><td class="lang-ru">Каллиграфия</td><td class="lang-zh" style="display:none">书法</td><td class="lang-en" style="display:none">Calligraphy</td><td>shūfǎ</td><td>书法</td></tr>
+                <tr><td class="lang-ru">Иероглиф</td><td class="lang-zh" style="display:none">汉字</td><td class="lang-en" style="display:none">Character</td><td>hànzì</td><td>汉字</td></tr>
+            </table>
+        </div>
+
+        <!-- Каллиграфия как воспитание -->
+        <div class="content-card">
+            <h3 class="lang-zh">🌟 书法与修行</h3>
+            <h3 class="lang-en" style="display:none">🌟 Calligraphy as Cultivation</h3>
+            <h3 class="lang-ru" style="display:none">🌟 Каллиграфия как воспитание</h3>
+            <p class="lang-zh">练习书法不仅是技艺的训练，更是心性的修养。在提按转折之间，书写者需要心平气和、凝神静气。一幅好的书法作品，是技法、情感、修养的完美统一。</p>
+            <p class="lang-en" style="display:none">Practicing calligraphy is not just technical training, but spiritual cultivation.</p>
+            <p class="lang-ru" style="display:none">Практика каллиграфии — не только техническая тренировка, но и духовное воспитание. Хорошая каллиграфическая работа — это совершенное единство техники, эмоций и воспитания.</p>
+        </div>
+        <!-- БЛОК: ПОРЯДОК ЧЕРТ — ОБЩИЕ ПРАВИЛА -->
+        <div class="content-card">
+            <h3 class="lang-zh">📐 笔画顺序 — Порядок написания черт</h3>
+            <h3 class="lang-en" style="display:none">📐 Stroke Order Rules</h3>
+            <h3 class="lang-ru">📐 笔画顺序 — Порядок написания черт</h3>
+            
+            <p class="lang-ru">В китайской каллиграфии существует <strong>строгий порядок написания черт</strong>. Это не просто традиция — правильный порядок помогает писать быстрее, красивее и запоминать иероглифы.</p>
+            <p class="lang-zh" style="display:none">中国书法有<strong>严格的笔顺规则</strong>。正确的笔顺有助于写得更快、更漂亮，也更容易记住汉字。</p>
+            <p class="lang-en" style="display:none">Chinese calligraphy has <strong>strict stroke order rules</strong>. Proper order helps write faster, more beautifully, and memorize characters better.</p>
+            
+            <!-- 7 правил -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem;">
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #C41E3A;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⬇️</div>
+                    <strong class="lang-ru">Сверху вниз</strong>
+                    <strong class="lang-zh" style="display:none">从上到下</strong>
+                    <strong class="lang-en" style="display:none">Top to bottom</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 三 (sān — три) — верхняя черта → средняя → нижняя</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：三 — 上横→中横→下横</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 三 (three) — top stroke → middle → bottom</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #E67E22;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">➡️</div>
+                    <strong class="lang-ru">Слева направо</strong>
+                    <strong class="lang-zh" style="display:none">从左到右</strong>
+                    <strong class="lang-en" style="display:none">Left to right</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 人 (rén — человек) — левая черта → правая</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：人 — 左撇→右捺</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 人 (person) — left stroke → right</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #27AE60;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">一丨</div>
+                    <strong class="lang-ru">Горизонталь → вертикаль</strong>
+                    <strong class="lang-zh" style="display:none">先横后竖</strong>
+                    <strong class="lang-en" style="display:none">Horizontal → vertical</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 十 (shí — десять) — горизонталь → вертикаль</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：十 — 先横后竖</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 十 (ten) — horizontal then vertical</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #8E44AD;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">丿㇏</div>
+                    <strong class="lang-ru">Откидная влево → вправо</strong>
+                    <strong class="lang-zh" style="display:none">先撇后捺</strong>
+                    <strong class="lang-en" style="display:none">Left sweep → right</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 木 (mù — дерево) — левая → правая</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：木 — 先撇后捺</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 木 (tree) — left sweep then right</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #2980B9;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🏠</div>
+                    <strong class="lang-ru">Снаружи внутрь</strong>
+                    <strong class="lang-zh" style="display:none">从外到内</strong>
+                    <strong class="lang-en" style="display:none">Outside → inside</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 月 (yuè — луна) — внешняя рамка → внутреннее</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：月 — 外框→内部</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 月 (moon) — outer frame → inside</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #D4AF37;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔒</div>
+                    <strong class="lang-ru">Содержимое → закрыть</strong>
+                    <strong class="lang-zh" style="display:none">先进后关</strong>
+                    <strong class="lang-en" style="display:none">Inside → close</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 日 (rì — солнце) — внутрь → нижняя черта-закрытие</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：日 — 内部→下横关闭</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 日 (sun) — inside content → closing stroke</p>
+                </div>
+                
+                <div style="background: rgba(139,69,19,0.04); border-radius: 12px; padding: 1.5rem; border-left: 4px solid #E74C3C; grid-column: 1 / -1;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">⭐</div>
+                    <strong class="lang-ru">Центр → левая → правая (для симметричных)</strong>
+                    <strong class="lang-zh" style="display:none">先中间后两边</strong>
+                    <strong class="lang-en" style="display:none">Center → left → right (for symmetrical)</strong>
+                    <p class="lang-ru" style="font-size: 0.9rem; margin-top: 0.5rem;">Пример: 水 (shuǐ — вода) — центральная вертикаль → левая → правая</p>
+                    <p class="lang-zh" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">例：水 — 中竖→左→右</p>
+                    <p class="lang-en" style="display:none; font-size: 0.9rem; margin-top: 0.5rem;">Ex: 水 (water) — center vertical → left → right</p>
+                </div>
+            </div>
+            
+            <p class="lang-ru" style="margin-top: 2rem; font-style: italic; color: #C41E3A; text-align: center; font-size: 1.1rem;">
+                💡 Главное правило: <strong>сверху вниз, слева направо</strong>. Это покрывает 90% всех иероглифов!
+            </p>
+            <p class="lang-zh" style="display:none; margin-top: 2rem; font-style: italic; color: #C41E3A; text-align: center; font-size: 1.1rem;">
+                💡 核心规则：<strong>从上到下，从左到右</strong>。涵盖90%的汉字！
+            </p>
+            <p class="lang-en" style="display:none; margin-top: 2rem; font-style: italic; color: #C41E3A; text-align: center; font-size: 1.1rem;">
+                💡 Core rule: <strong>top to bottom, left to right</strong>. Covers 90% of all characters!
+            </p>
+        </div>
+
+       
+               
+            </div>
+        </div>
+        <!-- МИНИ-ПРОПИСЬ -->
+        <div class="content-card" style="border-left: 5px solid #8B4513;">
+            <h3 class="lang-ru" style="text-align: center;">✍️ Мини-пропись: напиши иероглиф</h3>
+            <h3 class="lang-zh" style="display:none; text-align: center;">✍️ 描红练习：写汉字</h3>
+            <h3 class="lang-en" style="display:none; text-align: center;">✍️ Mini Copybook: Write a Character</h3>
+            
+            <div class="canvas-wrapper">
+                <div class="char-selector" id="charSelector">
+                    <button class="char-btn active" data-char="永"><span>永</span><span class="pinyin">yǒng</span></button>
+                    <button class="char-btn" data-char="人"><span>人</span><span class="pinyin">rén</span></button>
+                    <button class="char-btn" data-char="大"><span>大</span><span class="pinyin">dà</span></button>
+                    <button class="char-btn" data-char="天"><span>天</span><span class="pinyin">tiān</span></button>
+                    <button class="char-btn" data-char="木"><span>木</span><span class="pinyin">mù</span></button>
+                    <button class="char-btn" data-char="水"><span>水</span><span class="pinyin">shuǐ</span></button>
+                    <button class="char-btn" data-char="火"><span>火</span><span class="pinyin">huǒ</span></button>
+                    <button class="char-btn" data-char="山"><span>山</span><span class="pinyin">shān</span></button>
+                    <button class="char-btn" data-char="日"><span>日</span><span class="pinyin">rì</span></button>
+                    <button class="char-btn" data-char="月"><span>月</span><span class="pinyin">yuè</span></button>
+                </div>
+                
+                <div class="char-meaning" id="charMeaning">
+                    <span class="lang-ru">Значение: <strong style="color: #C41E3A;">вечность</strong></span>
+                    <span class="lang-zh" style="display:none">意思：<strong style="color: #C41E3A;">永恒</strong></span>
+                    <span class="lang-en" style="display:none">Meaning: <strong style="color: #C41E3A;">eternity</strong></span>
+                </div>
+                
+                <!-- Порядок черт — КРУПНО -->
+                <div>
+                    <span class="lang-ru" style="font-size: 0.85rem; color: #888;">Порядок черт:</span>
+                    <span class="lang-zh" style="display:none; font-size: 0.85rem; color: #888;">笔画顺序：</span>
+                    <span class="lang-en" style="display:none; font-size: 0.85rem; color: #888;">Stroke order:</span>
+                    <div class="stroke-order-display" id="strokeOrderDisplay">
+                        <span>1️⃣</span><span class="arrow">→</span><span>2️⃣</span><span class="arrow">→</span><span>3️⃣</span><span class="arrow">→</span><span>4️⃣</span><span class="arrow">→</span><span>5️⃣</span>
+                    </div>
+                </div>
+                
+                <div class="stroke-info" id="strokeInfo">
+                    <span class="lang-ru">Рисуй иероглиф <strong>永</strong></span>
+                    <span class="lang-zh" style="display:none">练习写 <strong>永</strong></span>
+                    <span class="lang-en" style="display:none">Practice writing <strong>永</strong></span>
+                </div>
+                
+                <canvas id="drawCanvas" class="drawing-canvas" width="400" height="400"></canvas>
+                
+                <div class="canvas-buttons">
+                    <button class="canvas-btn" onclick="undoStroke()">
+                        <i class="fas fa-undo"></i> 
+                        <span class="lang-ru">Отменить</span>
+                        <span class="lang-zh" style="display:none">撤销</span>
+                        <span class="lang-en" style="display:none">Undo</span>
+                    </button>
+                    <button class="canvas-btn" onclick="clearCanvas()">
+                        <i class="fas fa-eraser"></i> 
+                        <span class="lang-ru">Заново</span>
+                        <span class="lang-zh" style="display:none">重写</span>
+                        <span class="lang-en" style="display:none">Reset</span>
+                    </button>
+                    <button class="canvas-btn" onclick="nextChar()">
+                        <i class="fas fa-arrow-right"></i> 
+                        <span class="lang-ru">Дальше</span>
+                        <span class="lang-zh" style="display:none">下一个</span>
+                        <span class="lang-en" style="display:none">Next</span>
+                    </button>
+                </div>
+                
+                <div class="result-char" id="resultChar"></div>
+            </div>
+        </div>
+
+    </div>
+        <div class="quiz-block">
+            <h3 class="lang-ru" style="color: var(--primary); font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; text-align: center;">🧠 Проверь себя</h3>
+            <h3 class="lang-zh" style="display:none; color: var(--primary); font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; text-align: center;">🧠 测验</h3>
+            <h3 class="lang-en" style="display:none; color: var(--primary); font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; text-align: center;">🧠 Quiz</h3>
+            
+            <div class="quiz-prev-result" id="prevResult"></div>
+            <div class="quiz-question" id="quizQuestion"></div>
+            <div id="quizOptions"></div>
+            <button class="quiz-btn" id="quizBtn">
+                <span class="lang-ru">Проверить</span>
+                <span class="lang-zh" style="display:none">检查</span>
+                <span class="lang-en" style="display:none">Check</span>
+            </button>
+            <div class="quiz-result" id="quizResult"></div>
+        </div>
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="images/иконка.png" alt="Логотип" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 2px solid var(--gold);">
+                <span class="lang-zh">中华文化瑰宝数字博物馆</span>
+                <span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span>
+                <span class="lang-ru" style="display:none">Цифровой музей китайской культуры</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html" class="lang-ru">Главная</a>
+                <a href="index.html" class="lang-en" style="display:none">Home</a>
+                <a href="index.html" class="lang-zh" style="display:none">首页</a>
+                <a href="about.html" class="lang-ru">О нас</a>
+                <a href="about.html" class="lang-en" style="display:none">About Us</a>
+                <a href="about.html" class="lang-zh" style="display:none">关于我们</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://vk.ru/chinglishbalakovo" target="_blank" rel="noopener" title="ВКонтакте">
+                    <i class="fab fa-vk"></i>
+                </a>
+                <a href="https://quizlet.com/ru/374641804/" target="_blank" rel="noopener" title="Quizlet">
+                    <i class="fas fa-layer-group"></i>
+                </a>
+            </div>
+            <div class="footer-bottom">
+                <p class="lang-ru">© 2026 Языковой клуб «Chinglish» | <a href="privacy.html">Политика конфиденциальности</a></p>
+                <p class="lang-en" style="display:none">© 2026 "Chinglish" Language Club | <a href="privacy.html">Privacy Policy</a></p>
+                <p class="lang-zh" style="display:none">© 2026 《中式英语》语言俱乐部 | <a href="privacy.html">隐私政策</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    (function() {
+        const canvas = document.getElementById('drawCanvas');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+        let currentChar = '永';
+        let strokePoints = [];
+        let savedStrokes = [];
+        
+        const charNames = {
+            '永': { ru: 'вечность', zh: '永恒', en: 'eternity' },
+            '人': { ru: 'человек', zh: '人', en: 'person' },
+            '大': { ru: 'большой', zh: '大', en: 'big' },
+            '天': { ru: 'небо', zh: '天', en: 'sky' },
+            '木': { ru: 'дерево', zh: '木', en: 'tree' },
+            '水': { ru: 'вода', zh: '水', en: 'water' },
+            '火': { ru: 'огонь', zh: '火', en: 'fire' },
+            '山': { ru: 'гора', zh: '山', en: 'mountain' },
+            '日': { ru: 'солнце', zh: '日', en: 'sun' },
+            '月': { ru: 'луна', zh: '月', en: 'moon' }
+        };
+        
+        const totalStrokes = { '永':5,'人':2,'大':3,'天':4,'木':4,'水':4,'火':4,'山':3,'日':4,'月':4 };
+        
+        function drawBackground() {
+            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            ctx.fillStyle = dark ? '#1a0e08' : '#FFF8DC';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.strokeStyle = 'rgba(139,69,19,0.1)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+            }
+            for (let i = 0; i < canvas.height; i += 40) {
+                ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(canvas.width, i); ctx.stroke();
+            }
+            
+            ctx.fillStyle = 'rgba(139,69,19,0.12)';
+            ctx.font = '260px "Ma Shan Zheng", "Noto Serif SC", serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(currentChar, canvas.width/2, canvas.height/2 + 10);
+            
+            savedStrokes.forEach(stroke => {
+                ctx.strokeStyle = dark ? '#F5E6D3' : '#1a1008';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                ctx.lineJoin = 'round';
+                ctx.beginPath();
+                ctx.moveTo(stroke[0].x, stroke[0].y);
+                for (let i = 1; i < stroke.length; i++) ctx.lineTo(stroke[i].x, stroke[i].y);
+                ctx.stroke();
+            });
+        }
+        
+        function updateInfo() {
+            const lang = localStorage.getItem('preferredLanguage') || 'ru';
+            const name = charNames[currentChar];
+            document.querySelector('#charMeaning .lang-ru strong').textContent = name.ru;
+            document.querySelector('#charMeaning .lang-zh strong').textContent = name.zh;
+            document.querySelector('#charMeaning .lang-en strong').textContent = name.en;
+            
+            document.getElementById('strokeInfo').querySelector('.lang-ru').innerHTML = `Рисуй иероглиф <strong>${currentChar}</strong>`;
+            document.getElementById('strokeInfo').querySelector('.lang-zh').innerHTML = `练习写 <strong>${currentChar}</strong>`;
+            document.getElementById('strokeInfo').querySelector('.lang-en').innerHTML = `Practice writing <strong>${currentChar}</strong>`;
+            
+            const count = totalStrokes[currentChar] || 5;
+            const display = document.getElementById('strokeOrderDisplay');
+            display.innerHTML = '';
+            for (let i = 1; i <= count; i++) {
+                const span = document.createElement('span');
+                span.textContent = i + '️⃣';
+                span.style.fontSize = '2rem';
+                display.appendChild(span);
+                if (i < count) {
+                    const arrow = document.createElement('span');
+                    arrow.textContent = '→';
+                    arrow.className = 'arrow';
+                    display.appendChild(arrow);
+                }
+            }
+        }
+        
+        function setChar(char) {
+            currentChar = char;
+            savedStrokes = [];
+            document.getElementById('resultChar').textContent = '';
+            drawBackground();
+            updateInfo();
+        }
+        
+        function animateLoop() {
+            if (!drawing) drawBackground();
+            requestAnimationFrame(animateLoop);
+        }
+        
+        drawBackground();
+        updateInfo();
+        animateLoop();
+        
+        canvas.addEventListener('mousedown', (e) => {
+            drawing = true;
+            strokePoints = [{ x: e.offsetX, y: e.offsetY }];
+        });
+        
+        canvas.addEventListener('mousemove', (e) => {
+            if (!drawing) return;
+            strokePoints.push({ x: e.offsetX, y: e.offsetY });
+            
+            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            ctx.strokeStyle = dark ? '#F5E6D3' : '#1a1008';
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(strokePoints[0].x, strokePoints[0].y);
+            for (let i = 1; i < strokePoints.length; i++) ctx.lineTo(strokePoints[i].x, strokePoints[i].y);
+            ctx.stroke();
+        });
+        
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+            if (strokePoints.length > 3) {
+                savedStrokes.push([...strokePoints]);
+                drawBackground();
+            }
+            strokePoints = [];
+        });
+        
+        window.undoStroke = function() {
+            if (savedStrokes.length > 0) {
+                savedStrokes.pop();
+                drawBackground();
+                document.getElementById('resultChar').textContent = '';
+            }
+        };
+        
+        window.clearCanvas = function() {
+            setChar(currentChar);
+        };
+        
+        window.nextChar = function() {
+            const btns = document.querySelectorAll('#charSelector .char-btn');
+            let idx = -1;
+            btns.forEach((b, i) => { if (b.classList.contains('active')) idx = i; });
+            btns[(idx + 1) % btns.length].click();
+        };
+        
+        document.querySelectorAll('#charSelector .char-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('#charSelector .char-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                setChar(this.dataset.char);
+            });
+        });
+    })();
+        // Тест по каллиграфии
+        const quizData = [
+            {
+                question: { ru: 'Какой стиль каллиграфии самый древний?', zh: '哪种书法风格最古老？', en: 'Which calligraphy style is the oldest?' },
+                options: { ru: ['楷書', '篆書', '行書', '草書'], zh: ['楷书', '篆书', '行书', '草书'], en: ['Regular', 'Seal', 'Running', 'Cursive'] },
+                correct: 1,
+                explanation: { ru: '篆書 — древнейший стиль, эпоха Чжоу', zh: '篆书是最古老的风格，周朝', en: 'Seal script — oldest, Zhou Dynasty' }
+            },
+            {
+                question: { ru: 'Кто автор «Предисловия к Павильону орхидей»?', zh: '《兰亭序》的作者是谁？', en: 'Who wrote "Orchid Pavilion Preface"?' },
+                options: { ru: ['顏真卿', '蘇軾', '王羲之', '懷素'], zh: ['颜真卿', '苏轼', '王羲之', '怀素'], en: ['Yan Zhenqing', 'Su Shi', 'Wang Xizhi', 'Huai Su'] },
+                correct: 2,
+                explanation: { ru: '王羲之 — 353 год, величайший каллиграф', zh: '王羲之 — 353年，最伟大的书法家', en: 'Wang Xizhi — 353 CE, greatest calligrapher' }
+            },
+            {
+                question: { ru: 'Сколько стилей в китайской каллиграфии?', zh: '中国书法有几种风格？', en: 'How many scripts in Chinese calligraphy?' },
+                options: { ru: ['3', '5', '7', '10'], zh: ['3', '5', '7', '10'], en: ['3', '5', '7', '10'] },
+                correct: 1,
+                explanation: { ru: '5 основных стилей: 篆隸楷行草', zh: '五种主要风格：篆隶楷行草', en: '5 main scripts: seal, clerical, regular, running, cursive' }
+            }
+        ];
+        
+        let currentQuiz = 0;
+        let score = 0;
+        let selectedOption = -1;
+        
+        const lang = () => localStorage.getItem('preferredLanguage') || 'ru';
+        
+        function loadQuiz() {
+            const q = quizData[currentQuiz];
+            const l = lang();
+            document.getElementById('quizQuestion').textContent = q.question[l];
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            q.options[l].forEach((opt, i) => {
+                const div = document.createElement('div');
+                div.className = 'quiz-option';
+                div.textContent = opt;
+                div.onclick = () => {
+                    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+                    div.classList.add('selected');
+                    selectedOption = i;
+                };
+                optionsDiv.appendChild(div);
+            });
+            document.getElementById('quizResult').textContent = '';
+            selectedOption = -1;
+        }
+        
+        document.getElementById('quizBtn').addEventListener('click', () => {
+            if (selectedOption === -1) {
+                const msgs = { ru: 'Выбери вариант!', zh: '请选择一个选项！', en: 'Choose an option!' };
+                document.getElementById('quizResult').textContent = msgs[lang()];
+                return;
+            }
+            
+            const q = quizData[currentQuiz];
+            const l = lang();
+            const isCorrect = selectedOption === q.correct;
+            if (isCorrect) score++;
+            
+            document.querySelectorAll('.quiz-option').forEach((opt, i) => {
+                if (i === q.correct) opt.classList.add('correct');
+                else if (i === selectedOption && !isCorrect) opt.classList.add('wrong');
+            });
+            
+            document.getElementById('quizResult').textContent = isCorrect ? 
+                { ru: '✅ Правильно!', zh: '✅ 正确！', en: '✅ Correct!' }[l] : 
+                { ru: '❌ Неверно. ', zh: '❌ 错了。', en: '❌ Wrong. ' }[l] + q.explanation[l];
+            
+            setTimeout(() => {
+                currentQuiz++;
+                if (currentQuiz < quizData.length) {
+                    loadQuiz();
+                } else {
+                    document.getElementById('quizQuestion').textContent = '';
+                    document.getElementById('quizOptions').innerHTML = '';
+                    document.getElementById('quizResult').innerHTML = 
+                        { ru: `🎉 Твой результат: ${score} из ${quizData.length}`, 
+                          zh: `🎉 你的得分：${quizData.length}分中的${score}分`, 
+                          en: `🎉 Your score: ${score} out of ${quizData.length}` }[l];
+                    
+                    // Сохраняем в localStorage
+                    const prevResults = JSON.parse(localStorage.getItem('quizResults') || '[]');
+                    prevResults.push({ date: new Date().toLocaleDateString(), score: score, total: quizData.length });
+                    if (prevResults.length > 5) prevResults.shift(); // только последние 5
+                    localStorage.setItem('quizResults', JSON.stringify(prevResults));
+                }
+            }, 2000);
+        });
+        
+        // Показать прошлый результат
+        const prevResults = JSON.parse(localStorage.getItem('quizResults') || '[]');
+        if (prevResults.length > 0) {
+            const last = prevResults[prevResults.length - 1];
+            const msgs = {
+                ru: `📊 Прошлый результат (${last.date}): ${last.score}/${last.total}`,
+                zh: `📊 上次成绩 (${last.date}): ${last.score}/${last.total}`,
+                en: `📊 Previous result (${last.date}): ${last.score}/${last.total}`
+            };
+            document.getElementById('prevResult').textContent = msgs[lang()];
+        }
+        
+        loadQuiz();
+
+    </script>
+</body>
+</html>

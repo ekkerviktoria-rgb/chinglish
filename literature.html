@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>文学经典 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Китайская классическая литература | Chinese Classical Literature">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #faf5e8; font-family: 'Georgia', serif; overflow-x: hidden; color: #2a1a0a; }
+        [data-theme="dark"] body { background: #12121a; color: #e0d5c0; }
+
+        .literature-hero {
+            position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(180deg, #f0f4e8 0%, #e0e8d0 40%, #d0d8b8 100%); overflow: hidden;
+        }
+        [data-theme="dark"] .literature-hero { background: linear-gradient(180deg, #141a10 0%, #101510 40%, #0a0e0a 100%); }
+
+        .bamboo-forest {
+            position: absolute; bottom: 0; left: 0; right: 0; height: 100%;
+            pointer-events: none; z-index: 1;
+            display: flex; justify-content: space-evenly; align-items: flex-end;
+            padding: 0 8%; overflow: hidden;
+        }
+        .bamboo-stalk { width: auto; object-fit: cover; object-position: bottom; opacity: 0.3; margin-bottom: -30px; flex-shrink: 0; filter: brightness(1.05); }
+        [data-theme="dark"] .bamboo-stalk { opacity: 0.2; filter: brightness(0.8) sepia(0.15); }
+        .bamboo-1 { height: 50%; } .bamboo-2 { height: 70%; } .bamboo-3 { height: 90%; }
+
+        .floating-chars { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .float-char { position: absolute; font-family: 'Ma Shan Zheng', cursive; color: rgba(80,120,40,0.05); font-size: 4rem; animation: charFloat 12s infinite ease-in-out; }
+        [data-theme="dark"] .float-char { color: rgba(140,200,80,0.04); }
+        .fc1{top:8%;left:8%;font-size:5rem}.fc2{top:22%;right:12%;font-size:3.5rem;animation-delay:2.5s}.fc3{top:45%;left:18%;font-size:6rem;animation-delay:5s}.fc4{top:12%;left:45%;font-size:4.5rem;animation-delay:1.2s}.fc5{top:65%;right:18%;font-size:3rem;animation-delay:3.5s}.fc6{top:30%;right:8%;font-size:5.5rem;animation-delay:6s}.fc7{top:75%;left:55%;font-size:4rem;animation-delay:7s}
+        @keyframes charFloat { 0%,100%{transform:translateY(0)rotate(0deg);opacity:1} 25%{transform:translateY(-25px)rotate(2deg);opacity:.7} 50%{transform:translateY(-10px)rotate(-1.5deg);opacity:.9} 75%{transform:translateY(-35px)rotate(1deg);opacity:.5} }
+
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 3rem 2rem; }
+        .hero-content h1 { font-family: 'Ma Shan Zheng', cursive; font-size: clamp(3.5rem, 8vw, 6rem); color: #2a3a0a !important; -webkit-text-fill-color: #2a3a0a !important; text-shadow: 3px 3px 8px rgba(255,255,255,0.5); }
+        [data-theme="dark"] .hero-content h1 { color: #B8D880 !important; -webkit-text-fill-color: #B8D880 !important; }
+        .hero-subtitle { display: inline-block; font-size: 1.2rem; color: #3a4a1a !important; font-weight: 600; background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); padding: 0.8rem 2rem; border-radius: 50px; border: 1px solid rgba(120,160,80,0.3); }
+        [data-theme="dark"] .hero-subtitle { color: #ddd !important; background: rgba(0,0,0,0.4); }
+
+        .scroll-card { background: linear-gradient(180deg, #fdfaf3 0%, #f5eddc 100%); border-radius: 2px 2px 12px 12px; padding: 3rem; margin: 2.5rem auto; max-width: 900px; box-shadow: 0 6px 30px rgba(0,0,0,0.06); border: 1px solid rgba(180,150,100,0.2); transition: all 0.6s ease; opacity: 0; transform: translateY(30px); }
+        .scroll-card.visible { opacity: 1; transform: translateY(0); }
+        [data-theme="dark"] .scroll-card { background: linear-gradient(180deg, #201810 0%, #181010 100%); }
+        .scroll-card h3 { color: #4a5a1a; font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem; margin-bottom: 1rem; }
+        [data-theme="dark"] .scroll-card h3 { color: #c4d76a; }
+        .scroll-card p { line-height: 2.1; font-size: 1.1rem; color: #4a3a2a; }
+        [data-theme="dark"] .scroll-card p { color: #e8d5c8; }
+        .highlight { background: rgba(120,160,80,0.12); padding: 0.2rem 0.6rem; border-radius: 3px; }
+
+        .quotes-strip { max-width: 100%; margin: 0; padding: 2rem 0; background: rgba(120,160,80,0.05); overflow: hidden; white-space: nowrap; }
+        [data-theme="dark"] .quotes-strip { background: rgba(120,160,80,0.03); }
+        .quotes-track { display: inline-flex; gap: 3rem; animation: quoteScroll 40s infinite linear; padding: 0 2rem; }
+        @keyframes quoteScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+        .quotes-strip:hover .quotes-track { animation-play-state: paused; }
+        .quote-item { display: inline-flex; align-items: center; gap: 1rem; background: #fff; padding: 1rem 2rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); flex-shrink: 0; }
+        [data-theme="dark"] .quote-item { background: #1a1a1a; }
+        .quote-item .qtext { font-style: italic; font-size: 1.1rem; color: #4a5a1a; }
+        [data-theme="dark"] .quote-item .qtext { color: #c4d76a; }
+        .quote-item .qauthor { font-size: 0.85rem; color: #888; }
+
+        /* КНИГИ — ГОРИЗОНТАЛЬНЫЕ КАРТОЧКИ */
+        .books-row { max-width: 1100px; margin: 3rem auto; padding: 0 1rem; display: flex; flex-direction: column; gap: 1.5rem; }
+        .book-horizontal { display: flex; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.06); transition: all 0.5s; opacity: 0; transform: translateX(-30px); }
+        .book-horizontal.visible { opacity: 1; transform: translateX(0); }
+        .book-horizontal:hover { transform: translateX(5px); box-shadow: 0 12px 35px rgba(0,0,0,0.1); }
+        [data-theme="dark"] .book-horizontal { background: #1a1a1a; }
+        .book-horizontal .bh-cover { min-width: 120px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #e8d5a8, #d4b896); font-family: 'Ma Shan Zheng', cursive; font-size: 3rem; color: #3a2a0a; }
+        [data-theme="dark"] .bh-cover { background: linear-gradient(135deg, #3a2a1a, #2a1a0a); color: #d4a76a; }
+        .book-horizontal .bh-info { padding: 1.5rem; flex: 1; }
+        .book-horizontal h4 { font-family: 'Ma Shan Zheng', cursive; font-size: 1.4rem; color: #4a5a1a; margin-bottom: 0.2rem; }
+        [data-theme="dark"] .book-horizontal h4 { color: #c4d76a; }
+        .book-horizontal .bh-author { font-size: 0.8rem; color: #888; margin-bottom: 0.5rem; }
+        .book-horizontal .bh-desc { font-size: 0.9rem; color: #555; line-height: 1.6; }
+        [data-theme="dark"] .book-horizontal .bh-desc { color: #bbb; }
+
+        /* ПИСАТЕЛИ — СВИТКИ */
+        .writers-scrolls { max-width: 1100px; margin: 3rem auto; padding: 0 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .writer-scroll { position: relative; background: linear-gradient(180deg, #fdf8e8 0%, #f5e6c8 100%); border-radius: 8px 8px 4px 4px; padding: 2rem 1.5rem; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.06); transition: all 0.5s; opacity: 0; transform: translateY(30px); }
+        .writer-scroll.visible { opacity: 1; transform: translateY(0); }
+        .writer-scroll::before, .writer-scroll::after { content: ''; position: absolute; left: 10%; right: 10%; height: 12px; background: #d4b896; border-radius: 50%; }
+        .writer-scroll::before { top: -6px; }
+        .writer-scroll::after { bottom: -6px; }
+        .writer-scroll:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,0,0,0.12); }
+        [data-theme="dark"] .writer-scroll { background: linear-gradient(180deg, #2a1a10, #1a1010); }
+        [data-theme="dark"] .writer-scroll::before, [data-theme="dark"] .writer-scroll::after { background: #5a4a3a; }
+        .writer-scroll .ws-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+        .writer-scroll h4 { font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: #4a5a1a; margin-bottom: 0.2rem; }
+        [data-theme="dark"] .writer-scroll h4 { color: #c4d76a; }
+        .writer-scroll .ws-era { font-size: 0.8rem; color: #888; margin-bottom: 0.8rem; }
+        .writer-scroll .ws-quote { font-style: italic; font-size: 0.9rem; color: #6a5a4a; line-height: 1.5; }
+        [data-theme="dark"] .writer-scroll .ws-quote { color: #c4b896; }
+
+        .lightbox-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.4s; cursor: pointer; }
+        .lightbox-overlay.active { opacity: 1; visibility: visible; }
+        .lightbox-overlay img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 10001; }
+
+        @media (max-width:800px){.bamboo-1{height:40%}.bamboo-2{height:55%}.bamboo-3{height:70%}.writers-scrolls{grid-template-columns:1fr}}
+        @media (max-width:768px){.writers-scrolls{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">文</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo"><img src="images/иконка.png" alt="Логотип" class="logo-icon"><span class="lang-zh">《中式英语》语言俱乐部</span><span class="lang-en" style="display:none">The "Chinglish" Language Club</span><span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span></a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher"><button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button><div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div></div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+            <a href="index.html" class="menu-item lang-zh">首页</a><a href="index.html" class="menu-item lang-en" style="display:none">Home</a><a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+            <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a><a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a><a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+            <a href="painting.html" class="menu-item lang-zh">国画珍品</a><a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a><a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+            <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a><a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a><a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+            <a href="literature.html" class="menu-item lang-zh">文学经典</a><a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a><a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+            <a href="festivals.html" class="menu-item lang-zh">传统节日</a><a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a><a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+            <a href="modern.html" class="menu-item lang-zh">现代传承</a><a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a><a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+        </div></div>
+    </nav>
+
+    <div class="literature-hero">
+        <div class="bamboo-forest">
+            <img src="images/бамбук.png" alt="Бамбук" class="bamboo-stalk bamboo-1">
+            <img src="images/бамбук.png" alt="Бамбук" class="bamboo-stalk bamboo-2">
+            <img src="images/бамбук.png" alt="Бамбук" class="bamboo-stalk bamboo-3">
+        </div>
+        <div class="floating-chars">
+            <span class="float-char fc1">诗</span><span class="float-char fc2">词</span><span class="float-char fc3">文</span><span class="float-char fc4">经</span><span class="float-char fc5">典</span><span class="float-char fc6">韵</span><span class="float-char fc7">雅</span>
+        </div>
+        <div class="hero-content">
+            <h1 class="lang-zh">文学经典</h1><h1 class="lang-en" style="display:none">Classical Literature</h1><h1 class="lang-ru" style="display:none">Классическая литература</h1>
+            <p class="hero-subtitle lang-zh">诗词歌赋 · 千古文章 · 文以载道</p>
+            <p class="hero-subtitle lang-en" style="display:none">Poetry & Prose · Timeless Works</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Поэзия и проза · Вечные творения</p>
+        </div>
+    </div>
+
+    <div class="quotes-strip">
+        <div class="quotes-track">
+            <div class="quote-item"><span class="qtext lang-zh">"关关雎鸠，在河之洲"</span><span class="qtext lang-en" style="display:none">"Guan guan cry the ospreys"</span><span class="qtext lang-ru" style="display:none">«Гуань-гуань кричат скопы»</span><span class="qauthor">— 《诗经》</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"路漫漫其修远兮"</span><span class="qtext lang-en" style="display:none">"The road is long"</span><span class="qtext lang-ru" style="display:none">«Дорога длинна»</span><span class="qauthor">— 屈原</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"对酒当歌，人生几何"</span><span class="qtext lang-en" style="display:none">"With wine, let us sing"</span><span class="qtext lang-ru" style="display:none">«С вином давайте петь»</span><span class="qauthor">— 曹操</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"床前明月光"</span><span class="qtext lang-en" style="display:none">"Moonlight before my bed"</span><span class="qtext lang-ru" style="display:none">«Лунный свет у постели»</span><span class="qauthor">— 李白</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"大江东去"</span><span class="qtext lang-en" style="display:none">"The great river flows east"</span><span class="qtext lang-ru" style="display:none">«Великая река течёт»</span><span class="qauthor">— 苏轼</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"满纸荒唐言"</span><span class="qtext lang-en" style="display:none">"Pages of absurd words"</span><span class="qtext lang-ru" style="display:none">«Страницы абсурдных слов»</span><span class="qauthor">— 曹雪芹</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"关关雎鸠"</span><span class="qtext lang-en" style="display:none">"Guan guan cry"</span><span class="qtext lang-ru" style="display:none">«Гуань-гуань кричат»</span><span class="qauthor">— 《诗经》</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"路漫漫其修远兮"</span><span class="qtext lang-en" style="display:none">"The road is long"</span><span class="qtext lang-ru" style="display:none">«Дорога длинна»</span><span class="qauthor">— 屈原</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"对酒当歌"</span><span class="qtext lang-en" style="display:none">"With wine, sing"</span><span class="qtext lang-ru" style="display:none">«С вином петь»</span><span class="qauthor">— 曹操</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"床前明月光"</span><span class="qtext lang-en" style="display:none">"Moonlight"</span><span class="qtext lang-ru" style="display:none">«Лунный свет»</span><span class="qauthor">— 李白</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"大江东去"</span><span class="qtext lang-en" style="display:none">"River flows east"</span><span class="qtext lang-ru" style="display:none">«Река течёт»</span><span class="qauthor">— 苏轼</span></div>
+            <div class="quote-item"><span class="qtext lang-zh">"满纸荒唐言"</span><span class="qtext lang-en" style="display:none">"Absurd words"</span><span class="qtext lang-ru" style="display:none">«Абсурдные слова»</span><span class="qauthor">— 曹雪芹</span></div>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1100px;">
+        
+        <div class="scroll-card">
+            <h3 class="lang-zh">📜 诗经 — 诗歌之源</h3>
+            <h3 class="lang-en" style="display:none">📜 Book of Songs</h3>
+            <h3 class="lang-ru">📜 Книга песен</h3>
+            <p class="lang-zh"><span class="highlight">"关关雎鸠，在河之洲"</span>——305篇，风雅颂三体。孔子：<span class="highlight">"不学诗，无以言"</span>。</p>
+            <p class="lang-en" style="display:none">"Guan guan cry the ospreys" — 305 poems. Confucius: "Without studying the Songs, one has nothing to speak with."</p>
+            <p class="lang-ru">«Гуань-гуань кричат скопы» — 305 стихов. Конфуций: «Не изучив Песни, не о чем говорить».</p>
+        </div>
+
+        <!-- КНИГИ — ГОРИЗОНТАЛЬНЫЕ -->
+        <div class="books-row">
+            <div class="book-horizontal"><div class="bh-cover">诗</div><div class="bh-info"><h4>《诗经》</h4><p class="bh-author">先秦 · XI-VI вв. до н.э.</p><p class="bh-desc lang-zh">中国最早的诗歌总集，收录305篇，分风雅颂三部分，以四言为主，赋比兴手法，奠定三千年诗歌传统。</p><p class="bh-desc lang-en" style="display:none">The oldest Chinese poetry collection: 305 poems of folk songs, hymns, and court music — foundation of 3000 years of poetry.</p><p class="bh-desc lang-ru" style="display:none">Древнейший сборник китайской поэзии: 305 стихов — народные песни, гимны, придворная музыка. Основа трёхтысячелетней традиции.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">骚</div><div class="bh-info"><h4>《楚辞》</h4><p class="bh-author">战国 · 屈原</p><p class="bh-desc lang-zh">浪漫主义开山之作，《离骚》以香草美人喻君子，想象奇绝，感情炽烈，中国文学浪漫主义源头。</p><p class="bh-desc lang-en" style="display:none">"Li Sao" — fragrant herbs and beauties as metaphors for virtue. The source of Chinese romanticism.</p><p class="bh-desc lang-ru" style="display:none">«Ли Сао» — травы и красавицы как метафоры добродетели. Исток китайского романтизма.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">红</div><div class="bh-info"><h4>《红楼梦》</h4><p class="bh-author">清 · 曹雪芹</p><p class="bh-desc lang-zh">贾宝玉与林黛玉的爱情悲剧，贾府兴衰，中国封建社会的百科全书，古典小说巅峰之作。</p><p class="bh-desc lang-en" style="display:none">Love tragedy of Baoyu and Daiyu, rise and fall of the Jia family — pinnacle of Chinese fiction.</p><p class="bh-desc lang-ru" style="display:none">Трагедия любви Баоюя и Дайюй, взлёт и падение семьи Цзя — вершина китайской прозы.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">西</div><div class="bh-info"><h4>《西游记》</h4><p class="bh-author">明 · 吴承恩</p><p class="bh-desc lang-zh">唐僧师徒四人西天取经，历经九九八十一难，神魔奇幻小说巅峰，充满想象力。</p><p class="bh-desc lang-en" style="display:none">Monk and disciples journey West through 81 trials — pinnacle of Chinese mythological fiction.</p><p class="bh-desc lang-ru" style="display:none">Монах и ученики идут на Запад через 81 испытание — вершина китайской мифологической прозы.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">三</div><div class="bh-info"><h4>《三国演义》</h4><p class="bh-author">明 · 罗贯中</p><p class="bh-desc lang-zh">魏蜀吴三国鼎立，英雄辈出，权谋智斗，中国历史小说的开山之作，尽显英雄本色。</p><p class="bh-desc lang-en" style="display:none">Three kingdoms at war, heroes and strategists — the founding work of Chinese historical fiction.</p><p class="bh-desc lang-ru" style="display:none">Три царства в войне, герои и стратеги — основа китайского исторического романа.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">水</div><div class="bh-info"><h4>《水浒传》</h4><p class="bh-author">明 · 施耐庵</p><p class="bh-desc lang-zh">108位好汉聚义梁山，替天行道，反抗压迫，侠义精神的英雄史诗，快意恩仇。</p><p class="bh-desc lang-en" style="display:none">108 outlaws at Liangshan, fighting injustice — epic of brotherhood and righteous rebellion.</p><p class="bh-desc lang-ru" style="display:none">108 героев на Ляншань, борясь с несправедливостью — эпос братства и праведного бунта.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">厢</div><div class="bh-info"><h4>《西厢记》</h4><p class="bh-author">元 · 王实甫</p><p class="bh-desc lang-zh">书生张生与崔莺莺冲破礼教，有情人终成眷属，中国古典爱情喜剧的经典之作。</p><p class="bh-desc lang-en" style="display:none">Scholar Zhang and Yingying defy tradition — classic romantic comedy, love conquers all.</p><p class="bh-desc lang-ru" style="display:none">Студент Чжан и Инъин против традиций — классическая романтическая комедия, любовь побеждает.</p></div></div>
+            <div class="book-horizontal"><div class="bh-cover">史</div><div class="bh-info"><h4>《史记》</h4><p class="bh-author">汉 · 司马迁</p><p class="bh-desc lang-zh">第一部纪传体通史，从黄帝到汉武帝，130篇，史家之绝唱，无韵之离骚。</p><p class="bh-desc lang-en" style="display:none">First comprehensive history: from Yellow Emperor to Han Wudi, 130 chapters — China's greatest historical work.</p><p class="bh-desc lang-ru" style="display:none">Первая всеобщая история: от Жёлтого императора до Хань Уди, 130 глав — величайший исторический труд Китая.</p></div></div>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">📚 四大名著 — 小说的丰碑</h3>
+            <h3 class="lang-en" style="display:none">📚 Four Great Novels</h3>
+            <h3 class="lang-ru">📚 Четыре великих романа</h3>
+            <p class="lang-zh"><span class="highlight">"满纸荒唐言，一把辛酸泪"</span>——曹雪芹《红楼梦》。四部巨著，四种人生，中国古典小说的辉煌。</p>
+            <p class="lang-en" style="display:none">"Pages full of absurd words, a handful of bitter tears." Four masterpieces, four worlds.</p>
+            <p class="lang-ru">«Страницы полны абсурдных слов, горсть горьких слёз». Четыре шедевра, четыре мира.</p>
+        </div>
+
+    </div>
+
+    <!-- ПИСАТЕЛИ — СВИТКИ -->
+    <div class="writers-scrolls">
+        <div class="writer-scroll">
+            <div class="ws-icon">🍷</div>
+            <h4>李白 · Ли Бо</h4>
+            <p class="ws-era">701–762 · 唐</p>
+            <p class="ws-quote lang-zh">"天生我材必有用，千金散尽还复来"</p>
+            <p class="ws-quote lang-en" style="display:none">"Heaven gave me talents, I was born to use them"</p>
+            <p class="ws-quote lang-ru" style="display:none">«Небо дало мне талант — я рождён его использовать»</p>
+        </div>
+        <div class="writer-scroll">
+            <div class="ws-icon">🖋️</div>
+            <h4>杜甫 · Ду Фу</h4>
+            <p class="ws-era">712–770 · 唐</p>
+            <p class="ws-quote lang-zh">"安得广厦千万间，大庇天下寒士俱欢颜"</p>
+            <p class="ws-quote lang-en" style="display:none">"If only I could build a mansion with thousands of rooms"</p>
+            <p class="ws-quote lang-ru" style="display:none">«О если б я мог построить дом с тысячами комнат»</p>
+        </div>
+        <div class="writer-scroll">
+            <div class="ws-icon">🏮</div>
+            <h4>曹雪芹 · Цао Сюэцинь</h4>
+            <p class="ws-era">1715–1763 · 清</p>
+            <p class="ws-quote lang-zh">"假作真时真亦假，无为有处有还无"</p>
+            <p class="ws-quote lang-en" style="display:none">"When false is true, truth becomes false"</p>
+            <p class="ws-quote lang-ru" style="display:none">«Когда ложь — правда, правда становится ложью»</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><img src="images/иконка.png" alt="Логотип" style="width:35px;height:35px;border-radius:50%;object-fit:cover;margin-right:12px;border:2px solid var(--gold);"><span class="lang-zh">中华文化瑰宝数字博物馆</span><span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span><span class="lang-ru" style="display:none">Цифровой музей китайской культуры</span></div>
+            <div class="footer-links"><a href="index.html" class="lang-ru">Главная</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-zh" style="display:none">首页</a><a href="about.html" class="lang-ru">О нас</a><a href="about.html" class="lang-en" style="display:none">About Us</a><a href="about.html" class="lang-zh" style="display:none">关于我们</a></div>
+            <div class="footer-social"><a href="https://vk.ru/chinglishbalakovo" target="_blank"><i class="fab fa-vk"></i></a><a href="https://quizlet.com/ru/374641804/" target="_blank"><i class="fas fa-layer-group"></i></a></div>
+            <div class="footer-bottom"><p class="lang-ru">© 2026 Языковой клуб «Chinglish» | <a href="privacy.html">Политика конфиденциальности</a></p><p class="lang-en" style="display:none">© 2026 "Chinglish" Language Club</p><p class="lang-zh" style="display:none">© 2026 《中式英语》语言俱乐部</p></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded',function(){
+        document.querySelectorAll('.scroll-card,.book-horizontal,.writer-scroll').forEach(c=>{new IntersectionObserver(e=>{if(e[0].isIntersecting)c.classList.add('visible')},{threshold:.15}).observe(c)});
+    });
+    </script>
+</body>
+</html>

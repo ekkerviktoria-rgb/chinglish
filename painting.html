@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>国画珍品 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Китайская традиционная живопись | Chinese Traditional Painting">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #faf5e8; font-family: 'Times New Roman', 'Georgia', serif; overflow-x: hidden; color: #2a1a0a; }
+        [data-theme="dark"] body { background: #12121a; color: #e0d5c0; }
+
+        /* ХЕДЕР */
+        .painting-hero {
+            position: relative; min-height: 70vh; display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(180deg, #faf5e8 0%, #f0e4d0 40%, #e8d8b8 100%); overflow: hidden;
+        }
+        [data-theme="dark"] .painting-hero { background: linear-gradient(180deg, #1a1410 0%, #201510 40%, #150e0a 100%); }
+
+        /* Парящие иероглифы */
+        .floating-chars { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+        .float-char {
+            position: absolute; font-family: 'Ma Shan Zheng', cursive;
+            color: rgba(139,69,19,0.06); font-size: 4rem;
+            animation: charFloat 12s infinite ease-in-out;
+        }
+        [data-theme="dark"] .float-char { color: rgba(212,167,106,0.05); }
+        .fc1 { top: 10%; left: 5%; animation-delay: 0s; font-size: 5rem; }
+        .fc2 { top: 20%; right: 10%; animation-delay: 2s; font-size: 3.5rem; }
+        .fc3 { top: 50%; left: 15%; animation-delay: 4s; font-size: 6rem; }
+        .fc4 { top: 15%; left: 40%; animation-delay: 1s; font-size: 4.5rem; }
+        .fc5 { top: 60%; right: 15%; animation-delay: 3s; font-size: 3rem; }
+        .fc6 { top: 35%; right: 5%; animation-delay: 5s; font-size: 5.5rem; }
+        .fc7 { top: 70%; left: 50%; animation-delay: 6s; font-size: 4rem; }
+        @keyframes charFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            25% { transform: translateY(-30px) rotate(3deg); opacity: 0.7; }
+            50% { transform: translateY(-15px) rotate(-2deg); opacity: 1; }
+            75% { transform: translateY(-40px) rotate(1deg); opacity: 0.6; }
+        }
+
+        /* Частицы туши */
+        .ink-particle {
+            position: absolute; width: 4px; height: 4px; border-radius: 50%;
+            background: rgba(0,0,0,0.15); pointer-events: none;
+            animation: inkFloat 8s infinite ease-in-out;
+        }
+        [data-theme="dark"] .ink-particle { background: rgba(255,215,0,0.1); }
+        .ip1 { top: 80%; left: 10%; animation-delay: 0s; }
+        .ip2 { top: 30%; right: 20%; animation-delay: 2s; }
+        .ip3 { top: 50%; left: 70%; animation-delay: 4s; }
+        .ip4 { top: 20%; left: 30%; animation-delay: 1s; }
+        .ip5 { top: 70%; right: 30%; animation-delay: 3s; }
+        @keyframes inkFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(40px, -60px) scale(2); opacity: 0.8; }
+            50% { transform: translate(-20px, -100px) scale(1); opacity: 0.2; }
+            75% { transform: translate(30px, -40px) scale(3); opacity: 0.6; }
+        }
+
+        .bird-decoration {
+            position: absolute; left: 0; bottom: 0; width: 700px; height: auto;
+            opacity: 0.4; z-index: 1; pointer-events: none; transition: transform 0.1s linear;
+        }
+        [data-theme="dark"] .bird-decoration { opacity: 0.3; }
+        .temple-decoration {
+            position: absolute; right: 0; bottom: -20px; width: 900px; height: auto;
+            opacity: 0.35; z-index: 1; pointer-events: none; transition: transform 0.1s linear;
+        }
+        [data-theme="dark"] .temple-decoration { opacity: 0.25; }
+
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 3rem 2rem; }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: clamp(3.5rem, 8vw, 6rem);
+            color: #2a1a0a !important; -webkit-text-fill-color: #2a1a0a !important;
+            text-shadow: 3px 3px 8px rgba(255,255,255,0.5);
+        }
+        [data-theme="dark"] .hero-content h1 { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; text-shadow: 0 0 50px rgba(255,215,0,0.4); }
+        .hero-subtitle {
+            display: inline-block; font-size: 1.2rem; color: #3a2a1a !important; font-weight: 600;
+            background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); padding: 0.8rem 2rem;
+            border-radius: 50px; border: 1px solid rgba(180,150,100,0.3);
+        }
+        [data-theme="dark"] .hero-subtitle { color: #fff !important; background: rgba(0,0,0,0.4); }
+
+        /* Текст-свиток */
+        .scroll-card {
+            background: linear-gradient(180deg, #fdfaf3 0%, #f5eddc 100%);
+            border-radius: 2px 2px 12px 12px; padding: 3rem; margin: 2.5rem auto;
+            max-width: 900px; box-shadow: 0 6px 30px rgba(0,0,0,0.06);
+            border: 1px solid rgba(180,150,100,0.2);
+            transition: all 0.6s ease; opacity: 0; transform: translateY(30px);
+        }
+        .scroll-card.visible { opacity: 1; transform: translateY(0); }
+        [data-theme="dark"] .scroll-card { background: linear-gradient(180deg, #251810 0%, #1a1010 100%); }
+        .scroll-card h3 { color: #5a3a1a; font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem; margin-bottom: 1rem; }
+        [data-theme="dark"] .scroll-card h3 { color: #d4a76a; }
+        .scroll-card p { line-height: 2.1; font-size: 1.1rem; color: #4a3a2a; }
+        [data-theme="dark"] .scroll-card p { color: #e8d5c8; }
+        .highlight { background: rgba(180,140,80,0.12); padding: 0.2rem 0.6rem; border-radius: 3px; }
+
+        /* ===== ГАЛЕРЕЯ — ВОДОПАД ===== */
+        .waterfall-gallery {
+            max-width: 1100px; margin: 3rem auto; padding: 0 1rem;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;
+        }
+        .wf-item {
+            position: relative; border-radius: 12px; overflow: hidden;
+            aspect-ratio: 3/4; cursor: pointer; box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0; transform: translateY(50px);
+        }
+        .wf-item.visible { opacity: 1; transform: translateY(0); }
+        .wf-item:hover { transform: scale(1.03); z-index: 5; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .wf-item img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.15); transition: filter 0.5s; }
+        .wf-item:hover img { filter: sepia(0); }
+        .wf-item .wf-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 1.2rem 0.8rem; background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #fff; font-family: 'Ma Shan Zheng', cursive; font-size: 1rem;
+            text-align: center; transform: translateY(10px); opacity: 0;
+            transition: all 0.4s ease;
+        }
+        .wf-item:hover .wf-label { transform: translateY(0); opacity: 1; }
+
+        /* ===== ГОРИЗОНТАЛЬНАЯ ЛЕНТА ===== */
+        .scroll-strip {
+            max-width: 100%; margin: 3rem 0; overflow: hidden; position: relative;
+        }
+        .scroll-strip-track {
+            display: flex; gap: 1.5rem; padding: 1rem 2rem;
+            animation: scrollStrip 30s infinite linear;
+        }
+        @keyframes scrollStrip {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .scroll-strip:hover .scroll-strip-track { animation-play-state: paused; }
+        .strip-card {
+            flex-shrink: 0; width: 280px; height: 200px; border-radius: 12px;
+            overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+        .strip-card:hover { transform: translateY(-6px); box-shadow: 0 14px 35px rgba(0,0,0,0.15); }
+        .strip-card img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Лайтбокс */
+        .lightbox-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 10000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: all 0.4s ease; cursor: pointer;
+        }
+        .lightbox-overlay.active { opacity: 1; visibility: visible; }
+        .lightbox-overlay img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; transform: scale(0.9); transition: transform 0.4s ease; }
+        .lightbox-overlay.active img { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 30px; right: 40px; color: #fff; font-size: 2.5rem; cursor: pointer; z-index: 10001; }
+        .lightbox-close:hover { transform: rotate(90deg) scale(1.2); }
+
+        @media (max-width: 768px) {
+            .waterfall-gallery { grid-template-columns: repeat(2, 1fr); }
+            .bird-decoration { width: 300px; } .temple-decoration { width: 300px; }
+            .strip-card { width: 200px; height: 150px; }
+        }
+        @media (max-width: 480px) {
+            .waterfall-gallery { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">画</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo"><img src="images/иконка.png" alt="Логотип" class="logo-icon"><span class="lang-zh">《中式英语》语言俱乐部</span><span class="lang-en" style="display:none">The "Chinglish" Language Club</span><span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span></a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher"><button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button><div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div></div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+            <a href="index.html" class="menu-item lang-zh">首页</a><a href="index.html" class="menu-item lang-en" style="display:none">Home</a><a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+            <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a><a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a><a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+            <a href="painting.html" class="menu-item lang-zh">国画珍品</a><a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a><a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+            <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a><a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a><a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+            <a href="literature.html" class="menu-item lang-zh">文学经典</a><a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a><a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+            <a href="festivals.html" class="menu-item lang-zh">传统节日</a><a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a><a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+            <a href="modern.html" class="menu-item lang-zh">现代传承</a><a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a><a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+        </div></div>
+    </nav>
+
+    <!-- ХЕДЕР -->
+    <div class="painting-hero">
+        <div class="floating-chars">
+            <span class="float-char fc1">山</span><span class="float-char fc2">水</span><span class="float-char fc3">画</span>
+            <span class="float-char fc4">花</span><span class="float-char fc5">鸟</span><span class="float-char fc6">墨</span><span class="float-char fc7">韵</span>
+        </div>
+        <div class="ink-particle ip1"></div><div class="ink-particle ip2"></div><div class="ink-particle ip3"></div><div class="ink-particle ip4"></div><div class="ink-particle ip5"></div>
+        <img src="images/птица.png" alt="Китайская птица" class="bird-decoration">
+        <img src="images/пейзаж .png" alt="Пейзаж" class="temple-decoration">
+        <div class="hero-content">
+            <h1 class="lang-zh">国画珍品</h1><h1 class="lang-en" style="display:none">Chinese Painting</h1><h1 class="lang-ru" style="display:none">Китайская живопись</h1>
+            <p class="hero-subtitle lang-zh">水墨丹青 · 山河花鸟 · 千年气韵</p>
+            <p class="hero-subtitle lang-en" style="display:none">Ink & Color · Mountains & Flowers · Millennial Spirit</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Тушь и краски · Горы и цветы · Тысячелетний дух</p>
+        </div>
+    </div>
+
+    <!-- ГОРИЗОНТАЛЬНАЯ ЛЕНТА -->
+    <div class="scroll-strip">
+        <div class="scroll-strip-track">
+            <div class="strip-card"><img src="images/бамб.jpg" alt="Картина 1" loading="lazy"></div>
+            <div class="strip-card"><img src="images/тушь.webp" alt="Картина 2" loading="lazy"></div>
+            <div class="strip-card"><img src="images/тигр.jpg" alt="Картина 3" loading="lazy"></div>
+            <div class="strip-card"><img src="images/енот.jpg" alt="Картина 4" loading="lazy"></div>
+            <div class="strip-card"><img src="images/ЦВЕТЫ.webp" alt="Картина 5" loading="lazy"></div>
+            <div class="strip-card"><img src="images/мужик.jpg" alt="Картина 6" loading="lazy"></div>
+            <!-- Дубли для бесшовной анимации -->
+            <div class="strip-card"><img src="images/гейши.jpg" alt="Картина 1" loading="lazy"></div>
+            <div class="strip-card"><img src="images/двамужла.webp" alt="Картина 2" loading="lazy"></div>
+            <div class="strip-card"><img src="images/ого.webp" alt="Картина 3" loading="lazy"></div>
+            <div class="strip-card"><img src="images/ничосе.webp" alt="Картина 4" loading="lazy"></div>
+            <div class="strip-card"><img src="images/арт.jpg" alt="Картина 5" loading="lazy"></div>
+            <div class="strip-card"><img src="images/мэн.jpg" alt="Картина 6" loading="lazy"></div>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1100px;">
+        
+        <div class="scroll-card">
+            <h3 class="lang-zh">🏔️ 山水画 — 天地之心</h3>
+            <h3 class="lang-en" style="display:none">🏔️ Landscape — Heart of Nature</h3>
+            <h3 class="lang-ru">🏔️ Пейзаж — Сердце природы</h3>
+            <p class="lang-zh">山水画是中国画的正统。<span class="highlight">"外师造化，中得心源"</span>——观察自然，融入内心。范宽《溪山行旅图》雄浑壮丽，郭熙《早春图》生机盎然，黄公望《富春山居图》被誉为"画中之兰亭"。</p>
+            <p class="lang-en" style="display:none">"Learn from nature externally, gain from the heart internally." Fan Kuan, Guo Xi, Huang Gongwang — masters of landscape.</p>
+            <p class="lang-ru">«Учись у природы внешне, получай от сердца внутренне». Фань Куань, Го Си, Хуан Гунван — мастера пейзажа.</p>
+        </div>
+
+        <!-- ГАЛЕРЕЯ-ВОДОПАД (4 колонки, 8 картин) -->
+        <div class="waterfall-gallery">
+            <div class="wf-item"><img src="images/цв.jpg" alt="山水画" loading="lazy"><div class="wf-label">《溪山行旅图》· 范宽</div></div>
+            <div class="wf-item"><img src="images/дм.jpg" alt="花鸟画" loading="lazy"><div class="wf-label">《芙蓉锦鸡图》· 赵佶</div></div>
+            <div class="wf-item"><img src="images/цапля.jpg" alt="人物画" loading="lazy"><div class="wf-label">《簪花仕女图》· 周昉</div></div>
+            <div class="wf-item"><img src="images/горыыы.jpg" alt="国画" loading="lazy"><div class="wf-label">《早春图》· 郭熙</div></div>
+            <div class="wf-item"><img src="images/красное.jpg" alt="国画" loading="lazy"><div class="wf-label">《富春山居图》· 黄公望</div></div>
+            <div class="wf-item"><img src="images/деревья.jpg" alt="国画" loading="lazy"><div class="wf-label">《墨葡萄图》· 徐渭</div></div>
+            <div class="wf-item"><img src="images/горыы.jpg" alt="国画" loading="lazy"><div class="wf-label">《虾》· 齐白石</div></div>
+            <div class="wf-item"><img src="images/гейша.jpg" alt="国画" loading="lazy"><div class="wf-label">《孤禽图》· 八大山人</div></div>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">🌸 花鸟画 — 一花一世界</h3>
+            <h3 class="lang-en" style="display:none">🌸 Flower-Bird — World in a Bloom</h3>
+            <h3 class="lang-ru">🌸 Цветы и птицы — Мир в цветке</h3>
+            <p class="lang-zh"><span class="highlight">"一花一世界，一叶一菩提"</span>。宋徽宗赵佶的工笔花鸟色彩华贵，徐渭的大写意笔墨淋漓，八大山人的鱼鸟寄寓亡国之痛，齐白石的虾充满生活情趣。</p>
+            <p class="lang-en" style="display:none">"A flower is a world, a leaf is bodhi." Emperor Huizong, Xu Wei, Bada Shanren, Qi Baishi — each a unique voice.</p>
+            <p class="lang-ru">«Цветок — это мир, лист — это бодхи». Хуэйцзун, Сюй Вэй, Бада Шаньжэнь, Ци Байши — каждый уникальный голос.</p>
+        </div>
+
+        <div class="scroll-card">
+            <h3 class="lang-zh">📜 文人画 — 诗书画印</h3>
+            <h3 class="lang-en" style="display:none">📜 Literati — Poetry & Painting</h3>
+            <h3 class="lang-ru">📜 Интеллектуалы — Поэзия и живопись</h3>
+            <p class="lang-zh">苏轼：<span class="highlight">"论画以形似，见与儿童邻"</span>。倪瓒画竹<span class="highlight">"聊写胸中逸气"</span>。文人画超越视觉，成为哲学与生活态度。</p>
+            <p class="lang-en" style="display:none">Su Shi: judging by resemblance is childish. Ni Zan: "express the untrammeled spirit." Painting as philosophy.</p>
+            <p class="lang-ru">Су Ши: судить по сходству — детский подход. Ни Цзань: «выразить свободный дух». Живопись как философия.</p>
+        </div>
+    </div>
+
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Просмотр картины" id="lightboxImg">
+    </div>
+<!-- ТРИ ХУДОЖНИКА -->
+<div style="max-width: 1100px; margin: 3rem auto; padding: 0 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+    
+    <!-- Фань Куань -->
+    <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.06); transition: all 0.5s ease; opacity: 0; transform: translateY(30px);" class="artist-card">
+        <div style="height: 250px; overflow: hidden;">
+            <img src="images/ФАН-КУАНЬ.jpg" alt="Фань Куань" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+        </div>
+        <div style="padding: 1.5rem; text-align: center;">
+         
+            <h4 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: #5a3a1a; margin-bottom: 0.3rem;">范宽 · Фань Куань</h4>
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.8rem;">Fàn Kuān · 990–1020 · 北宋</p>
+            <p class="lang-zh" style="font-size: 0.9rem; color: #555; line-height: 1.7;">宋代山水画大师，以雄浑厚重的笔法描绘北方山川。《溪山行旅图》被誉为中国山水画第一神品，开创了"雨点皴"技法。</p>
+            <p class="lang-en" style="display:none; font-size: 0.9rem; color: #555; line-height: 1.7;">Song dynasty landscape master. "Travelers Among Mountains and Streams" — the greatest Chinese landscape painting. Creator of "raindrop texture stroke" technique.</p>
+            <p class="lang-ru" style="font-size: 0.9rem; color: #555; line-height: 1.7;">Мастер пейзажа династии Сун. «Путники среди гор и потоков» — величайший китайский пейзаж. Создатель техники «капли дождя».</p>
+        </div>
+    </div>
+    
+    <!-- Го Си -->
+    <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.06); transition: all 0.5s ease; opacity: 0; transform: translateY(30px);" class="artist-card">
+        <div style="height: 250px; overflow: hidden;">
+            <img src="images/го-си.jpg" alt="Го Си" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+        </div>
+        <div style="padding: 1.5rem; text-align: center;">
+          
+            <h4 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: #5a3a1a; margin-bottom: 0.3rem;">郭熙 · Го Си</h4>
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.8rem;">Guō Xī · 1020–1090 · 北宋</p>
+            <p class="lang-zh" style="font-size: 0.9rem; color: #555; line-height: 1.7;">北宋宫廷画家，以"卷云皴"和"蟹爪枝"闻名。《早春图》表现冬去春来的生机，提出"三远"透视理论——高远、深远、平远。</p>
+            <p class="lang-en" style="display:none; font-size: 0.9rem; color: #555; line-height: 1.7;">Northern Song court painter. Famous for "curling cloud" and "crab claw" techniques. "Early Spring" captures seasonal change. Creator of "Three Distances" perspective theory.</p>
+            <p class="lang-ru" style="font-size: 0.9rem; color: #555; line-height: 1.7;">Придворный художник Северной Сун. Знаменит техниками «облачного завитка» и «крабьей клешни». Создатель теории «трёх далей» — высота, глубина, равнина.</p>
+        </div>
+    </div>
+    
+    <!-- Ци Байши -->
+    <div style="background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.06); transition: all 0.5s ease; opacity: 0; transform: translateY(30px);" class="artist-card">
+        <div style="height: 250px; overflow: hidden;">
+            <img src="images/ци-байши.webp" alt="Ци Байши" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;">
+        </div>
+        <div style="padding: 1.5rem; text-align: center;">
+           
+            <h4 style="font-family: 'Ma Shan Zheng', cursive; font-size: 1.6rem; color: #5a3a1a; margin-bottom: 0.3rem;">齐白石 · Ци Байши</h4>
+            <p style="font-size: 0.85rem; color: #888; margin-bottom: 0.8rem;">Qí Báishí · 1864–1957 · XX век</p>
+            <p class="lang-zh" style="font-size: 0.9rem; color: #555; line-height: 1.7;">现代中国画大师，以写意花鸟虫鱼闻名。笔墨简练却栩栩如生——几只虾、一群蝌蚪，尽得自然之趣。主张"妙在似与不似之间"。</p>
+            <p class="lang-en" style="display:none; font-size: 0.9rem; color: #555; line-height: 1.7;">Modern Chinese painting master. Simple strokes create vivid shrimps, tadpoles — capturing nature's joy. "Beauty lies between likeness and unlikeness."</p>
+            <p class="lang-ru" style="font-size: 0.9rem; color: #555; line-height: 1.7;">Мастер современной китайской живописи. Простыми мазками создавал живых креветок, головастиков. «Красота — между сходством и несходством».</p>
+        </div>
+    </div>
+    
+</div>
+
+<style>
+.artist-card:hover img { transform: scale(1.08); }
+.artist-card:hover { transform: translateY(-8px) !important; box-shadow: 0 16px 45px rgba(0,0,0,0.12) !important; }
+[data-theme="dark"] .artist-card { background: #1a1a1a !important; }
+[data-theme="dark"] .artist-card h4 { color: #FFD700 !important; }
+[data-theme="dark"] .artist-card p { color: #bbb !important; }
+</style>
+
+<script>
+// Появление карточек художников
+document.querySelectorAll('.artist-card').forEach((card, i) => {
+    card.style.transition = `all 0.6s ease ${i * 0.2}s`;
+    new IntersectionObserver((e) => {
+        if(e[0].isIntersecting) {
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }
+    }, { threshold: 0.15 }).observe(card);
+});
+</script>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><img src="images/иконка.png" alt="Логотип" style="width:35px;height:35px;border-radius:50%;object-fit:cover;margin-right:12px;border:2px solid var(--gold);"><span class="lang-zh">中华文化瑰宝数字博物馆</span><span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span><span class="lang-ru" style="display:none">Цифровой музей китайской культуры</span></div>
+            <div class="footer-links"><a href="index.html" class="lang-ru">Главная</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-zh" style="display:none">首页</a><a href="about.html" class="lang-ru">О нас</a><a href="about.html" class="lang-en" style="display:none">About Us</a><a href="about.html" class="lang-zh" style="display:none">关于我们</a></div>
+            <div class="footer-social"><a href="https://vk.ru/chinglishbalakovo" target="_blank" rel="noopener"><i class="fab fa-vk"></i></a><a href="https://quizlet.com/ru/374641804/" target="_blank" rel="noopener"><i class="fas fa-layer-group"></i></a></div>
+            <div class="footer-bottom"><p class="lang-ru">© 2026 Языковой клуб «Chinglish» | <a href="privacy.html">Политика конфиденциальности</a></p><p class="lang-en" style="display:none">© 2026 "Chinglish" Language Club | <a href="privacy.html">Privacy Policy</a></p><p class="lang-zh" style="display:none">© 2026 《中式英语》语言俱乐部 | <a href="privacy.html">隐私政策</a></p></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Лайтбокс
+        const lb = document.getElementById('lightboxOverlay');
+        const lbImg = document.getElementById('lightboxImg');
+        document.querySelectorAll('.wf-item img, .strip-card img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                lbImg.src = this.src;
+                lb.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        function close() { lb.classList.remove('active'); document.body.style.overflow = ''; }
+        document.querySelector('.lightbox-close').addEventListener('click', close);
+        lb.addEventListener('click', function(e) { if (e.target === lb) close(); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && lb.classList.contains('active')) close(); });
+
+        // Появление свитков
+        document.querySelectorAll('.scroll-card').forEach(card => {
+            new IntersectionObserver((e) => { if(e[0].isIntersecting) { card.classList.add('visible'); } }, { threshold: 0.15 }).observe(card);
+        });
+
+        // Появление картин водопада
+        document.querySelectorAll('.wf-item').forEach((item, i) => {
+            item.style.transition = `all 0.6s ease ${i * 0.1}s`;
+            new IntersectionObserver((e) => { if(e[0].isIntersecting) { item.classList.add('visible'); } }, { threshold: 0.1 }).observe(item);
+        });
+
+        // Параллакс
+        window.addEventListener('scroll', () => {
+            const s = window.pageYOffset;
+            const bird = document.querySelector('.bird-decoration');
+            const temple = document.querySelector('.temple-decoration');
+            if (bird) bird.style.transform = `translateX(-${s * 0.12}px) translateY(${s * 0.04}px)`;
+            if (temple) temple.style.transform = `translateX(${s * 0.08}px) translateY(${s * 0.02}px)`;
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中华文化瑰宝 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+<link rel="stylesheet" href="style.css">
+    <meta name="description" content="探索中华五千年文化瑰宝的数字博物馆 | Digital museum exploring 5000 years of Chinese cultural treasures">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<!-- Экран загрузки -->
+<div id="loader">
+        <div class="loader-content">文</div>
+    </div>
+
+    <!-- Контейнеры для эффектов -->
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+    <div class="sky-bg" id="skyBg"></div>
+    <div class="clouds-container" id="cloudsContainer"></div>
+    <div class="stars-bg" id="starsBg"></div>
+    <div class="lanterns-container" id="lanternsContainer"></div>
+ 
+
+    <!-- Навигация -->
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo">
+           <img src="images/иконка.png" alt="Логотип" class="logo-icon">
+            <span class="lang-zh">《中式英语》语言俱乐部</span>
+            <span class="lang-en" style="display:none">The "Chinglish" Language Club</span>
+            <span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span>
+        </a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle" title="Переключить тему">
+                <i class="fas fa-moon"></i>
+                <span class="theme-text lang-zh">Темная</span>
+                <span class="theme-text lang-en" style="display:none">Dark</span>
+                <span class="theme-text lang-ru" style="display:none">Темная</span>
+            </button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn" title="Toggle cursor petals">
+                <i class="fas fa-leaf"></i>
+            </button>
+            <div class="language-switcher">
+                <button class="language-btn" id="languageBtn">
+                    <i class="fas fa-globe"></i>
+                    <span class="lang-zh">中文</span>
+                    <span class="lang-en" style="display:none">EN</span>
+                    <span class="lang-ru" style="display:none">РУ</span>
+                </button>
+                <div class="language-dropdown" id="languageDropdown">
+                    <a href="#" data-lang="zh">中文</a>
+                    <a href="#" data-lang="en">English</a>
+                    <a href="#" data-lang="ru">Русский</a>
+                </div>
+            </div>
+            <div class="menu-toggle" id="menuToggle">
+                <i class="fas fa-spa menu-icon"></i>
+            </div>
+        </div>
+        <div class="menu-panel" id="menuPanel">
+            <div class="menu-items">
+                 <a href="index.html" class="menu-item lang-zh">首页</a>
+        <a href="index.html" class="menu-item lang-en" style="display:none">Home</a>
+        <a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+        <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a>
+        <a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a>
+        <a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+        <a href="painting.html" class="menu-item lang-zh">国画珍品</a>
+        <a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a>
+        <a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+        <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a>
+        <a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a>
+        <a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+        <a href="literature.html" class="menu-item lang-zh">文学经典</a>
+        <a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a>
+        <a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+        <a href="festivals.html" class="menu-item lang-zh">传统节日</a>
+        <a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a>
+        <a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+        <a href="modern.html" class="menu-item lang-zh">现代传承</a>
+        <a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a>
+        <a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+    </div>
+</div>
+                         </div>
+        </div>
+    </nav>
+
+    <!-- Главный контент -->
+    <div class="header-container">
+        <div class="header-content">
+<!-- Внутрь .header-content -->
+
+           <h1 class="lang-zh" style="display:none;">中华五千年文化瑰宝</h1>
+<h1 class="lang-en" style="display:none;">5000 Years of Chinese Cultural Treasures</h1>
+<h1 class="lang-ru" style="display:none;">5000 лет сокровищ китайской культуры</h1>
+            <p class="header-subtitle lang-zh">探索中国文化，感受千年智慧与现代创新的完美融合</p>
+            <p class="header-subtitle lang-en" style="display:none">Explore Chinese culture and experience the perfect fusion of millennia-old wisdom and modern innovation</p>
+            <p class="header-subtitle lang-ru" style="display:none">Исследуйте китайскую культуру, ощутите идеальное слияние тысячелетней мудрости и современных инноваций</p>
+            
+<style>
+.red-line-block {
+    margin-top: 2.5rem;
+    border-left: 6px solid #C41E3A;
+    padding-left: 25px;
+    transition: all 0.4s ease;
+    cursor: default;
+}
+
+.red-line-block:hover {
+    border-left-color: #FFD700;
+    border-left-width: 8px;
+    padding-left: 30px;
+    transform: translateX(5px);
+}
+</style>
+
+<div class="red-line-block">
+    <div class="lang-zh" style="color: white; font-size: 2.4rem; letter-spacing: 6px; writing-mode: vertical-rl; text-orientation: upright; font-family: 'Times New Roman', serif; font-weight: bold; text-shadow: 3px 3px 6px rgba(0,0,0,0.4);">传承创新发展</div>
+    
+    <div class="lang-en" style="display:none; color: white; font-size: 1.8rem; letter-spacing: 5px; font-family: 'Times New Roman', serif; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Heritage · Innovation · Development</div>
+    
+    <div class="lang-ru" style="display:none; color: white; font-size: 1.8rem; letter-spacing: 5px; font-family: 'Times New Roman', serif; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">Наследие · Инновации · Развитие</div>
+</div>
+        </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="container" id="mainContent">
+        <div class="gallery-title">
+            <h2 class="lang-zh">令人叹为观止的文化名胜</h2>
+            <h2 class="lang-en" style="display:none">Amazing cultural landmarks</h2>
+            <h2 class="lang-ru" style="display:none">Удивительные культурные достопримечательности</h2>
+        </div>
+       
+<div class="full-width-gallery" id="galleryWrapper">
+    <div class="gallery-track" id="galleryTrack">
+        <div class="gallery-item">
+            <img src="images/park.jpg" alt="张家界" loading="lazy">
+            <div class="item-caption lang-zh">张家界国家公园</div>
+            <div class="item-caption lang-en" style="display:none">Zhangjiajie National Forest Park</div>
+            <div class="item-caption lang-ru" style="display:none">Национальный парк Чжанцзяцзе</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/городнаводе.webp" alt="东方威尼斯" loading="lazy">
+            <div class="item-caption lang-zh">东方威尼斯</div>
+            <div class="item-caption lang-en" style="display:none">The Venice of the East</div>
+            <div class="item-caption lang-ru" style="display:none">Восточная Венеция</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/hram_neba.jpg" alt="天坛" loading="lazy">
+            <div class="item-caption lang-zh">天坛</div>
+            <div class="item-caption lang-en" style="display:none">The Temple of Heaven</div>
+            <div class="item-caption lang-ru" style="display:none">Храм неба</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Запретный город.jpg" alt="故宫" loading="lazy">
+            <div class="item-caption lang-zh">故宫博物院藏品</div>
+            <div class="item-caption lang-en" style="display:none">Palace Museum Collection</div>
+            <div class="item-caption lang-ru" style="display:none">Коллекция музея Запретного города</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/armia.jpg" alt="兵马俑" loading="lazy">
+            <div class="item-caption lang-zh">兵马俑</div>
+            <div class="item-caption lang-en" style="display:none">The Terracotta Army</div>
+            <div class="item-caption lang-ru" style="display:none">Террактовая армия</div>
+        </div>
+        <!-- НОВЫЕ 5 -->
+        <div class="gallery-item">
+            <img src="images/гора.webp" alt="天门山" loading="lazy">
+            <div class="item-caption lang-zh">天门山</div>
+            <div class="item-caption lang-en" style="display:none">Tianmen Mountain</div>
+            <div class="item-caption lang-ru" style="display:none">Гора Тяньмэнь</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Хуашань.webp" alt="华山" loading="lazy">
+            <div class="item-caption lang-zh">华山</div>
+            <div class="item-caption lang-en" style="display:none">Mount Huashan</div>
+            <div class="item-caption lang-ru" style="display:none">Гора Хуашань</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/храмнефрит.webp" alt="玉佛寺" loading="lazy">
+            <div class="item-caption lang-zh">玉佛寺</div>
+            <div class="item-caption lang-en" style="display:none">Jade Buddha Temple</div>
+            <div class="item-caption lang-ru" style="display:none">Храм Нефритового Будды</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/будда.jpg" alt="天坛大佛" loading="lazy">
+            <div class="item-caption lang-zh">天坛大佛</div>
+            <div class="item-caption lang-en" style="display:none">Tian Tan Buddha (Big Buddha)</div>
+            <div class="item-caption lang-ru" style="display:none">Большой Будда в Гонкоге</div>
+        </div>
+        <div class="gallery-item">
+            <img src="images/геопарк.webp" alt="丹霞地貌" loading="lazy">
+            <div class="item-caption lang-zh">丹霞地貌</div>
+            <div class="item-caption lang-en" style="display:none">Danxia Landform</div>
+            <div class="item-caption lang-ru" style="display:none">Геопарк Данься</div>
+        </div>
+    </div>
+</div>
+<!-- После </div> галереи (после </div> с классом full-width-gallery) -->
+<div class="section-divider svg"></div>
+
+<div class="section-divider"></div>
+
+<div class="container">
+    <div class="gallery-title">
+        <h2 class="lang-ru">Разделы сайта-музея</h2>
+        <h2 class="lang-en" style="display:none">Museum Sections</h2>
+        <h2 class="lang-zh" style="display:none">博物馆分区</h2>
+    </div>
+    <div class="featured-sections">
+    
+    <div class="featured-section">
+        <img src="images/калиграфия.png" alt="Каллиграфия" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Каллиграфия</h2>
+        <h2 class="lang-en" style="display:none">Calligraphy</h2>
+        <h2 class="lang-zh" style="display:none">书法</h2>
+        <p class="lang-ru">Искусство письма: Порядок черт, пять стилей, знаменитые мастера, пробное письмо</p>
+        <p class="lang-en" style="display:none">Stroke order, five styles, famous masters, trial writing</p>
+        <p class="lang-zh" style="display:none">笔顺、五体、名家、试笔</p>
+        <a href="calligraphy.html" class="btn lang-ru">Перейти</a>
+        <a href="calligraphy.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="calligraphy.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+    <div class="featured-section">
+        <img src="images/живопись.png" alt="Живопись" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Живопись</h2>
+        <h2 class="lang-en" style="display:none">Painting</h2>
+        <h2 class="lang-zh" style="display:none">国画</h2>
+        <p class="lang-ru">Прекрасные примеры китайской живописи</p>
+        <p class="lang-en" style="display:none">Exquisite examples of Chinese painting</p>
+        <p class="lang-zh" style="display:none">中国画的绝佳典范</p>
+        <a href="painting.html" class="btn lang-ru">Перейти</a>
+        <a href="painting.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="painting.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+    <div class="featured-section">
+        <img src="images/литература.png" alt="Литература" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Литература</h2>
+        <h2 class="lang-en" style="display:none">Literature</h2>
+        <h2 class="lang-zh" style="display:none">文学</h2>
+        <p class="lang-ru">Классические произведения Китая</p>
+        <p class="lang-en" style="display:none">Chinese classics</p>
+        <p class="lang-zh" style="display:none">中国经典作品</p>
+        <a href="literature.html" class="btn lang-ru">Перейти</a>
+        <a href="literature.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="literature.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+</div>
+
+<div class="featured-sections">
+    
+    <div class="featured-section">
+        <img src="images/праздники.png" alt="Праздники" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Праздники</h2>
+        <h2 class="lang-en" style="display:none">Festivals</h2>
+        <h2 class="lang-zh" style="display:none">节日</h2>
+        <p class="lang-ru">Традиционные китайские праздники</p>
+        <p class="lang-en" style="display:none">Traditional Chinese festivals</p>
+        <p class="lang-zh" style="display:none">中国传统节日与习俗</p>
+        <a href="festivals.html" class="btn lang-ru">Перейти</a>
+        <a href="festivals.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="festivals.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+    <div class="featured-section">
+        <img src="images/современность.png" alt="Современность" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Современность</h2>
+        <h2 class="lang-en" style="display:none">Modern China</h2>
+        <h2 class="lang-zh" style="display:none">现代</h2>
+        <p class="lang-ru">Китай сегодня: технологии</p>
+        <p class="lang-en" style="display:none">China today: technology</p>
+        <p class="lang-zh" style="display:none">今日中国：科技</p>
+        <a href="modern.html" class="btn lang-ru">Перейти</a>
+        <a href="modern.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="modern.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+    <div class="featured-section">
+        <img src="images/философия.png" alt="Философия" style="width: 50px; height: 50px; object-fit: contain; display: block; margin: 0 auto 1.5rem;">
+        <h2 class="lang-ru">Философия</h2>
+        <h2 class="lang-en" style="display:none">Philosophy</h2>
+        <h2 class="lang-zh" style="display:none">哲学</h2>
+        <p class="lang-ru">Конфуцианство, даосизм и другие учения</p>
+        <p class="lang-en" style="display:none">Confucianism, Taoism and other teachings</p>
+        <p class="lang-zh" style="display:none">儒家、道家及其他学说</p>
+        <a href="philosophy.html" class="btn lang-ru">Перейти</a>
+        <a href="philosophy.html" class="btn lang-en" style="display:none">Open</a>
+        <a href="philosophy.html" class="btn lang-zh" style="display:none">打开</a>
+    </div>
+    
+</div>
+    
+    </div>
+</div>
+
+<div class="section-divider"></div>
+            
+   <div class="container">
+    <div class="scroll-effect" style="background:linear-gradient(135deg, var(--card-bg), var(--paper)); border-radius:20px; padding:3rem 2rem; position:relative; overflow:hidden; border:1px solid var(--border-subtle); box-shadow:0 10px 40px var(--shadow);">
+        
+        <!-- Иероглифы на фоне -->
+        <div style="position:absolute; top:10px; left:15px; font-size:6rem; opacity:0.06; color:var(--primary); pointer-events:none; font-family:'Times New Roman', serif; line-height:1;">文化</div>
+        <div style="position:absolute; top:40%; right:20px; font-size:7rem; opacity:0.05; color:var(--primary); pointer-events:none; font-family:'Times New Roman', serif; line-height:1;">语言</div>
+        <div style="position:absolute; bottom:10px; left:35px; font-size:5rem; opacity:0.06; color:var(--primary); pointer-events:none; font-family:'Times New Roman', serif; line-height:1;">中国</div>
+        <div style="position:absolute; top:15px; right:35%; font-size:4rem; opacity:0.05; color:var(--primary); pointer-events:none; font-family:'Times New Roman', serif; line-height:1;">美</div>
+        <div style="position:absolute; bottom:30px; right:10px; font-size:6rem; opacity:0.06; color:var(--primary); pointer-events:none; font-family:'Times New Roman', serif; line-height:1;">書法</div>
+        
+        <!-- Заголовок -->
+        <h2 class="lang-ru" style="text-align:center; color:var(--primary); margin-bottom:0.5rem; font-size:2.2rem; position:relative;">
+            💡 Почему культура = язык
+        </h2>
+        <h2 class="lang-zh" style="display:none; text-align:center; color:var(--primary); margin-bottom:0.5rem; font-size:2.2rem; position:relative;">
+            💡 为什么文化=语言
+        </h2>
+        <h2 class="lang-en" style="display:none; text-align:center; color:var(--primary); margin-bottom:0.5rem; font-size:2.2rem; position:relative;">
+            💡 Why Culture = Language
+        </h2>
+        
+        <p class="lang-ru" style="text-align:center; color:var(--text-light); margin-bottom:2.5rem; position:relative; font-size:1.1rem;">
+            Методика клуба «Chinglish»
+        </p>
+        <p class="lang-zh" style="display:none; text-align:center; color:var(--text-light); margin-bottom:2.5rem; position:relative; font-size:1.1rem;">
+            《中式英语》俱乐部教学法
+        </p>
+        <p class="lang-en" style="display:none; text-align:center; color:var(--text-light); margin-bottom:2.5rem; position:relative; font-size:1.1rem;">
+            "Chinglish" Club Methodology
+        </p>
+        
+        <div style="max-width:750px; margin:0 auto; position:relative;">
+            
+            <!-- 1 - Книга -->
+            <div style="margin-bottom:1rem; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); overflow:hidden; box-shadow:0 4px 15px var(--shadow);">
+                <div onclick="this.nextElementSibling.classList.toggle('show'); this.querySelector('span:last-child').classList.toggle('rotate');" style="padding:1.2rem 1.5rem; cursor:pointer; display:flex; align-items:center; gap:1rem; font-weight:bold; color:var(--text); font-size:1.15rem; background:var(--card-bg);">
+                    <img src="images/иконка_книга.png" width="32" height="32" style="border-radius:6px;" alt="книга">
+                    <span class="lang-ru">Контекст важнее зубрёжки</span>
+                    <span class="lang-zh" style="display:none">语境胜于死记硬背</span>
+                    <span class="lang-en" style="display:none">Context over cramming</span>
+                    <span style="margin-left:auto; transition:transform 0.4s ease; color:var(--primary);">▼</span>
+                </div>
+                <div style="max-height:0; overflow:hidden; transition:max-height 0.5s ease, padding 0.5s ease; padding:0 1.5rem; background:var(--paper);">
+                    <p class="lang-ru" style="color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Каждый иероглиф — это история. Изучая каллиграфию, вы понимаете логику письма: почему 人 + 木 = 休. Культура даёт контекст, а контекст — это 80% запоминания.
+                    </p>
+                    <p class="lang-zh" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        每个汉字都是一个故事。学习书法，你会理解书写逻辑：为什么人+木=休。文化提供语境，语境占记忆的80%。
+                    </p>
+                    <p class="lang-en" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Every character is a story. By learning calligraphy, you understand the logic of writing: why 人 + 木 = 休. Culture provides context, and context is 80% of memorization.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 2 - Иероглиф / письмо -->
+            <div style="margin-bottom:1rem; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); overflow:hidden; box-shadow:0 4px 15px var(--shadow);">
+                <div onclick="this.nextElementSibling.classList.toggle('show'); this.querySelector('span:last-child').classList.toggle('rotate');" style="padding:1.2rem 1.5rem; cursor:pointer; display:flex; align-items:center; gap:1rem; font-weight:bold; color:var(--text); font-size:1.15rem; background:var(--card-bg);">
+                    <span style="font-size:1.8rem;">文</span>
+                    <span class="lang-ru">Визуальная память</span>
+                    <span class="lang-zh" style="display:none">视觉记忆</span>
+                    <span class="lang-en" style="display:none">Visual memory</span>
+                    <span style="margin-left:auto; transition:transform 0.4s ease; color:var(--primary);">▼</span>
+                </div>
+                <div style="max-height:0; overflow:hidden; transition:max-height 0.5s ease, padding 0.5s ease; padding:0 1.5rem; background:var(--paper);">
+                    <p class="lang-ru" style="color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Каллиграфия превращает иероглифы в образы. Мозг запоминает красивое движение кисти быстрее, чем строки в учебнике. Визуальная память в 3 раза эффективнее.
+                    </p>
+                    <p class="lang-zh" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        书法将汉字转化为图像。大脑记忆优美的笔触比课本上的文字快3倍。视觉记忆效率更高。
+                    </p>
+                    <p class="lang-en" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Calligraphy turns characters into images. The brain remembers beautiful brush strokes faster than textbook lines. Visual memory is 3 times more effective.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 3 - Мотивация -->
+            <div style="margin-bottom:1rem; background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); overflow:hidden; box-shadow:0 4px 15px var(--shadow);">
+                <div onclick="this.nextElementSibling.classList.toggle('show'); this.querySelector('span:last-child').classList.toggle('rotate');" style="padding:1.2rem 1.5rem; cursor:pointer; display:flex; align-items:center; gap:1rem; font-weight:bold; color:var(--text); font-size:1.15rem; background:var(--card-bg);">
+                    <img src="images/палец_иконка.png" width="32" height="32" style="border-radius:6px;" alt="иконка">
+                    <span class="lang-ru">Мотивация через интерес</span>
+                    <span class="lang-zh" style="display:none">兴趣驱动学习</span>
+                    <span class="lang-en" style="display:none">Motivation through interest</span>
+                    <span style="margin-left:auto; transition:transform 0.4s ease; color:var(--primary);">▼</span>
+                </div>
+                <div style="max-height:0; overflow:hidden; transition:max-height 0.5s ease, padding 0.5s ease; padding:0 1.5rem; background:var(--paper);">
+                    <p class="lang-ru" style="color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Праздники, легенды, традиции — язык становится приключением. Когда знаешь историю Праздника фонарей, иероглиф 燈 запоминается сам собой.
+                    </p>
+                    <p class="lang-zh" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        节日、传说、传统——语言变成冒险。当你知道元宵节的故事，燈字自然就记住了。
+                    </p>
+                    <p class="lang-en" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Festivals, legends, traditions — language becomes an adventure. When you know the story of the Lantern Festival, the character 燈 remembers itself.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- 4 - Мост -->
+            <div style="background:var(--card-bg); border-radius:14px; border:1px solid var(--border-subtle); overflow:hidden; box-shadow:0 4px 15px var(--shadow);">
+                <div onclick="this.nextElementSibling.classList.toggle('show'); this.querySelector('span:last-child').classList.toggle('rotate');" style="padding:1.2rem 1.5rem; cursor:pointer; display:flex; align-items:center; gap:1rem; font-weight:bold; color:var(--text); font-size:1.15rem; background:var(--card-bg);">
+                    <span style="font-size:1.8rem;">桥</span>
+                    <span class="lang-ru">Культурный мост</span>
+                    <span class="lang-zh" style="display:none">文化桥梁</span>
+                    <span class="lang-en" style="display:none">Cultural bridge</span>
+                    <span style="margin-left:auto; transition:transform 0.4s ease; color:var(--primary);">▼</span>
+                </div>
+                <div style="max-height:0; overflow:hidden; transition:max-height 0.5s ease, padding 0.5s ease; padding:0 1.5rem; background:var(--paper);">
+                    <p class="lang-ru" style="color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Понимание культуры убирает барьеры. Вы не просто говорите на китайском — вы думаете как носитель. Это высший уровень владения языком.
+                    </p>
+                    <p class="lang-zh" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        理解文化消除障碍。你不只是在说中文——你在像母语者一样思考。这是语言的最高境界。
+                    </p>
+                    <p class="lang-en" style="display:none; color:var(--text); line-height:1.7; padding-bottom:1.2rem; font-size:1.05rem;">
+                        Understanding culture removes barriers. You are not just speaking Chinese — you are thinking like a native speaker. This is the highest level of language proficiency.
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+<style>
+.show { max-height:250px !important; padding:1rem 1.5rem !important; }
+.rotate { transform:rotate(180deg); }
+</style>
+<footer>
+        
+    <div class="footer-content">
+        <div class="footer-logo">
+          
+<img src="images/иконка.png" alt="Логотип" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; margin-right: 12px; border: 2px solid var(--gold);">
+            <span class="lang-zh">中华文化瑰宝数字博物馆</span>
+            <span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span>
+            <span class="lang-ru" style="display:none">Цифровой музей китайской культуры</span>
+        </div>
+        <div class="footer-links">
+            <a href="index.html" class="lang-ru">Главная</a>
+            <a href="index.html" class="lang-en" style="display:none">Home</a>
+            <a href="index.html" class="lang-zh" style="display:none">首页</a>
+            
+            <a href="about.html" class="lang-ru">О нас</a>
+            <a href="about.html" class="lang-en" style="display:none">About Us</a>
+            <a href="about.html" class="lang-zh" style="display:none">关于我们</a>
+        </div>
+        <div class="footer-social">
+            <a href="https://vk.ru/chinglishbalakovo" target="_blank" rel="noopener" title="ВКонтакте">
+                <i class="fab fa-vk"></i>
+            </a>
+            <a href="https://quizlet.com/ru/374641804/%D1%86%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%BE-%D0%BA%D0%B8%D1%82%D0%B0%D0%B9%D1%81%D0%BA%D0%BE%D0%B3%D0%BE-%D1%8F%D0%B7%D1%8B%D0%BA%D0%B0-flash-cards/" target="_blank" rel="noopener" title="Quizlet">
+    <i class="fas fa-layer-group"></i>
+</a>
+        </div>
+        <div class="footer-bottom">
+            <p class="lang-ru">© 2026 Языковой клуб «Chinglish» | <a href="privacy.html">Политика конфиденциальности</a></p>
+            <p class="lang-en" style="display:none">© 2026 "Chinglish" Language Club | <a href="privacy.html">Privacy Policy</a></p>
+            <p class="lang-zh" style="display:none">© 2026 《中式英语》语言俱乐部 | <a href="privacy.html">隐私政策</a></p>
+        </div>
+    </div>
+<style>
+footer {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    margin-left: calc(-50vw + 50%) !important;
+    position: relative;
+}
+</style>
+</footer>
+   <script src="script.js"></script>   
+</body>
+</html>
+
+

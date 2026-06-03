@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>哲学思想 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Китайская философия | Chinese Philosophy">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c49b4c;
+            --primary: #8b2e3d;
+        }
+
+        * { box-sizing: border-box; }
+
+        .philosophy-hero {
+            position: relative;
+            min-height: 55vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(180deg, #f5efe0 0%, #e8dcc8 50%, #d4c8a8 100%);
+            overflow: hidden;
+        }
+        [data-theme="dark"] .philosophy-hero {
+            background: linear-gradient(180deg, #1a1410 0%, #150e0a 50%, #0a0606 100%);
+        }
+
+        .yin-yang-bg {
+            position: absolute;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.12;
+            animation: yinYangSpin 20s infinite linear;
+        }
+        .yin-yang-bg-1 { width: 50px; top: 10%; left: 5%; }
+        .yin-yang-bg-2 { width: 45px; top: 15%; right: 8%; animation-direction: reverse; animation-duration: 24s; }
+        .yin-yang-bg-3 { width: 55px; bottom: 20%; left: 10%; animation-duration: 26s; }
+        .yin-yang-bg-4 { width: 40px; bottom: 15%; right: 6%; animation-direction: reverse; animation-duration: 22s; }
+        .yin-yang-bg-5 { width: 48px; top: 50%; left: 3%; animation-duration: 28s; }
+        .yin-yang-bg-6 { width: 42px; top: 45%; right: 4%; animation-direction: reverse; animation-duration: 19s; }
+
+        @keyframes yinYangSpin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        [data-theme="dark"] .yin-yang-bg { opacity: 0.18; filter: brightness(1.6); }
+
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 3rem 2rem; }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: clamp(3.5rem, 9vw, 6rem);
+            color: #1a1a1a !important;
+            -webkit-text-fill-color: #1a1a1a !important;
+            background: none !important;
+            margin-bottom: 1.5rem;
+        }
+        [data-theme="dark"] .hero-content h1 { color: #f0e6d3 !important; -webkit-text-fill-color: #f0e6d3 !important; }
+        .hero-subtitle {
+            display: inline-block;
+            font-size: 1.3rem;
+            color: #333 !important;
+            font-weight: 600;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2.5rem;
+            border-radius: 8px;
+            max-width: 650px;
+        }
+        [data-theme="dark"] .hero-subtitle { color: #f0e6d3 !important; background: rgba(15,10,8,0.85); }
+
+        .container { padding: 2rem 1rem; }
+
+        .three-pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto 3rem;
+        }
+        .pillar-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border-top: 4px solid var(--gold);
+        }
+        [data-theme="dark"] .pillar-card { background: #1a1010; }
+        .pillar-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px rgba(0,0,0,0.1); }
+        [data-theme="dark"] .pillar-card:hover { box-shadow: 0 16px 40px rgba(0,0,0,0.5); }
+        .pillar-card .pillar-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+        .pillar-card h3 { font-family: 'Ma Shan Zheng', cursive; font-size: 2rem; color: var(--primary); margin-bottom: 0.8rem; }
+        [data-theme="dark"] .pillar-card h3 { color: var(--gold); }
+        .pillar-card p { font-size: 0.95rem; line-height: 1.8; }
+
+        .wisdom-block {
+            max-width: 1000px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .wisdom-quote {
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            border-left: 5px solid var(--gold);
+            font-style: italic;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+        }
+        [data-theme="dark"] .wisdom-quote { background: #1a1010; }
+        .wisdom-quote:hover { transform: translateX(8px); border-left-color: var(--primary); }
+        .wisdom-quote p { font-size: 1.2rem; line-height: 2; }
+        .wisdom-quote .author { margin-top: 1rem; font-size: 0.95rem; color: var(--primary); font-style: normal; font-weight: bold; }
+        [data-theme="dark"] .wisdom-quote .author { color: var(--gold); }
+
+        .book-showcase {
+            max-width: 1000px;
+            margin: 3rem auto;
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 3rem;
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            align-items: center;
+        }
+        [data-theme="dark"] .book-showcase { background: #1a1010; }
+        .book-cover { width: 100%; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); transition: transform 0.4s ease; }
+        .book-cover:hover { transform: scale(1.03) rotate(-2deg); }
+        .book-info h3 { font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem; color: var(--primary); margin-bottom: 1rem; }
+        [data-theme="dark"] .book-info h3 { color: var(--gold); }
+        .book-info .book-author { font-size: 1.1rem; color: var(--gold); margin-bottom: 1.5rem; font-weight: bold; }
+        .book-info p { line-height: 2; font-size: 1.05rem; }
+        .book-link {
+            display: inline-block; margin-top: 1.5rem; padding: 12px 28px;
+            background: var(--primary); color: white; border-radius: 30px;
+            text-decoration: none; font-weight: bold; transition: all 0.3s ease;
+        }
+        .book-link:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(139,46,61,0.3); }
+
+        /* ФИЛОСОФЫ — СВИТКИ */
+        .philosophers-section { max-width: 1000px; margin: 4rem auto; }
+        .philosophers-section h2 {
+            text-align: center; font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.8rem; color: var(--primary); margin-bottom: 2.5rem; position: relative;
+        }
+        [data-theme="dark"] .philosophers-section h2 { color: var(--gold); }
+        .philosophers-section h2::after {
+            content: ''; display: block; width: 80px; height: 3px;
+            background: var(--gold); margin: 1rem auto 0; border-radius: 2px;
+        }
+        .philo-scrolls { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .philo-scroll {
+            position: relative;
+            background: linear-gradient(180deg, #fdf8f0 0%, #f5e6d3 40%, #f0dcc0 100%);
+            border-radius: 8px; overflow: hidden; cursor: default;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: 2px solid #d4b896; min-height: 380px;
+            display: flex; flex-direction: column;
+        }
+        [data-theme="dark"] .philo-scroll {
+            background: linear-gradient(180deg, #1a1010 0%, #150e0a 40%, #100808 100%);
+            border-color: #3a2a15;
+        }
+        .philo-scroll::before, .philo-scroll::after {
+            content: ''; position: absolute; left: -4px; right: -4px; height: 14px;
+            background: linear-gradient(90deg, #c49b4c, #8b6914, #c49b4c);
+            border-radius: 4px; z-index: 2; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .philo-scroll::before { top: 8px; }
+        .philo-scroll::after { bottom: 8px; }
+        [data-theme="dark"] .philo-scroll::before, [data-theme="dark"] .philo-scroll::after {
+            background: linear-gradient(90deg, #8b6914, #5a3e0a, #8b6914);
+        }
+        .philo-scroll-img {
+            width: 100%; height: 200px; object-fit: cover; display: block;
+            border-bottom: 2px solid #d4b896; margin-top: 22px; transition: all 0.5s ease;
+        }
+        [data-theme="dark"] .philo-scroll-img { border-bottom-color: #3a2a15; }
+        .philo-scroll-body {
+            padding: 1.5rem 1.2rem; flex: 1; display: flex; flex-direction: column;
+            margin-bottom: 22px; position: relative; z-index: 1;
+        }
+        .philo-scroll-body h3 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: 1.5rem;
+            color: var(--primary); margin-bottom: 0.3rem; text-align: center;
+        }
+        [data-theme="dark"] .philo-scroll-body h3 { color: var(--gold); }
+        .philo-scroll-body .philo-era {
+            font-size: 0.8rem; color: var(--gold); text-align: center;
+            margin-bottom: 0.8rem; font-weight: bold;
+        }
+        .philo-scroll-body .philo-desc {
+            font-size: 0.85rem; line-height: 1.7; color: #555; text-align: center;
+            opacity: 0; max-height: 0; overflow: hidden; transition: all 0.5s ease;
+        }
+        [data-theme="dark"] .philo-scroll-body .philo-desc { color: #c0a090; }
+        .philo-scroll:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2); border-color: var(--gold);
+            min-height: 420px; z-index: 10;
+        }
+        .philo-scroll:hover .philo-scroll-img { height: 180px; filter: brightness(1.1); }
+        .philo-scroll:hover .philo-desc { opacity: 1; max-height: 200px; margin-top: 0.5rem; }
+        [data-theme="dark"] .philo-scroll:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-color: var(--gold); }
+        .philo-scroll .expand-icon {
+            position: absolute; bottom: 30px; right: 12px; font-size: 0.7rem;
+            color: #c49b4c; opacity: 0.5; transition: all 0.5s ease; z-index: 3;
+        }
+        .philo-scroll:hover .expand-icon { opacity: 1; transform: rotate(180deg); }
+
+        /* У-син — обычные цвета, загораются при наведении */
+        .wuxing-section { max-width: 1000px; margin: 3rem auto; text-align: center; }
+        .wuxing-section h3 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem;
+            color: var(--primary); margin-bottom: 1.5rem;
+        }
+        [data-theme="dark"] .wuxing-section h3 { color: var(--gold); }
+        .wuxing-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 2rem auto; }
+        .wuxing-item {
+            position: relative; padding: 1.8rem 0.8rem; border-radius: 16px;
+            color: #333; transition: all 0.4s ease; overflow: hidden;
+            min-height: 160px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 2px solid #ddd;
+            background: white;
+        }
+        [data-theme="dark"] .wuxing-item {
+            background: #1a1010; color: #c0a090; border-color: #2a1a15;
+        }
+        .wuxing-item:hover { transform: scale(1.12); z-index: 10; color: white; text-shadow: 0 2px 6px rgba(0,0,0,0.5); }
+
+        /* Дерево — при наведении */
+        .wuxing-item.wood:hover {
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            border-color: #4caf50;
+            box-shadow: 0 0 50px rgba(76,175,80,0.7);
+        }
+        /* Огонь — при наведении */
+        .wuxing-item.fire:hover {
+            background: linear-gradient(135deg, #c62828, #b71c1c);
+            border-color: #f44336;
+            box-shadow: 0 0 50px rgba(255,87,34,0.8);
+        }
+        /* Земля — при наведении */
+        .wuxing-item.earth:hover {
+            background: linear-gradient(135deg, #5d4037, #3e2723);
+            border-color: #8d6e63;
+            box-shadow: 0 0 50px rgba(121,85,72,0.7);
+        }
+        /* Металл — при наведении */
+        .wuxing-item.metal:hover {
+            background: linear-gradient(135deg, #bdbdbd, #9e9e9e);
+            border-color: #ffd700;
+            color: #222;
+            text-shadow: none;
+            box-shadow: 0 0 50px rgba(255,215,0,0.7);
+        }
+        /* Вода — при наведении */
+        .wuxing-item.water:hover {
+            background: linear-gradient(135deg, #1565c0, #0d47a1);
+            border-color: #42a5f5;
+            box-shadow: 0 0 50px rgba(66,165,245,0.7);
+        }
+        .wuxing-emoji { font-size: 2.5rem; margin-bottom: 0.5rem; position: relative; z-index: 1; transition: transform 0.3s ease; }
+        .wuxing-item:hover .wuxing-emoji { transform: scale(1.2); }
+        .wuxing-name { font-weight: bold; font-size: 1.2rem; position: relative; z-index: 1; }
+        .wuxing-desc { font-size: 0.85rem; margin-top: 0.3rem; opacity: 0.7; position: relative; z-index: 1; transition: opacity 0.3s ease; }
+        .wuxing-item:hover .wuxing-desc { opacity: 1; }
+
+        /* Инь-Ян */
+        .yinyang-symbolism {
+            max-width: 1000px; margin: 3rem auto;
+            background: linear-gradient(135deg, #faf5eb 0%, #f0e6d3 100%);
+            border-radius: 20px; padding: 3rem; text-align: center;
+        }
+        [data-theme="dark"] .yinyang-symbolism { background: linear-gradient(135deg, #1a1010 0%, #2a1a15 100%); }
+        .yinyang-symbolism h3 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem;
+            color: var(--primary); margin-bottom: 1.5rem;
+        }
+        [data-theme="dark"] .yinyang-symbolism h3 { color: var(--gold); }
+        .duality-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .duality-item {
+            padding: 1.5rem; background: rgba(255,255,255,0.6);
+            border-radius: 12px; transition: transform 0.3s ease;
+        }
+        [data-theme="dark"] .duality-item { background: rgba(30,20,15,0.6); }
+        .duality-item:hover { transform: scale(1.03); }
+        .duality-item .symbol { font-size: 2rem; margin-bottom: 0.5rem; }
+
+        /* Хронология */
+        .timeline-section { max-width: 1000px; margin: 3rem auto; }
+        .timeline-section h3 {
+            text-align: center; font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.2rem; color: var(--primary); margin-bottom: 2rem;
+        }
+        [data-theme="dark"] .timeline-section h3 { color: var(--gold); }
+        .timeline-diagonal { display: flex; flex-direction: column; gap: 2rem; position: relative; padding-left: 50px; }
+        .timeline-diagonal::before {
+            content: ''; position: absolute; left: 20px; top: 0; bottom: 0;
+            width: 3px; background: linear-gradient(180deg, var(--gold), var(--primary), var(--gold)); border-radius: 2px;
+        }
+        .timeline-entry { display: grid; grid-template-columns: auto 1fr; gap: 2rem; align-items: start; }
+        .timeline-dot {
+            width: 24px; height: 24px; background: var(--gold); border-radius: 50%;
+            cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 1;
+            flex-shrink: 0; margin-left: -62px; margin-top: 8px;
+        }
+        .timeline-dot:hover { background: var(--primary); transform: scale(1.3); box-shadow: 0 0 20px var(--gold); }
+        .timeline-dot.active { background: var(--primary); transform: scale(1.3); box-shadow: 0 0 20px var(--gold); }
+        .timeline-card {
+            background: white; border-radius: 12px; padding: 0; max-height: 0;
+            overflow: hidden; opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.4s ease, padding 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06); border-left: 4px solid var(--gold);
+        }
+        [data-theme="dark"] .timeline-card { background: #1a1010; }
+        .timeline-card.open { max-height: 300px; opacity: 1; padding: 1.5rem; }
+        .timeline-card .year-label { font-size: 1.2rem; font-weight: bold; color: var(--gold); margin-bottom: 0.5rem; }
+        .timeline-card h4 { font-family: 'Ma Shan Zheng', cursive; font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem; }
+        [data-theme="dark"] .timeline-card h4 { color: var(--gold); }
+        .timeline-card p { line-height: 1.8; font-size: 0.95rem; }
+
+        .comparison-section { max-width: 1000px; margin: 3rem auto; }
+        .comparison-section h3 {
+            text-align: center; font-family: 'Ma Shan Zheng', cursive;
+            font-size: 2.2rem; color: var(--primary); margin-bottom: 1.5rem;
+        }
+        [data-theme="dark"] .comparison-section h3 { color: var(--gold); }
+        .comparison-table {
+            width: 100%; border-collapse: collapse; background: white;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        [data-theme="dark"] .comparison-table { background: #1a1010; }
+        .comparison-table th { background: var(--primary); color: white; padding: 1rem; font-size: 1.1rem; }
+        .comparison-table td { padding: 1rem; text-align: center; border-bottom: 1px solid #eee; line-height: 1.6; }
+        [data-theme="dark"] .comparison-table td { border-bottom-color: #2a1a15; }
+        .comparison-table tr:hover td { background: rgba(196,155,76,0.05); }
+
+        .video-wrapper {
+            position: relative; max-width: 1000px; margin: 3rem auto;
+            border-radius: 16px; overflow: hidden; box-shadow: 0 8px 40px rgba(0,0,0,0.1); cursor: pointer;
+        }
+        .video-wrapper img { width: 100%; display: block; }
+        .video-play-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80px; height: 80px; background: rgba(196,30,58,0.9); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; color: white; transition: transform 0.3s ease; pointer-events: none;
+        }
+        .video-wrapper:hover .video-play-btn { transform: translate(-50%, -50%) scale(1.1); }
+
+        .bonsai-yinyang {
+            position: absolute; width: 24px; height: 24px;
+            background-image: url('images/инь-янь.png');
+            background-size: contain; background-repeat: no-repeat;
+            animation: yinyangFall 3s linear forwards;
+            z-index: 9999; pointer-events: none; will-change: transform, opacity; opacity: 0.6;
+        }
+        @keyframes yinyangFall {
+            0% { transform: translate(0,0) rotate(0deg) scale(0.6); }
+            100% { transform: translate(calc(var(--dx) * 1px), calc(var(--dy) * 1px)) rotate(calc(var(--dr) * 1deg)) scale(1); opacity: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .three-pillars { grid-template-columns: 1fr; }
+            .wisdom-block { grid-template-columns: 1fr; }
+            .book-showcase { grid-template-columns: 1fr; text-align: center; }
+            .book-cover { max-width: 250px; margin: 0 auto; }
+            .philo-scrolls { grid-template-columns: repeat(2, 1fr); }
+            .duality-grid { grid-template-columns: 1fr; }
+            .wuxing-row { grid-template-columns: repeat(2, 1fr); }
+            .comparison-table { font-size: 0.85rem; }
+            .timeline-diagonal { padding-left: 30px; }
+            .timeline-diagonal::before { left: 12px; }
+            .timeline-dot { margin-left: -42px; }
+            .yin-yang-bg-1, .yin-yang-bg-2, .yin-yang-bg-3, .yin-yang-bg-4, .yin-yang-bg-5, .yin-yang-bg-6 { width: 35px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">道</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo">
+            <img src="images/иконка.png" alt="Логотип" class="logo-icon">
+            <span class="lang-zh">《中式英语》语言俱乐部</span>
+            <span class="lang-en" style="display:none">The "Chinglish" Language Club</span>
+            <span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span>
+        </a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher">
+                <button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button>
+                <div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div>
+            </div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+            <a href="index.html" class="menu-item lang-zh">首页</a><a href="index.html" class="menu-item lang-en" style="display:none">Home</a><a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+            <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a><a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a><a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+            <a href="painting.html" class="menu-item lang-zh">国画珍品</a><a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a><a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+            <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a><a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a><a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+            <a href="literature.html" class="menu-item lang-zh">文学经典</a><a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a><a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+            <a href="festivals.html" class="menu-item lang-zh">传统节日</a><a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a><a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+            <a href="modern.html" class="menu-item lang-zh">现代传承</a><a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a><a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+        </div></div>
+    </nav>
+
+    <div class="philosophy-hero">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-1">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-2">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-3">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-4">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-5">
+        <img src="images/инь-янь.png" alt="" class="yin-yang-bg yin-yang-bg-6">
+        <div class="hero-content">
+            <h1 class="lang-zh">哲学思想</h1>
+            <h1 class="lang-en" style="display:none">Chinese Philosophy</h1>
+            <h1 class="lang-ru" style="display:none">Китайская философия</h1>
+            <p class="hero-subtitle lang-zh">儒道释三家，探寻天地人生的智慧</p>
+            <p class="hero-subtitle lang-en" style="display:none">Confucianism, Taoism, Buddhism — wisdom of heaven, earth and life</p>
+            <p class="hero-subtitle lang-ru" style="display:none">Конфуцианство, даосизм, буддизм — мудрость неба, земли и жизни</p>
+        </div>
+    </div>
+
+    <div class="container" id="mainContent" style="max-width: 1000px;">
+
+        <div class="three-pillars">
+            <div class="pillar-card"><div class="pillar-icon">📖</div><h3 class="lang-ru">Конфуцианство</h3><p class="lang-ru">Гуманность, справедливость, ритуал, мудрость, доверие.</p></div>
+            <div class="pillar-card"><div class="pillar-icon">🌊</div><h3 class="lang-ru">Даосизм</h3><p class="lang-ru">Дао следует природе, управление недеянием.</p></div>
+            <div class="pillar-card"><div class="pillar-icon">🪷</div><h3 class="lang-ru">Буддизм</h3><p class="lang-ru">Сострадание, прозрение природы.</p></div>
+        </div>
+
+        <div class="yinyang-symbolism">
+            <h3>☯️ Инь и Ян — дуализм мира</h3>
+            <p style="font-size:1.1rem;line-height:2;max-width:700px;margin:0 auto;">Все явления имеют две противоположные, но взаимодополняющие стороны.</p>
+            <div class="duality-grid">
+                <div class="duality-item"><div class="symbol">🌙</div><strong>Инь (阴)</strong><br>Тьма, холод, покой, женское, луна, вода, земля</div>
+                <div class="duality-item"><div class="symbol">☀️</div><strong>Ян (阳)</strong><br>Свет, тепло, движение, мужское, солнце, огонь, небо</div>
+            </div>
+        </div>
+
+        <!-- У-син — обычные, загораются при наведении -->
+        <div class="wuxing-section">
+            <h3>У-син — пять элементов</h3>
+            <p style="max-width:700px;margin:0 auto 1rem;line-height:1.8;">Наведи на элемент — увидишь его стихию!</p>
+            <div class="wuxing-row">
+                <div class="wuxing-item wood"><div class="wuxing-emoji">🌳</div><div class="wuxing-name">Дерево</div><div class="wuxing-desc">木 · Рост, весна</div></div>
+                <div class="wuxing-item fire"><div class="wuxing-emoji">🔥</div><div class="wuxing-name">Огонь</div><div class="wuxing-desc">火 · Тепло, лето</div></div>
+                <div class="wuxing-item earth"><div class="wuxing-emoji">⛰️</div><div class="wuxing-name">Земля</div><div class="wuxing-desc">土 · Центр, баланс</div></div>
+                <div class="wuxing-item metal"><div class="wuxing-emoji">⚔️</div><div class="wuxing-name">Металл</div><div class="wuxing-desc">金 · Осень, запад</div></div>
+                <div class="wuxing-item water"><div class="wuxing-emoji">💧</div><div class="wuxing-name">Вода</div><div class="wuxing-desc">水 · Зима, север</div></div>
+            </div>
+        </div>
+
+        <div class="wisdom-block">
+            <div class="wisdom-quote"><p>"Не делай другим того, чего не желаешь себе."</p><div class="author">—— Конфуций</div></div>
+            <div class="wisdom-quote"><p>"Высшее благо подобно воде: она приносит пользу всем и не борется."</p><div class="author">—— Лао-цзы</div></div>
+        </div>
+
+        <!-- Философы — свитки -->
+        <div class="philosophers-section">
+            <h2>🏛️ Великие философы</h2>
+            <div class="philo-scrolls">
+                <div class="philo-scroll">
+                    <img src="images/конфуций_.webp" alt="Конфуций" class="philo-scroll-img">
+                    <div class="philo-scroll-body"><h3>Конфуций</h3><div class="philo-era">551-479 гг. до н.э.</div><div class="philo-desc">Основатель конфуцианства. Учение о морали и этике определило китайскую цивилизацию на 2500 лет.</div></div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="philo-scroll">
+                    <img src="images/лао-цзы.webp" alt="Лао-цзы" class="philo-scroll-img" style="object-fit:contain;padding:20px;background:#f5efe0;">
+                    <div class="philo-scroll-body"><h3>Лао-цзы</h3><div class="philo-era">VI в. до н.э.</div><div class="philo-desc">Основоположник даосизма, автор «Дао Дэ Цзин». Учение о Дао и принципе недеяния (у-вэй).</div></div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="philo-scroll">
+                    <img src="images/мэн-цзы.webp" alt="Мэн-цзы" class="philo-scroll-img">
+                    <div class="philo-scroll-body"><h3>Мэн-цзы</h3><div class="philo-era">372-289 гг. до н.э.</div><div class="philo-desc">Продолжатель Конфуция. Считал природу человека доброй, а зло — следствием воспитания.</div></div>
+                    <span class="expand-icon">▼</span>
+                </div>
+                <div class="philo-scroll">
+                    <img src="images/чжуан.webp" alt="Чжуан-цзы" class="philo-scroll-img" style="object-fit:contain;padding:20px;background:#f5efe0;">
+                    <div class="philo-scroll-body"><h3>Чжуан-цзы</h3><div class="philo-era">369-286 гг. до н.э.</div><div class="philo-desc">Великий даосский философ. Автор притчи о бабочке. Учил об относительности всего сущего.</div></div>
+                    <span class="expand-icon">▼</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-section">
+            <h3>📜 Хронология</h3>
+            <div class="timeline-diagonal">
+                <div class="timeline-entry"><div class="timeline-dot" data-timeline="laozi"></div><div class="timeline-card" id="card-laozi"><div class="year-label">VI в. до н.э.</div><h4>Лао-цзы</h4><p>Основоположник даосизма, автор «Дао Дэ Цзин».</p></div></div>
+                <div class="timeline-entry"><div class="timeline-dot" data-timeline="confucius"></div><div class="timeline-card" id="card-confucius"><div class="year-label">V в. до н.э.</div><h4>Конфуций</h4><p>Основатель конфуцианства.</p></div></div>
+                <div class="timeline-entry"><div class="timeline-dot" data-timeline="mencius"></div><div class="timeline-card" id="card-mencius"><div class="year-label">IV в. до н.э.</div><h4>Мэн-цзы</h4><p>Продолжатель дела Конфуция.</p></div></div>
+                <div class="timeline-entry"><div class="timeline-dot" data-timeline="buddhism"></div><div class="timeline-card" id="card-buddhism"><div class="year-label">I в. н.э.</div><h4>Буддизм</h4><p>Школа Чань (дзен).</p></div></div>
+            </div>
+        </div>
+
+        <div class="book-showcase">
+            <img src="images/конфуций.jpeg" alt="论语" class="book-cover">
+            <div class="book-info"><h3>《论语》— 孔子</h3><div class="book-author">Конфуций, 479 г. до н.э.</div><p class="lang-ru">«Беседы и суждения» — главная книга конфуцианства.</p><a href="https://books.yandex.ru/books/TZaaJUoP/read-online" target="_blank" class="book-link" rel="noopener">📖 Читать</a></div>
+        </div>
+
+        <div class="comparison-section">
+            <h3>⚖️ Сравнение трёх учений</h3>
+            <table class="comparison-table">
+                <tr><th>Аспект</th><th>Конфуцианство</th><th>Даосизм</th><th>Буддизм</th></tr>
+                <tr><td>Цель</td><td>Социальная гармония</td><td>Единение с Дао</td><td>Просветление</td></tr>
+                <tr><td>Метод</td><td>Ритуалы, образование</td><td>Недеяние (у-вэй)</td><td>Медитация</td></tr>
+                <tr><td>Идеал</td><td>Благородный муж</td><td>Мудрец</td><td>Бодхисаттва</td></tr>
+            </table>
+        </div>
+
+        <div style="max-width:1000px;margin:3rem auto;text-align:center;">
+            <h2 style="font-family:'Ma Shan Zheng',cursive;font-size:2.2rem;color:var(--primary);">🎬 Философия Китая</h2>
+            <div class="video-wrapper" onclick="window.open('https://rutube.ru/video/77d84899d7439b3a34548586babaf4e8/','_blank')">
+                <img src="images/превью-видео.jpg" alt="Видео"><div class="video-play-btn">▶</div>
+            </div>
+        </div>
+    </div>
+
+    <footer style="width:100vw!important;min-width:100vw!important;margin-left:calc(-50vw + 50%)!important;position:relative;">
+        <div class="footer-content">
+            <div class="footer-logo"><img src="images/иконка.png" alt="Логотип" style="width:35px;height:35px;border-radius:50%;object-fit:cover;margin-right:12px;border:2px solid var(--gold);"><span>Цифровой музей китайской культуры</span></div>
+            <div class="footer-links"><a href="index.html">Главная</a><a href="about.html">О нас</a></div>
+            <div class="footer-social"><a href="https://vk.ru/chinglishbalakovo" target="_blank" rel="noopener"><i class="fab fa-vk"></i></a><a href="https://quizlet.com/ru/374641804/" target="_blank" rel="noopener"><i class="fas fa-layer-group"></i></a></div>
+            <div class="footer-bottom"><p>© 2026 Языковой клуб «Chinglish»</p></div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Инь-янь
+        const bonsaiContainer = document.getElementById('bonsaiContainer');
+        if (bonsaiContainer) {
+            window.createBonsaiLeaf = function(x, y) {
+                const leaf = document.createElement('div');
+                leaf.className = 'bonsai-yinyang';
+                leaf.style.left = x + 'px';
+                leaf.style.top = y + 'px';
+                leaf.style.setProperty('--dx', (Math.random() - 0.5) * 80);
+                leaf.style.setProperty('--dy', Math.random() * 50 + 15);
+                leaf.style.setProperty('--dr', Math.random() * 180);
+                bonsaiContainer.appendChild(leaf);
+                leaf.addEventListener('animationend', () => leaf.remove(), { once: true });
+            };
+        }
+
+        // Хронология
+        (function() {
+            const dots = document.querySelectorAll('.timeline-dot');
+            dots.forEach(function(dot) {
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const targetId = this.getAttribute('data-timeline');
+                    document.querySelectorAll('.timeline-card').forEach(function(card) {
+                        card.classList.toggle('open', card.id === 'card-' + targetId && !card.classList.contains('open'));
+                    });
+                    dots.forEach(function(d) {
+                        d.classList.toggle('active', d === dot && document.getElementById('card-' + targetId).classList.contains('open'));
+                    });
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

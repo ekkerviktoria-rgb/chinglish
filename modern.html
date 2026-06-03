@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>现代传承 - 数字博物馆 | Языковой клуб "Chinglish"</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Современное наследие китайской культуры">
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #f5f0e8; font-family: 'Times New Roman', 'Georgia', serif; overflow-x: hidden; color: #2a1a0a; }
+        [data-theme="dark"] body { background: #12121a; color: #e0d5c0; }
+
+        /* ХЕДЕР */
+        .modern-hero {
+            position: relative; min-height: 60vh; display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .hero-bg-img {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            opacity: 0.7; pointer-events: none;
+        }
+        [data-theme="dark"] .hero-bg-img { opacity: 0.6; }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(245,240,232,0.15) 0%, rgba(245,240,232,0.6) 100%);
+            pointer-events: none;
+        }
+        [data-theme="dark"] .hero-overlay {
+            background: linear-gradient(180deg, rgba(20,20,30,0.1) 0%, rgba(20,20,30,0.7) 100%);
+        }
+        .hero-content { text-align: center; position: relative; z-index: 2; padding: 2rem; }
+        .hero-content h1 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: clamp(3rem, 8vw, 5rem);
+            color: #1a0a00; margin-bottom: 0.8rem;
+            text-shadow: 2px 2px 12px rgba(255,255,255,0.8);
+        }
+        [data-theme="dark"] .hero-content h1 { 
+            color: #FFD700; 
+            text-shadow: 0 0 40px rgba(255,215,0,0.6), 0 0 80px rgba(255,180,0,0.3);
+        }
+        .hero-subtitle {
+            display: inline-block; font-size: 1.1rem; color: #333;
+            background: rgba(255,255,255,0.8); padding: 0.6rem 2rem;
+            border-radius: 50px; backdrop-filter: blur(5px); font-weight: bold;
+        }
+        [data-theme="dark"] .hero-subtitle { color: #fff; background: rgba(0,0,0,0.5); }
+
+        /* РОБОТ */
+        .robot-section {
+            max-width: 1000px; margin: 2rem auto; padding: 0 1rem;
+            display: flex; gap: 2rem; align-items: flex-start;
+        }
+        .robot-avatar {
+            flex-shrink: 0; width: 120px; height: 120px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            border: 3px solid #FFD700; overflow: hidden;
+            box-shadow: 0 0 30px rgba(255,215,0,0.3);
+            animation: robotFloat 4s infinite ease-in-out;
+        }
+        .robot-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        [data-theme="light"] .robot-avatar { border-color: #8B6914; }
+        @keyframes robotFloat { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+        
+        .robot-speech {
+            flex: 1; background: #fff; border-radius: 20px; padding: 1.5rem 2rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06); position: relative;
+            border-left: 4px solid #FFD700;
+        }
+        [data-theme="dark"] .robot-speech { background: #1a1a1a; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+        .robot-speech::before {
+            content: ''; position: absolute; left: -12px; top: 30px;
+            width: 0; height: 0;
+            border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+            border-right: 12px solid #FFD700;
+        }
+        .robot-speech p { line-height: 1.9; font-size: 1.05rem; color: #444; }
+        [data-theme="dark"] .robot-speech p { color: #ccc; }
+
+        /* 3D ГАЛЕРЕЯ */
+        .gallery-3d-section {
+            max-width: 1100px; margin: 3rem auto; padding: 0 1rem; text-align: center;
+        }
+        .gallery-3d-section h2 {
+            font-family: 'Ma Shan Zheng', cursive; font-size: 2.2rem; color: #6b3a20; margin-bottom: 2rem;
+        }
+        [data-theme="dark"] .gallery-3d-section h2 { color: #FFD700; }
+        
+        .gallery-3d-track {
+            display: flex; gap: 1rem; overflow-x: auto; padding: 1.5rem 0.5rem;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+            cursor: grab; scroll-behavior: smooth;
+        }
+        .gallery-3d-track:active { cursor: grabbing; }
+        .gallery-3d-track::-webkit-scrollbar { height: 6px; }
+        .gallery-3d-track::-webkit-scrollbar-track { background: rgba(0,0,0,0.05); border-radius: 3px; }
+        .gallery-3d-track::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
+        
+        .gallery-3d-card {
+            flex-shrink: 0; width: 200px; height: 200px;
+            perspective: 800px; scroll-snap-align: center;
+        }
+        .gallery-3d-inner {
+            width: 100%; height: 100%; position: relative;
+            transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 16px; cursor: pointer;
+        }
+        .gallery-3d-card:hover .gallery-3d-inner { transform: rotateY(180deg); }
+        
+        .gallery-3d-front, .gallery-3d-back {
+            position: absolute; inset: 0; border-radius: 16px;
+            backface-visibility: hidden; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        .gallery-3d-front img { width: 100%; height: 100%; object-fit: cover; }
+        .gallery-3d-back {
+            background: #1a1a1a; transform: rotateY(180deg);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 1rem; text-align: center; color: #FFD700;
+        }
+        [data-theme="light"] .gallery-3d-back { background: #fdf8f0; color: #6b3a20; }
+        .gallery-3d-back .back-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .gallery-3d-back .back-title { font-family: 'Ma Shan Zheng', cursive; font-size: 1.2rem; }
+        .gallery-3d-back .back-desc { font-size: 0.8rem; color: #aaa; margin-top: 0.3rem; }
+        [data-theme="light"] .gallery-3d-back .back-desc { color: #888; }
+
+        /* ТЕХ-КАРТОЧКИ */
+        .tech-detail-section {
+            max-width: 1200px; margin: 3rem auto; padding: 0 1rem;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+        }
+        .tech-detail-card {
+            background: #fff; border-radius: 18px; padding: 2rem; display: flex; gap: 1.5rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06); transition: all 0.4s ease;
+            border-top: 4px solid #D4AF37; align-items: flex-start;
+        }
+        [data-theme="dark"] .tech-detail-card { background: #1a1a1a; border-top-color: #FFD700; }
+        .tech-detail-card:hover { transform: translateY(-5px); }
+        .tech-detail-card .tech-img {
+            width: 100px; height: 100px; border-radius: 14px; object-fit: cover; flex-shrink: 0;
+        }
+        .tech-detail-card h3 { font-family: 'Ma Shan Zheng', cursive; font-size: 1.4rem; color: #6b3a20; margin-bottom: 0.5rem; }
+        [data-theme="dark"] .tech-detail-card h3 { color: #FFD700; }
+        .tech-detail-card p { color: #555; line-height: 1.7; font-size: 0.95rem; }
+        [data-theme="dark"] .tech-detail-card p { color: #bbb; }
+
+        @media (max-width: 768px) {
+            .robot-section { flex-direction: column; align-items: center; text-align: center; }
+            .robot-speech::before { display: none; }
+            .gallery-3d-card { width: 150px; height: 150px; }
+            .tech-detail-section { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="loader"><div class="loader-content">新</div></div>
+    <div class="bonsai-container" id="bonsaiContainer"></div>
+
+    <nav class="top-menu" id="topMenu">
+        <a href="index.html" class="logo"><img src="images/иконка.png" alt="Логотип" class="logo-icon"><span class="lang-zh">《中式英语》语言俱乐部</span><span class="lang-en" style="display:none">The "Chinglish" Language Club</span><span class="lang-ru" style="display:none">Языковой клуб «Chinglish»</span></a>
+        <div class="menu-right">
+            <button class="theme-toggle-btn" id="themeToggle"><i class="fas fa-moon"></i><span class="theme-text lang-zh">Темная</span><span class="theme-text lang-en" style="display:none">Dark</span><span class="theme-text lang-ru" style="display:none">Темная</span></button>
+            <button class="toggle-cursor-btn" id="toggleCursorBtn"><i class="fas fa-leaf"></i></button>
+            <div class="language-switcher"><button class="language-btn" id="languageBtn"><i class="fas fa-globe"></i><span class="lang-zh">中文</span><span class="lang-en" style="display:none">EN</span><span class="lang-ru" style="display:none">РУ</span></button><div class="language-dropdown" id="languageDropdown"><a href="#" data-lang="zh">中文</a><a href="#" data-lang="en">English</a><a href="#" data-lang="ru">Русский</a></div></div>
+            <div class="menu-toggle" id="menuToggle"><i class="fas fa-spa menu-icon"></i></div>
+        </div>
+        <div class="menu-panel" id="menuPanel"><div class="menu-items">
+            <a href="index.html" class="menu-item lang-zh">首页</a><a href="index.html" class="menu-item lang-en" style="display:none">Home</a><a href="index.html" class="menu-item lang-ru" style="display:none">Главная</a>
+            <a href="calligraphy.html" class="menu-item lang-zh">书法艺术</a><a href="calligraphy.html" class="menu-item lang-en" style="display:none">Calligraphy</a><a href="calligraphy.html" class="menu-item lang-ru" style="display:none">Каллиграфия</a>
+            <a href="painting.html" class="menu-item lang-zh">国画珍品</a><a href="painting.html" class="menu-item lang-en" style="display:none">Painting</a><a href="painting.html" class="menu-item lang-ru" style="display:none">Живопись</a>
+            <a href="philosophy.html" class="menu-item lang-zh">哲学思想</a><a href="philosophy.html" class="menu-item lang-en" style="display:none">Philosophy</a><a href="philosophy.html" class="menu-item lang-ru" style="display:none">Философия</a>
+            <a href="literature.html" class="menu-item lang-zh">文学经典</a><a href="literature.html" class="menu-item lang-en" style="display:none">Literature</a><a href="literature.html" class="menu-item lang-ru" style="display:none">Литература</a>
+            <a href="festivals.html" class="menu-item lang-zh">传统节日</a><a href="festivals.html" class="menu-item lang-en" style="display:none">Festivals</a><a href="festivals.html" class="menu-item lang-ru" style="display:none">Праздники</a>
+            <a href="modern.html" class="menu-item lang-zh">现代传承</a><a href="modern.html" class="menu-item lang-en" style="display:none">Modern</a><a href="modern.html" class="menu-item lang-ru" style="display:none">Современность</a>
+        </div></div>
+    </nav>
+
+    <!-- ХЕДЕР -->
+    <div class="modern-hero">
+        <img class="hero-bg-img" src="images/небоскреб.webp" alt="Шанхай" id="heroBgLight">
+        <img class="hero-bg-img" src="images/ночью.webp" alt="Ночной Шанхай" id="heroBgDark" style="display:none;">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="lang-zh">现代传承</h1><h1 class="lang-en" style="display:none">Modern Heritage</h1><h1 class="lang-ru" style="display:none">Современное наследие</h1>
+            <p class="hero-subtitle lang-zh">AI · VR · 3D · NFT — 科技唤醒千年文明</p>
+            <p class="hero-subtitle lang-en" style="display:none">AI · VR · 3D · NFT — Tech Awakens Civilization</p>
+            <p class="hero-subtitle lang-ru" style="display:none">AI · VR · 3D · NFT — Технологии пробуждают цивилизацию</p>
+        </div>
+    </div>
+
+    <!-- РОБОТ -->
+    <div class="robot-section">
+        <div class="robot-avatar"><img src="images/робот.png" alt="Робот-гид"></div>
+        <div class="robot-speech">
+            <p class="lang-zh">你好！我是数字向导小智。让我带你探索现代科技如何让千年文明焕发新生——从AI修复文物到VR虚拟博物馆，传统正以全新的方式被世界看见。</p>
+            <p class="lang-en" style="display:none">Hello! I'm Xiao Zhi, your digital guide. Let me show you how modern tech revives millennial civilization — from AI restoration to VR museums, tradition meets innovation.</p>
+            <p class="lang-ru" style="display:none">Привет! Я Сяо Чжи, твой цифровой гид. Давай посмотрим, как современные технологии возрождают тысячелетнюю цивилизацию — от ИИ-реставрации до VR-музеев, традиции встречаются с инновациями.</p>
+        </div>
+    </div>
+
+    <!-- 3D ГАЛЕРЕЯ -->
+    <div class="gallery-3d-section">
+        <h2 class="lang-zh">🖼️ 科技画廊 — наведи и переверни</h2>
+        <h2 class="lang-en" style="display:none">🖼️ Tech Gallery — hover to flip</h2>
+        <h2 class="lang-ru" style="display:none">🖼️ Галерея — наведи и переверни</h2>
+        <div class="gallery-3d-track">
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/шанхай.jpg" alt="Шанхай" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🏙️</div><div class="back-title">Шанхай</div><div class="back-desc">Цифровой хаб Азии</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/киберпанкгород.jpg" alt="Ночной город" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🌃</div><div class="back-title">Ночной город</div><div class="back-desc">Технологии 24/7</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/ии_реставрация.jpg" alt="AI" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🤖</div><div class="back-title">ИИ-реставрация</div><div class="back-desc">92% точность</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/виар_музей.webp" alt="VR" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🥽</div><div class="back-title">VR-музеи</div><div class="back-desc">100M+ визитов</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/3д_печать.jpg" alt="3D" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🖨️</div><div class="back-title">3D-печать</div><div class="back-desc"><0,1 мм</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/блокчейн.webp" alt="NFT" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🔗</div><div class="back-title">Блокчейн</div><div class="back-desc">1M+ NFT</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/оцифровка.webp" alt="Цифра" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">💾</div><div class="back-title">Оцифровка</div><div class="back-desc">87% текстов</div></div>
+                </div>
+            </div>
+            <div class="gallery-3d-card">
+                <div class="gallery-3d-inner">
+                    <div class="gallery-3d-front"><img src="images/будущее.webp" alt="Будущее" loading="lazy"></div>
+                    <div class="gallery-3d-back"><div class="back-icon">🚀</div><div class="back-title">Будущее</div><div class="back-desc">Традиции + IT</div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ТЕХ-КАРТОЧКИ -->
+    <div class="tech-detail-section">
+        <div class="tech-detail-card">
+            <img class="tech-img" src="images/ии_реставрация.jpg" alt="AI">
+            <div>
+                <h3 class="lang-zh">🤖 人工智能修复</h3><h3 class="lang-en" style="display:none">🤖 AI Restoration</h3><h3 class="lang-ru" style="display:none">🤖 ИИ-реставрация</h3>
+                <p class="lang-zh">深度学习算法分析数百万文物，自动补全残缺文字、复原褪色壁画，准确率达92%。</p>
+                <p class="lang-en" style="display:none">Deep learning restores texts and murals with 92% accuracy across millions of artifacts.</p>
+                <p class="lang-ru" style="display:none">ИИ восстанавливает тексты и фрески с точностью 92% на миллионах артефактов.</p>
+            </div>
+        </div>
+        <div class="tech-detail-card">
+            <img class="tech-img" src="images/виар_музей.webp" alt="VR">
+            <div>
+                <h3 class="lang-zh">🥽 虚拟现实博物馆</h3><h3 class="lang-en" style="display:none">🥽 VR Museums</h3><h3 class="lang-ru" style="display:none">🥽 VR-музеи</h3>
+                <p class="lang-zh">VR技术让你从家中"走进"故宫、敦煌。全球访问量突破1亿人次，150+博物馆已上线。</p>
+                <p class="lang-en" style="display:none">VR lets you enter the Forbidden City from home. 100M+ visits, 150+ museums online.</p>
+                <p class="lang-ru" style="display:none">VR позволяет «войти» в Запретный город из дома. 100M+ визитов, 150+ музеев.</p>
+            </div>
+        </div>
+        <div class="tech-detail-card">
+            <img class="tech-img" src="images/3д_печать.jpg" alt="3D">
+            <div>
+                <h3 class="lang-zh">🖨️ 3D打印文物</h3><h3 class="lang-en" style="display:none">🖨️ 3D Printing</h3><h3 class="lang-ru" style="display:none">🖨️ 3D-печать</h3>
+                <p class="lang-zh">3D扫描完美复制兵马俑、青铜器用于展览，误差小于0.1毫米，原件得到更好保护。</p>
+                <p class="lang-en" style="display:none">Terracotta warriors replicated with <0.1mm error for exhibition while originals are preserved.</p>
+                <p class="lang-ru" style="display:none">Терракотовые воины скопированы с погрешностью <0,1 мм, оригиналы сохранены.</p>
+            </div>
+        </div>
+        <div class="tech-detail-card">
+            <img class="tech-img" src="images/блокчейн.webp" alt="NFT">
+            <div>
+                <h3 class="lang-zh">🔗 区块链存证</h3><h3 class="lang-en" style="display:none">🔗 Blockchain</h3><h3 class="lang-ru" style="display:none">🔗 Блокчейн</h3>
+                <p class="lang-zh">区块链为每件数字文物创建唯一身份，防止赝品。敦煌壁画NFT上线即售罄，开创文化传承新模式。</p>
+                <p class="lang-en" style="display:none">Unique digital ID for each artifact. Dunhuang mural NFTs sold out instantly — a new era for culture.</p>
+                <p class="lang-ru" style="display:none">Уникальный ID для каждого артефакта. NFT Дуньхуана распроданы мгновенно — новая эра культуры.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo"><img src="images/иконка.png" alt="Логотип" style="width:35px;height:35px;border-radius:50%;object-fit:cover;margin-right:12px;border:2px solid var(--gold);"><span class="lang-zh">中华文化瑰宝数字博物馆</span><span class="lang-en" style="display:none">Chinese Cultural Treasures Digital Museum</span><span class="lang-ru" style="display:none">Цифровой музей китайской культуры</span></div>
+            <div class="footer-links"><a href="index.html" class="lang-ru">Главная</a><a href="index.html" class="lang-en" style="display:none">Home</a><a href="index.html" class="lang-zh" style="display:none">首页</a><a href="about.html" class="lang-ru">О нас</a><a href="about.html" class="lang-en" style="display:none">About Us</a><a href="about.html" class="lang-zh" style="display:none">关于我们</a></div>
+            <div class="footer-social"><a href="https://vk.ru/chinglishbalakovo" target="_blank" rel="noopener"><i class="fab fa-vk"></i></a><a href="https://quizlet.com/ru/374641804/" target="_blank" rel="noopener"><i class="fas fa-layer-group"></i></a></div>
+            <div class="footer-bottom"><p class="lang-ru">© 2026 Языковой клуб «Chinglish» | <a href="privacy.html">Политика конфиденциальности</a></p><p class="lang-en" style="display:none">© 2026 "Chinglish" Language Club | <a href="privacy.html">Privacy Policy</a></p><p class="lang-zh" style="display:none">© 2026 《中式英语》语言俱乐部 | <a href="privacy.html">隐私政策</a></p></div>
+        </div>
+    </footer>
+    
+    <script src="script.js"></script>
+    <script>
+    const lightBg = document.getElementById('heroBgLight');
+    const darkBg = document.getElementById('heroBgDark');
+    function updateHeroBg() {
+        const theme = document.documentElement.getAttribute('data-theme');
+        lightBg.style.display = theme === 'dark' ? 'none' : 'block';
+        darkBg.style.display = theme === 'dark' ? 'block' : 'none';
+    }
+    updateHeroBg();
+    new MutationObserver(updateHeroBg).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    // Горизонтальный скролл галереи колёсиком
+    const track = document.querySelector('.gallery-3d-track');
+    track.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        track.scrollLeft += e.deltaY * 2;
+    });
+    </script>
+</body>
+</html>
